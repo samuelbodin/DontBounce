@@ -5,13 +5,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.mygdx.game.AppStates.RicState;
 import com.mygdx.game.AppStates.StateManager;
 import com.mygdx.game.AppStates.MenuState;
 
 public class App extends ApplicationAdapter
 {
-    public static final int m_worldW = 480;
-    public static final int m_worldH = 800;
+    public static final int m_worldW = 720;
+    public static final int m_worldH = 1280;
     public static int m_screenW = 0;
     public static int m_screenH = 0;
     public static float m_aspectR = 0.0f;
@@ -33,7 +34,7 @@ public class App extends ApplicationAdapter
         getScreenDimensions();
         m_sm = new StateManager();
         m_sb = new SpriteBatch();
-		m_sm.set(new MenuState(m_sm));
+		m_sm.set(new RicState(m_sm));
 
         Gdx.gl.glClearColor(0, 0, 0, 1);
 	}
