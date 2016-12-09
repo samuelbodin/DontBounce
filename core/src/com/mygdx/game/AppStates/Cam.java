@@ -12,6 +12,7 @@ public class Cam extends OrthographicCamera
     private float m_lag = 150.0f;
     private Vector2 m_bPos = null;
     private Vector2 m_bVel = null;
+    private Vector2 m_lastPos = null;
 
 
     public Cam()
@@ -43,10 +44,13 @@ public class Cam extends OrthographicCamera
     {
         m_bPos = b.getPosition();
         m_bVel = b.getVelocity();
+        m_lastPos = new Vector2();
     }
 
     public void setToBallPos(float dt)
     {
+        m_lastPos.x = this.position.x;
+        m_lastPos.y = this.position.y;
         float x = (this.position.x + m_bVel.x * dt) * (1.0f - m_modifier);
         float y = (this.position.y + m_bVel.y *dt) * (1.0f - m_modifier);
 
@@ -55,6 +59,12 @@ public class Cam extends OrthographicCamera
         this.position.y = y + m_bPos.y * m_modifier;
 
 
+    }
+
+    public Vector2 getDeltaPosition()
+    {
+        Vector2 pos = new Vector2(this.position.x-m_lastPos.x,this.position.y-m_lastPos.y);
+        return pos;
     }
 }
 
