@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.AppStates.StateManager;
-import com.mygdx.game.AppStates.TestState;
+import com.mygdx.game.AppStates.MenuState;
 
 public class App extends ApplicationAdapter
 {
@@ -33,9 +33,9 @@ public class App extends ApplicationAdapter
         getScreenDimensions();
         m_sm = new StateManager();
         m_sb = new SpriteBatch();
-		m_sm.set(new TestState(m_sm));
+		m_sm.set(new MenuState(m_sm));
 
-        Gdx.gl.glClearColor(0, 1, 1, 1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
 	}
 
 	@Override
