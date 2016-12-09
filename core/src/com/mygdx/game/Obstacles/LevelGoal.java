@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.App;
 import com.mygdx.game.AppStates.LevelFinishedState;
 import com.mygdx.game.AppStates.StateManager;
+import com.mygdx.game.AppStates.UserTestMenu;
 import com.mygdx.game.Ball.Ball;
 
 /**
@@ -59,7 +60,7 @@ public class LevelGoal extends Obstacle
         //super.checkCollision(b);
         if(isColliding(b))
         {
-            m_sm.set(new LevelFinishedState(m_sm));
+            m_sm.set(new UserTestMenu(m_sm));
             //b.onCollision(getCollisionPos(b));
         }
     }

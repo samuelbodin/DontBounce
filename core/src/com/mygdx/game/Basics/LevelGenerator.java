@@ -45,8 +45,8 @@ public class LevelGenerator
     private void generate()
     {
         // Course borders
-        m_collidables.add(new WorldBorders(-2, -m_worldHeight, 2, m_worldHeight));
-        m_collidables.add(new WorldBorders(m_worldWidth+2, -m_worldHeight, 2, m_worldHeight));
+        //m_collidables.add(new WorldBorders(-2, -m_worldHeight, 2, m_worldHeight));
+        //m_collidables.add(new WorldBorders(m_worldWidth+2, -m_worldHeight, 2, m_worldHeight));
         int i=0;
         do
         {
@@ -72,7 +72,7 @@ public class LevelGenerator
                 m_obstacleX = 0;
             }
             m_obstacleY = m_obstacleY * m_obstacleYSpaceFactor + m_minObstacleYSpace;
-            m_collidables.add(new StaticObstacle(m_obstacleX, m_lastObstableY - m_obstacleY, m_obstacleWidth, 20));
+            m_collidables.add(new StaticObstacle(m_obstacleX, m_lastObstableY - m_obstacleY, m_obstacleWidth, 30));
             m_lastObstableY -= m_obstacleY;
             m_lastObstacleX = m_obstacleX;
             i++;

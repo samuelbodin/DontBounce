@@ -13,7 +13,6 @@ abstract class BallState extends Drawable
     InputHandler m_input;
     float m_gravity = -30.0f;
     float m_maxSpeed = -750.0f;
-    boolean m_onBorder = false;
 
     BallState()
     {

@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.App;
 import com.mygdx.game.Basics.Drawable;
 
 public class Ball
@@ -25,7 +26,7 @@ public class Ball
         m_state = new BallStateMoveable(this);
     }
 
-    protected void setState(BallState s)
+    public void setState(BallState s)
     {
         m_state = s;
 
@@ -50,6 +51,7 @@ public class Ball
         }
 
         m_position.add(m_velocity.x*dt,m_velocity.y*dt);
+
 
 
     }
