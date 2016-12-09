@@ -15,6 +15,7 @@ import com.mygdx.game.Basics.AssetLoader;
 public class MenuState extends State
 {
 
+    private StateManager m_sm;
     private Stage m_stage;
     private AssetLoader m_al;
     private Skin m_btnSkin;
@@ -27,17 +28,21 @@ public class MenuState extends State
     {
         super(sm);
 
+        m_sm = sm;
+
         m_stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(m_stage);
 
-        m_al = new AssetLoader();
-
-        m_btnSkin = m_al.getSkin();
-
-        TextureRegion upRegion = m_btnSkin.getRegion("button");
-        TextureRegion downRegion = m_btnSkin.getRegion("button");
+        m_btnSkin = new Skin(Gdx.files.internal("uiskin.json"));
 
         m_playBtn = new TextButton("PLAY", m_btnSkin);
+        m_playBtn.getLabel().setFontScale(5);
+
+        m_levelBtn = new TextButton("SELECT LEVEL", m_btnSkin);
+        m_levelBtn.getLabel().setFontScale(5);
+
+        m_continueBtn = new TextButton("CONTINUE", m_btnSkin);
+        m_continueBtn.getLabel().setFontScale(5);
 
         Table table = new Table();
         table.center();
@@ -46,12 +51,11 @@ public class MenuState extends State
         setupClickListeners();
 
 
-
         table.add(m_playBtn).expandX();
         table.row();
-        table.add(m_levelBtn).expandX().padTop(30f);
-        table.row();
         table.add(m_continueBtn).expandX().padTop(30f);
+        table.row();
+        table.add(m_levelBtn).expandX().padTop(30f);
 
         m_stage.addActor(table);
 
@@ -64,7 +68,26 @@ public class MenuState extends State
             @Override
             public void changed(ChangeEvent event, Actor actor)
             {
-                Gdx.app.log("SB", "foobar");
+                // PlayState
+               //m_sm.set(new TestState(m_sm));
+            }
+        });
+
+        m_continueBtn.addListener(new ChangeListener()
+        {
+            @Override
+            public void changed(ChangeEvent event, Actor actor)
+            {
+                //m_sm.pop();
+            }
+        });
+
+        m_levelBtn.addListener(new ChangeListener()
+        {
+            @Override
+            public void changed(ChangeEvent event, Actor actor)
+            {
+                m_sm.set(new LevelSelectState(m_sm));
             }
         });
     }
