@@ -37,7 +37,7 @@ public class RicState extends State
 
     public RicState(StateManager sm)
     {
-        super(sm, m_viewportWidth, m_viewportHeight);
+        super(sm);
 
 
         m_ball = new Ball(0, 0, m_viewportWidth/40);
@@ -66,7 +66,7 @@ public class RicState extends State
 
         m_cam.setToBallPos(dt);
         m_cam.update();
-        m_background.setPosition(m_ball.m_deltaPosition);
+        //m_background.setPosition(m_ball.m_deltaPosition);
 
     }
 
