@@ -26,30 +26,32 @@ public class RicState extends State
     private Ball m_ball = null;
     private Array<Collidable> m_collidables = null;
     private static final float m_worldWidth = App.m_worldW;
-    private static final float m_worldHeight = 3000;
+    private static final float m_worldHeight = 6000;
     private static final float m_viewportWidth = App.m_worldW;
     private static final float m_viewportHeight = App.m_worldH;
 
     WorldBackground m_background;
 
     LevelGenerator m_level;
-    Viewport viewport;
+    Viewport m_viewport;
 
     public RicState(StateManager sm)
     {
         super(sm);
 
 
-        m_ball = new Ball(0, 0, m_viewportWidth/40);
+        m_ball = new Ball(m_viewportWidth/2, 0, m_viewportWidth/40);
         m_collidables = new Array<Collidable>();
-        m_cam.setPos(0,0);
+        //m_cam.setPos(,0);
         m_cam.setBall(m_ball);
         m_cam.position.set(0,0,0);
         m_background = new WorldBackground(m_viewportWidth, m_viewportHeight);
         m_level = new LevelGenerator(3, m_worldHeight, 12, 25, 45, 150);
+        m_level.addGoal(m_sm);
         m_collidables = m_level.getCollidables();
-        //viewport = new FitViewport(m_viewportWidth,m_viewportHeight,m_cam);
-        //viewport.apply();
+        m_viewport = new FitViewport(App.m_worldW, App.m_worldH, m_cam);
+        m_viewport.setScreenBounds(0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+        m_viewport.apply(true);
 
     }
 
@@ -66,7 +68,7 @@ public class RicState extends State
 
         m_cam.setToBallPos(dt);
         m_cam.update();
-        //m_background.setPosition(m_ball.m_deltaPosition);
+        m_background.setPosition(m_cam.getDeltaPosition());
 
     }
 
