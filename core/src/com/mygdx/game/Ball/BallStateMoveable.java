@@ -29,7 +29,7 @@ public class BallStateMoveable extends BallState
         if(!m_onBorder)
         {
             m_ball.m_position.x += m_input.m_deltaMove * 300 * dt;
-            m_ball.m_velocity.x += m_input.m_deltaMove * 20 * dt;
+            m_ball.m_velocity.x += m_input.m_deltaMove * 50 * dt;
         }
     }
 

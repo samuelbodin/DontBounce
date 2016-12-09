@@ -26,18 +26,6 @@ public class LevelGenerator
         generate();
     }
 
-    public LevelGenerator(int seed, Cam m_cam)
-    {
-        m_minObstacleYSpace = m_worldWidth;
-        m_obstacleYSpaceFactor = m_worldWidth*2;
-        m_obstacleWidth = 400;
-        m_snapMargin = 200;
-
-        m_collidables = new Array<Collidable>();
-        m_noise = new SimplexNoise(seed);
-        generate();
-    }
-
 
     public LevelGenerator(int seed, float worldHeight, float obstacleSizeFactor, float obstacleSeparationFactor, float obstacleMinSpacingFactor, float obstacleSnapMargin)
     {
@@ -89,9 +77,6 @@ public class LevelGenerator
             m_lastObstacleX = m_obstacleX;
             i++;
         } while(m_lastObstableY > -m_worldHeight);
-
-        // Goal
-        //m_collidables.add(new LevelGoal(0, m_lastObstableY - (m_minObstacleYSpace*3), m_worldWidth, 100));
     }
 
     public void addGoal(StateManager sm)
