@@ -20,6 +20,19 @@ public class Cam extends OrthographicCamera
         super.setToOrtho(false);
     }
 
+    public Cam(float viewportWidth, float viewportHeight)
+    {
+        super();
+        super.setToOrtho(false,viewportWidth,viewportHeight);
+    }
+
+    public Cam(float viewportWidth)
+    {
+        super();
+        float aspectRatio = 16/9;
+        super.setToOrtho(false,viewportWidth,viewportWidth*aspectRatio);
+    }
+
     public void setPos(float x, float y)
     {
         this.position.x = x;
@@ -37,7 +50,8 @@ public class Cam extends OrthographicCamera
         float x = (this.position.x + m_bVel.x * dt) * (1.0f - m_modifier);
         float y = (this.position.y + m_bVel.y *dt) * (1.0f - m_modifier);
 
-        this.position.x = x + m_bPos.x * m_modifier;
+        // Cameras x position should not update!
+        //this.position.x = x + m_bPos.x * m_modifier;
         this.position.y = y + m_bPos.y * m_modifier;
 
 

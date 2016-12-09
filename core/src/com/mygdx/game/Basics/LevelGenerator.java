@@ -1,7 +1,9 @@
 package com.mygdx.game.Basics;
 
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.App;
 import com.mygdx.game.AppStates.Cam;
+import com.mygdx.game.Obstacles.LevelGoal;
 import com.mygdx.game.Obstacles.StaticObstacle;
 
 /**
@@ -13,12 +15,7 @@ public class LevelGenerator
     public float m_worldWidth = 0, m_worldHeight = 0;
     private Array<Collidable> m_collidables = null;
     private SimplexNoise m_noise = null;
-    float m_obstacleX, m_obstacleY, m_lastObstacleX = 0, m_lastObstableY = -500;
-
-    float m_minObstacleYSpace;
-    float m_obstacleYSpaceFactor;
-    float m_obstacleWidth;
-    float m_snapMargin;
+    private float m_obstacleX, m_obstacleY, m_lastObstacleX, m_lastObstableY, m_minObstacleYSpace, m_obstacleYSpaceFactor, m_obstacleWidth, m_snapMargin;
 
     public LevelGenerator(int seed)
     {
@@ -29,8 +26,6 @@ public class LevelGenerator
 
     public LevelGenerator(int seed, Cam m_cam)
     {
-        setHW(m_cam);
-
         m_minObstacleYSpace = m_worldWidth;
         m_obstacleYSpaceFactor = m_worldWidth*2;
         m_obstacleWidth = 400;
@@ -41,13 +36,15 @@ public class LevelGenerator
         generate();
     }
 
-    public LevelGenerator(int seed, float obstacleSizeFactor, float obstacleSeparationFactor, float obstacleMinSpacingFactor, float obstacleSnapMargin, Cam m_cam)
+
+    public LevelGenerator(int seed, float worldHeight, float obstacleSizeFactor, float obstacleSeparationFactor, float obstacleMinSpacingFactor, float obstacleSnapMargin)
     {
-        setHW(m_cam);
+        m_worldWidth = App.m_worldW;
+        m_worldHeight = worldHeight;
 
         m_minObstacleYSpace = m_worldWidth/(obstacleMinSpacingFactor/10);
         m_obstacleYSpaceFactor = (m_worldWidth*2)/(obstacleSeparationFactor/10);
-        m_obstacleWidth = 400*(obstacleSizeFactor/10);
+        m_obstacleWidth = (m_worldWidth/3)*(obstacleSizeFactor/10);
         m_snapMargin = obstacleSnapMargin;
 
         m_collidables = new Array<Collidable>();
@@ -57,28 +54,42 @@ public class LevelGenerator
 
     private void generate()
     {
-        for(int i = 0; i < 10; i++)
+        // Course borders
+        m_collidables.add(new StaticObstacle((m_worldWidth/-2)-1, -m_worldHeight, 1, m_worldHeight));
+        m_collidables.add(new StaticObstacle((m_worldWidth/2)+1, -m_worldHeight, 1, m_worldHeight));
+        int i=0;
+        do
         {
-            for(int j = 0; j < 10; j++)
+            m_obstacleX = Math.abs((float) m_noise.noise(i + 50, i + 25)) % 1f;
+            m_obstacleY = Math.abs((float) m_noise.noise(i + 25, i + 50)) % 1f;
+            if (m_obstacleY < 0.2f)
             {
-                m_obstacleX = Math.abs((float)m_noise.noise(i+50,j+50))%1f;
-                m_obstacleY = Math.abs((float)m_noise.noise(j-50,i+50))%1f;
-                if(m_obstacleY <0.2f) {
-                    m_obstacleY = 0.2f;
-                }
-                m_obstacleX = (m_obstacleX *m_worldWidth)-m_worldWidth/2;
-                if(m_obstacleX + m_obstacleWidth > m_worldWidth/2-m_snapMargin) {
-                    m_obstacleX = (m_worldWidth/2) - m_obstacleWidth;
-                } else if(m_obstacleX < m_snapMargin-m_worldWidth/2)
-                {
-                    m_obstacleX = -m_worldWidth/2;
-                }
-                m_obstacleY = m_obstacleY *m_obstacleYSpaceFactor+m_minObstacleYSpace;
-                m_collidables.add(new StaticObstacle(m_obstacleX, m_lastObstableY - m_obstacleY,m_obstacleWidth,50));
-                m_lastObstableY -= m_obstacleY;
-                m_lastObstacleX = m_obstacleX;
+                m_obstacleY = 0.2f;
             }
-        }
+
+            m_obstacleX = (m_obstacleX * m_worldWidth) - m_worldWidth / 2;
+
+            if(Math.abs(m_obstacleX - m_lastObstacleX) <  m_worldWidth/6)
+            {
+                m_obstacleX = ((m_obstacleX+m_worldWidth/6))%m_worldWidth;
+            }
+
+            if (m_obstacleX + m_obstacleWidth > m_worldWidth / 2 - m_snapMargin)
+            {
+                m_obstacleX = (m_worldWidth / 2) - m_obstacleWidth;
+            } else if (m_obstacleX < m_snapMargin - m_worldWidth / 2)
+            {
+                m_obstacleX = -m_worldWidth / 2;
+            }
+            m_obstacleY = m_obstacleY * m_obstacleYSpaceFactor + m_minObstacleYSpace;
+            m_collidables.add(new StaticObstacle(m_obstacleX, m_lastObstableY - m_obstacleY, m_obstacleWidth, 20));
+            m_lastObstableY -= m_obstacleY;
+            m_lastObstacleX = m_obstacleX;
+            i++;
+        } while(m_lastObstableY > -m_worldHeight);
+
+        // Goal
+        m_collidables.add(new LevelGoal(m_worldWidth/-2, m_lastObstableY - m_minObstacleYSpace, m_worldWidth, 100));
     }
 
     public Array<Collidable> getCollidables()
@@ -86,9 +97,4 @@ public class LevelGenerator
         return m_collidables;
     }
 
-    public void setHW(Cam m_cam)
-    {
-        m_worldWidth = m_cam.viewportWidth;
-        m_worldHeight = m_cam.viewportHeight;
-    }
 }

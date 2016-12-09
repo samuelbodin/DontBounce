@@ -14,7 +14,6 @@ public class InputHandler
     public float m_deltaMove;
     private Application.ApplicationType m_platform;
     private final float m_desktopMoveFactor;
-    private boolean m_keyDown = false;
 
     public InputHandler()
     {
