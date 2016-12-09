@@ -2,6 +2,7 @@ package com.mygdx.game.AppStates;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -9,12 +10,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.mygdx.game.Basics.AssetLoader;
 
 public class MenuState extends State
 {
 
     private Stage m_stage;
-
+    private AssetLoader m_al;
     private Skin m_btnSkin;
     private TextButton m_playBtn;
     private TextButton m_levelBtn;
@@ -28,13 +30,18 @@ public class MenuState extends State
         m_stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(m_stage);
 
-        btnSkin = new Skin(Gdx.files.internal(""));
+        m_al = new AssetLoader();
+
+        m_btnSkin = m_al.getSkin();
+
+        TextureRegion upRegion = m_btnSkin.getRegion("button");
+        TextureRegion downRegion = m_btnSkin.getRegion("button");
+
+        m_playBtn = new TextButton("PLAY", m_btnSkin);
 
         Table table = new Table();
         table.center();
         table.setFillParent(true);
-
-        m_playBtn = new TextButton("PLAY", btnSkin);
 
         setupClickListeners();
 
