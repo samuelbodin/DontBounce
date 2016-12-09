@@ -16,20 +16,21 @@ public class BallStateMoveable extends BallState
     {
         m_ball = b;
         m_texture = new Texture("ball1.png");
-
+        m_timer = 400;
+        m_gravity = -50.0f;
+        m_maxSpeed = -1000.0f;
     }
 
 
     @Override
     public void update(float dt)
     {
-
-    }
-
-    public void update(float dt, float deltaMove)
-    {
-        m_ball.m_position.x += deltaMove*300*dt;
-        m_ball.m_velocity.x += deltaMove*20*dt;
+        super.update(dt);
+        if(!m_onBorder)
+        {
+            m_ball.m_position.x += m_input.m_deltaMove * 300 * dt;
+            m_ball.m_velocity.x += m_input.m_deltaMove * 20 * dt;
+        }
     }
 
     @Override
@@ -37,14 +38,14 @@ public class BallStateMoveable extends BallState
     {
         m_ball.m_position.y = pos.y+m_ball.m_radius-1;
 
-        if(m_ball.m_velocity.y >= 0 && m_ball.m_velocity.y <= -m_ball.m_gravity)
+        if(m_ball.m_velocity.y >= 0 && m_ball.m_velocity.y <= -m_gravity)
         {
             m_ball.m_isOnGround = true;
             m_ball.m_velocity.y = 0;
         }
         else
         {
-            m_ball.m_velocity.scl(0,-0.90f);
+            m_ball.m_velocity.scl(0,-0.95f);
         }
     }
 

@@ -4,14 +4,20 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Basics.Drawable;
+import com.mygdx.game.Basics.InputHandler;
 
 abstract class BallState extends Drawable
 {
     Ball m_ball = null;
     float m_timer = 0;
+    InputHandler m_input;
+    float m_gravity = -30.0f;
+    float m_maxSpeed = -750.0f;
+    boolean m_onBorder = false;
 
     BallState()
     {
+        m_input = new InputHandler();
     }
     BallState(float timerSeconds)
     {
@@ -29,6 +35,7 @@ abstract class BallState extends Drawable
     @Override
     public void update(float dt)
     {
+        m_input.update();
         m_timer-=dt;
 
         if(m_timer <= 0)
