@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.App;
+import com.mygdx.game.AppStates.LevelFinishedState;
+import com.mygdx.game.AppStates.StateManager;
 import com.mygdx.game.Ball.Ball;
 
 /**
@@ -15,6 +17,7 @@ import com.mygdx.game.Ball.Ball;
 public class LevelGoal extends Obstacle
 {
     Sprite m_sprite;
+    StateManager m_sm = null;
 
     public LevelGoal(float x, float y, float w, float h)
     {
@@ -49,15 +52,25 @@ public class LevelGoal extends Obstacle
         return rect.overlaps(b.getRect());
     }
 
+
     @Override
     public void checkCollision(Ball b)
     {
-        super.checkCollision(b);
-        // Do something else
+        //super.checkCollision(b);
+        if(isColliding(b))
+        {
+            m_sm.set(new LevelFinishedState(m_sm));
+            //b.onCollision(getCollisionPos(b));
+        }
     }
 
     @Override
     public void update(float dt)
     {
+    }
+
+    public void setStateManager(StateManager sm)
+    {
+        m_sm = sm;
     }
 }
