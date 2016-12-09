@@ -3,6 +3,7 @@ package com.mygdx.game.Basics;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 /**
  * Created by Pontus on 2016-12-07.
@@ -18,6 +19,7 @@ public class AssetLoader
     public static TextureRegion obstacleGrass;
     public static TextureRegion obstacleCyber;
     public static TextureRegion obstacleIce;
+    private Skin skin;
 
     public AssetLoader()
     {
