@@ -6,7 +6,7 @@ import com.mygdx.game.AppStates.Cam;
 import com.mygdx.game.AppStates.StateManager;
 import com.mygdx.game.Obstacles.LevelGoal;
 import com.mygdx.game.Obstacles.StaticObstacle;
-import com.mygdx.game.Obstacles.WorldBorders;
+
 
 /**
  * Created by Rickard on 2016-12-07.
@@ -45,8 +45,6 @@ public class LevelGenerator
     private void generate()
     {
         // Course borders
-        //m_collidables.add(new WorldBorders(-2, -m_worldHeight, 2, m_worldHeight));
-        //m_collidables.add(new WorldBorders(m_worldWidth+2, -m_worldHeight, 2, m_worldHeight));
         int i=0;
         do
         {

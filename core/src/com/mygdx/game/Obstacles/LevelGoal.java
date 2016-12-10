@@ -1,15 +1,18 @@
 package com.mygdx.game.Obstacles;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.App;
 import com.mygdx.game.AppStates.LevelFinishedState;
 import com.mygdx.game.AppStates.StateManager;
 import com.mygdx.game.AppStates.UserTestMenu;
 import com.mygdx.game.Ball.Ball;
+import com.mygdx.game.Basics.Circle;
 
 /**
  * Created by Rickard on 2016-12-08.
@@ -33,12 +36,6 @@ public class LevelGoal extends Obstacle
     }
 
     @Override
-    protected Vector2 getCollisionPos(Ball b)
-    {
-        return new Vector2(0,m_position.y+m_height);
-    }
-
-    @Override
     public void render(SpriteBatch sb)
     {
         m_sprite.draw(sb);
@@ -46,22 +43,26 @@ public class LevelGoal extends Obstacle
     }
 
     @Override
-    protected boolean isColliding(Ball b)
+    protected Vector2 getCollisionPosition(Circle c)
     {
-        Rectangle rect = new Rectangle(m_position.x,m_position.y,m_width,m_height);
-
-        return rect.overlaps(b.getRect());
+        return null;
     }
 
 
     @Override
     public void checkCollision(Ball b)
     {
-        //super.checkCollision(b);
-        if(isColliding(b))
+        Array<Circle> arr = b.getCircles();
+
+        int index = getPossibleCollisionIndex(arr);
+
+        if(index != -1)
         {
+            Vector2 collisionPosition = getCollisionPosition(arr.get(index));
+
+            Gdx.app.log("JS","- Hit - id: " + arr.get(index).m_id + " side: " + arr.get(index).m_side + " @ index: " + index);
+
             m_sm.set(new UserTestMenu(m_sm));
-            //b.onCollision(getCollisionPos(b));
         }
     }
 

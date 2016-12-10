@@ -44,7 +44,7 @@ public class BallStateFast extends BallState
     }
 
     @Override
-    protected void onCollision(Vector2 pos)
+    protected void onCollision(Vector2 pos, int side)
     {
         m_ball.m_position.y = pos.y+m_ball.m_radius-1;
 

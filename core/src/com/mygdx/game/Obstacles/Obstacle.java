@@ -35,7 +35,7 @@ public abstract class Obstacle extends Collidable
 
     protected abstract Vector2 getCollisionPosition(Circle c);
 
-    private int getPossibleCollisionIndex(Array<Circle> arr)
+    protected int getPossibleCollisionIndex(Array<Circle> arr)
     {
         int side1 = -1;
         int side2 = -1;
