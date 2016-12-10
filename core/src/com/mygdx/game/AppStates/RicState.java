@@ -1,26 +1,16 @@
 package com.mygdx.game.AppStates;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.App;
 import com.mygdx.game.Ball.Ball;
 import com.mygdx.game.Ball.BallStateFast;
 import com.mygdx.game.Basics.Collidable;
-import com.mygdx.game.Basics.InputHandler;
 import com.mygdx.game.Basics.LevelGenerator;
-import com.mygdx.game.Basics.SimplexNoise;
 import com.mygdx.game.Basics.WorldBackground;
-import com.mygdx.game.Obstacles.StaticObstacle;
-
-import java.util.Stack;
 
 /**
  * Created by Rickard on 2016-12-07.
@@ -131,7 +121,8 @@ public class RicState extends State
     {
         if(Gdx.input.justTouched())
         {
-            m_sm.set(new UserTestMenu(m_sm));
+            m_sm.push(new PauseState(m_sm));
+            //m_sm.set(new UserTestMenu(m_sm));
         }
     }
 

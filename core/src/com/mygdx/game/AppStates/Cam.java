@@ -44,7 +44,6 @@ public class Cam extends OrthographicCamera
     public void setBall(Ball b)
     {
         m_bPos = b.getPosition();
-        //m_bPos.y += 200;
         m_bVel = b.getVelocity();
         m_lastPos = new Vector2();
     }
