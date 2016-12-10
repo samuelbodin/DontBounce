@@ -4,19 +4,19 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.App;
 import com.mygdx.game.Basics.Drawable;
 
 public class Ball
 {
-
-    //float m_gravity = -50.0f;
-    //float m_maxSpeed = -750.0f;
     boolean m_isOnGround = false;
     float m_radius = 0.0f;
     Vector2 m_position = null;
     Vector2 m_velocity = null;
     private BallState m_state = null;
+    private BallPositionHistory m_history = null;
+    int m_iterator = 0;
 
     public Ball (float x, float y, float r)
     {
@@ -24,12 +24,13 @@ public class Ball
         m_velocity = new Vector2(0,0);
         m_radius = r;
         m_state = new BallStateMoveable(this);
+        m_history = new BallPositionHistory(3);
+        m_history.addToHistory(new com.mygdx.game.Basics.Circle(m_position,m_radius, m_iterator++));
     }
 
     public void setState(BallState s)
     {
         m_state = s;
-
     }
     public void update(float dt)
     {
@@ -52,16 +53,15 @@ public class Ball
 
         m_position.add(m_velocity.x*dt,m_velocity.y*dt);
 
-
-
+        m_history.addToHistory(new com.mygdx.game.Basics.Circle(m_position, m_radius, m_iterator++));
     }
     public void render(SpriteBatch sb)
     {
         m_state.render(sb);
     }
-    public void onCollision(Vector2 pos)
+    public void onCollision(Vector2 pos, int side)
     {
-        m_state.onCollision(pos);
+        m_state.onCollision(pos, side);
     }
     public Vector2 getPosition()
     {
@@ -71,10 +71,14 @@ public class Ball
     {
         return m_velocity;
     }
-
-    public Rectangle getRect()
+    public void addToPositionX(float value)
     {
-        return new Rectangle(m_position.x-m_radius, m_position.y-m_radius,m_radius+m_radius,m_radius+m_radius);
+        m_position.x+=value;
+    }
+
+    public Array<com.mygdx.game.Basics.Circle> getCircles()
+    {
+        return m_history.m_circles;
     }
 
     @Override
@@ -82,8 +86,6 @@ public class Ball
     {
         String str = super.toString();
         str += "m_position: " + m_position.toString() + "\n";
-        str += "m_gravity: " + m_state.m_gravity + "\n";
-        str += "m_maxSpeed: " + m_state.m_maxSpeed + "\n";
         str += "m_radius: " + m_radius + "\n";
         str += "m_velocity: " + m_velocity.toString() + "\n";
         str += "m_state: " + m_state.toString() + "\n";

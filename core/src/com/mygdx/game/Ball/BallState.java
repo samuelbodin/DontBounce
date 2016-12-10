@@ -51,7 +51,7 @@ abstract class BallState extends Drawable
 
         sb.draw(m_texture,x-r,y-r,r+r,r+r);
     }
-    protected abstract void onCollision(Vector2 pos);
+    protected abstract void onCollision(Vector2 pos, int side);
 
     @Override
     public String toString()

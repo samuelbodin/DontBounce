@@ -1,7 +1,10 @@
 package com.mygdx.game.Obstacles;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.Basics.Circle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Ball.Ball;
 import com.mygdx.game.Basics.Collidable;
 
@@ -23,13 +26,108 @@ public abstract class Obstacle extends Collidable
         sb.draw(m_texture,m_position.x,m_position.y,m_width,m_height);
     }
 
-    protected abstract Vector2 getCollisionPos(Ball b);
-    protected abstract boolean isColliding(Ball b);
+    @Override
+    protected boolean isColliding(Circle c)
+    {
+        return  ! ( m_position.x > c.m_x + c.m_radius || m_position.x + m_width < c.m_x - c.m_radius
+                || m_position.y + m_height < c.m_y - c.m_radius || m_position.y > c.m_y + c.m_radius);
+    }
+
+    protected abstract Vector2 getCollisionPosition(Circle c);
+
+    private int getPossibleCollisionIndex(Array<Circle> arr)
+    {
+        int side1 = -1;
+        int side2 = -1;
+        int lastIndex = arr.size-1;
+
+        if(isColliding(arr.get(lastIndex)))
+        {
+            side1 = getSideOfThis(arr.get(lastIndex).m_x, arr.get(lastIndex).m_y);
+            side2 = getSideOfThis(arr.get(lastIndex-1).m_x, arr.get(lastIndex-1).m_y);
+
+            if( (side1 != -1 && side2 != -1) && side1 != side2 )
+            {
+                arr.get(lastIndex-1).m_side = side2;
+                arr.pop();
+                return lastIndex-1;
+            }
+            else
+            {
+                arr.get(lastIndex).m_side = side1;
+                return lastIndex;
+            }
+        }
+
+
+        for(int i = arr.size-1; i >= 1; i--)
+        {
+            side1 = getSideOfThis(arr.get(i).m_x, arr.get(i).m_y);
+            side2 = getSideOfThis(arr.get(i-1).m_x, arr.get(i-1).m_y);
+            Gdx.app.log("JS","-*-");
+            Gdx.app.log("JS","- Id: " + arr.get(i).m_id + " is on side: " + side1);
+            Gdx.app.log("JS","- Id: " + arr.get(i-1).m_id + " is on side: " + side2);
+
+            if( (side1 != -1 && side2 != -1) && side1 != side2 )
+            {
+                arr.get(i-1).m_side = side2;
+                arr.removeIndex(i);
+
+                for(int j = lastIndex; j > (i); j--)
+                {
+                    arr.pop();
+                }
+                return i-1;
+            }
+        }
+        return -1;
+    }
+
+    private int getSideOfThis(float x, float y)
+    {
+        int side = -1;
+
+        if((x >= m_position.x && x <= m_position.x + m_width)
+                && y >= m_position.y + m_height/2)
+        {
+            side = 0;
+        }
+        else if((x >= m_position.x && x <= m_position.x + m_width)
+                && y < m_position.y + m_height/2)
+        {
+            side = 2;
+        }
+        else if(x >= m_position.x + m_width/2
+                && y >= m_position.y && y <= m_position.y + m_height)
+        {
+            side = 3;
+        }
+        else if(x < m_position.x + m_width/2
+                && y >= m_position.y && y <= m_position.y + m_height)
+        {
+            side = 4;
+        }
+        else
+        {
+            Gdx.app.log("JS","The unforeseen has happened!! getSideOfThis() returned " + side);
+        }
+
+        return side;
+    }
+
     public void checkCollision(Ball b)
     {
-        if(isColliding(b))
+        Array<Circle> arr = b.getCircles();
+
+        int index = getPossibleCollisionIndex(arr);
+
+        if(index != -1)
         {
-            b.onCollision(getCollisionPos(b));
+            Vector2 collisionPosition = getCollisionPosition(arr.get(index));
+
+            Gdx.app.log("JS","- Hit - id: " + arr.get(index).m_id + " side: " + arr.get(index).m_side + " @ index: " + index);
+
+            b.onCollision(collisionPosition, arr.get(index).m_side);
         }
     }
 
