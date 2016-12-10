@@ -36,13 +36,14 @@ public class App extends ApplicationAdapter
         m_sm = new StateManager();
         m_sb = new SpriteBatch();
 		m_sm.set(new UserTestMenu(m_sm));
-
+		m_sb.enableBlending();
         Gdx.gl.glClearColor(0, 0, 0, 1);
 	}
 
 	@Override
 	public void render ()
 	{
+		super.render();
         m_sm.update(Gdx.graphics.getDeltaTime());
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         m_sb.begin();

@@ -70,7 +70,7 @@ public class LevelGenerator
                 m_obstacleX = 0;
             }
             m_obstacleY = m_obstacleY * m_obstacleYSpaceFactor + m_minObstacleYSpace;
-            m_collidables.add(new StaticObstacle(m_obstacleX, m_lastObstableY - m_obstacleY, m_obstacleWidth, 30));
+            m_collidables.add(new StaticObstacle(m_obstacleX, m_lastObstableY - m_obstacleY, m_obstacleWidth, 32));
             m_lastObstableY -= m_obstacleY;
             m_lastObstacleX = m_obstacleX;
             i++;

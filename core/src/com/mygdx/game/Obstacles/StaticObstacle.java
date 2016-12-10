@@ -3,6 +3,7 @@ package com.mygdx.game.Obstacles;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -13,10 +14,13 @@ import org.w3c.dom.css.Rect;
 
 public class StaticObstacle extends Obstacle
 {
+    ObstacleBuilder m_ob;
+
     public StaticObstacle(float x, float y, float w, float h)
     {
         super(x,y,w,h);
-        m_texture = new Texture("obs1.png");
+        m_ob = new ObstacleBuilder(x,y,w,h);
+        //m_texture = new Texture("obs1.png");
     }
 
     @Override
@@ -36,6 +40,13 @@ public class StaticObstacle extends Obstacle
     @Override
     public void update(float dt)
     {
+    }
+
+    @Override
+    public void render(SpriteBatch sb)
+    {
+        m_ob.render(sb);
+        //sb.draw(m_texture,m_position.x,m_position.y,m_width,m_height);
     }
 
     @Override
