@@ -18,4 +18,5 @@ public abstract class State
     public abstract void render(SpriteBatch sr);
     public abstract void handleInput();
     public abstract void dispose();
+    public abstract void resize(int width, int height);
 }

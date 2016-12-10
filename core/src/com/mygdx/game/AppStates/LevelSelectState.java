@@ -80,4 +80,10 @@ public class LevelSelectState extends State
     {
 
     }
+
+    @Override
+    public void resize(int width, int height)
+    {
+
+    }
 }

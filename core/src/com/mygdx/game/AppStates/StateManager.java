@@ -41,4 +41,9 @@ public class StateManager
         m_states.peek().render(sb);
     }
 
+    public void resize(int width, int height)
+    {
+        m_states.peek().resize(width, height);
+    }
+
 }

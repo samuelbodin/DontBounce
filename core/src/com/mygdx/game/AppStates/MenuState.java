@@ -1,6 +1,7 @@
 package com.mygdx.game.AppStates;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -9,7 +10,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.App;
 import com.mygdx.game.Basics.AssetLoader;
 
 public class MenuState extends State
@@ -23,26 +28,25 @@ public class MenuState extends State
     private TextButton m_levelBtn;
     private TextButton m_continueBtn;
 
-
     public MenuState(StateManager sm)
     {
         super(sm);
 
         m_sm = sm;
 
-        m_stage = new Stage(new ScreenViewport());
+        m_stage = new Stage(new StretchViewport(App.m_worldW, App.m_worldH));
         Gdx.input.setInputProcessor(m_stage);
 
-        m_btnSkin = new Skin(Gdx.files.internal("uiskin.json"));
+        m_btnSkin = new Skin(Gdx.files.internal("skins/default/uiskin.json"));
 
         m_playBtn = new TextButton("PLAY", m_btnSkin);
-        m_playBtn.getLabel().setFontScale(5);
+        m_playBtn.getLabel().setFontScale(3);
 
         m_levelBtn = new TextButton("SELECT LEVEL", m_btnSkin);
-        m_levelBtn.getLabel().setFontScale(5);
+        m_levelBtn.getLabel().setFontScale(3);
 
         m_continueBtn = new TextButton("CONTINUE", m_btnSkin);
-        m_continueBtn.getLabel().setFontScale(5);
+        m_continueBtn.getLabel().setFontScale(3);
 
         Table table = new Table();
         table.center();
@@ -96,6 +100,12 @@ public class MenuState extends State
     public void update(float dt)
     {
 
+    }
+
+
+    public void resize(int width, int height)
+    {
+        m_stage.getViewport().update(width, height);
     }
 
     @Override

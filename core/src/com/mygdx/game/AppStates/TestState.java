@@ -61,4 +61,10 @@ public class TestState extends State
     {
 
     }
+
+    @Override
+    public void resize(int width, int height)
+    {
+
+    }
 }

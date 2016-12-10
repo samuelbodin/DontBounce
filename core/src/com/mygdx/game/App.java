@@ -47,7 +47,13 @@ public class App extends ApplicationAdapter
         m_sm.render(m_sb);
         m_sb.end();
 	}
-	
+
+	@Override
+	public void resize(int width, int height)
+	{
+		m_sm.resize(width, height);
+	}
+
 	@Override
 	public void dispose ()
 	{
