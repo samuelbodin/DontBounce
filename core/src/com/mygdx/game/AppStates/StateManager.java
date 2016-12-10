@@ -38,7 +38,10 @@ public class StateManager
 
     public void render(SpriteBatch sb)
     {
-        m_states.peek().render(sb);
+        for(State s : m_states)
+        {
+            s.render(sb);
+        }
     }
 
     public void resize(int width, int height)

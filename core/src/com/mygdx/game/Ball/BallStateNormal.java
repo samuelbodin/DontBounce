@@ -21,19 +21,41 @@ public class BallStateNormal extends BallState
     }
 
     @Override
-    protected void onCollision(Vector2 pos)
+    protected void onCollision(Vector2 pos, int side)
     {
-        m_ball.m_position.y = pos.y+m_ball.m_radius-1;
+        if(side != 0)
+        {
+            Gdx.app.log("JS", "HERE!! IT HAPPENED!! side: " + side);
+        }
 
-        if(m_ball.m_velocity.y >= 0 && m_ball.m_velocity.y <= -m_ball.m_gravity)
+
+        /*if(side == 0 && m_ball.m_velocity.y <= -m_ball.m_gravity)
         {
             m_ball.m_isOnGround = true;
+            m_ball.m_position.y = pos.y + m_ball.m_radius;
             m_ball.m_velocity.y = 0;
         }
-        else
+            else */if(side == 0)
         {
-            m_ball.m_velocity.scl(0,-0.90f);
+            m_ball.m_position.y = pos.y + m_ball.m_radius;
+            m_ball.m_velocity.y = Math.abs(m_ball.m_velocity.y);
         }
+        else if(side == 1)
+        {
+            m_ball.m_position.x = pos.x + m_ball.m_radius;
+            m_ball.m_velocity.scl(-1f,1f);
+        }
+        else if(side == 2)
+        {
+            m_ball.m_position.y = pos.y - m_ball.m_radius;
+            m_ball.m_velocity.y = Math.abs(m_ball.m_velocity.y);
+        }
+        else if(side == 3)
+        {
+            m_ball.m_position.x = pos.x - m_ball.m_radius;
+            m_ball.m_velocity.scl(-1f,1f);
+        }
+
     }
 
     @Override
@@ -43,6 +65,12 @@ public class BallStateNormal extends BallState
 
 
         return str;
+    }
+
+    @Override
+    public void dispose()
+    {
+        m_texture.dispose();
     }
 
 }

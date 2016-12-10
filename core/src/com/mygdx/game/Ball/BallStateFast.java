@@ -1,26 +1,23 @@
 package com.mygdx.game.Ball;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.App;
-import com.mygdx.game.Basics.InputHandler;
 
 /**
- * Created by Rickard on 2016-12-07.
+ * Created by Rickard on 2016-12-09.
  */
 
-public class BallStateMoveable extends BallState
+public class BallStateFast extends BallState
 {
-    float m_prevDeltaMove = 0;
 
-    public BallStateMoveable(Ball b)
+    public BallStateFast(Ball b)
     {
         m_ball = b;
-        m_texture = new Texture("ball1.png");
+        m_texture = new Texture("ball2.png");
         m_timer = 400;
-        m_gravity = -50.0f;
-        m_maxSpeed = -1000.0f;
+        m_gravity = -80.0f;
+        m_maxSpeed = -1500.0f;
     }
 
 
@@ -30,10 +27,6 @@ public class BallStateMoveable extends BallState
         super.update(dt);
 
         float move = m_input.m_deltaMove * 300 * dt;
-
-        Gdx.app.log("DELTAMOVE", Float.toString(m_input.m_deltaMove));
-
-
         if(m_ball.m_position.x-m_ball.m_radius+move < 0)
         {
             m_ball.m_velocity.x = 0;
@@ -45,12 +38,9 @@ public class BallStateMoveable extends BallState
             m_ball.m_position.x =  App.m_worldW-m_ball.m_radius;
         } else
         {
-            move = (m_prevDeltaMove+m_input.m_deltaMove)/2;
-            m_ball.m_position.x += move * 300 * dt;
-            m_ball.m_velocity.x += move * 150 * dt;
+            m_ball.m_position.x += m_input.m_deltaMove * 300 * dt;
+            //m_ball.m_velocity.x += m_input.m_deltaMove * 50 * dt;
         }
-
-        m_prevDeltaMove = m_input.m_deltaMove;
     }
 
     @Override
@@ -83,5 +73,4 @@ public class BallStateMoveable extends BallState
     {
         m_texture.dispose();
     }
-
 }

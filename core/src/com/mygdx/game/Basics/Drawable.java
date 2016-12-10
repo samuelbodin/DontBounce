@@ -4,8 +4,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Disposable;
 
-public abstract class Drawable
+public abstract class Drawable implements Disposable
 {
     protected int m_zIndex = 0;
     protected Texture m_texture = null;
