@@ -76,4 +76,13 @@ public class WorldBackground extends Drawable
             s.draw(sb);
         }
     }
+
+    @Override
+    public void dispose()
+    {
+        for(Sprite s : m_sprite)
+        {
+            s.getTexture().dispose();
+        }
+    }
 }

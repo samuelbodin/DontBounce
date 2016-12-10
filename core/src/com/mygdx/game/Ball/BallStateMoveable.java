@@ -78,4 +78,10 @@ public class BallStateMoveable extends BallState
         return str;
     }
 
+    @Override
+    public void dispose()
+    {
+        m_texture.dispose();
+    }
+
 }

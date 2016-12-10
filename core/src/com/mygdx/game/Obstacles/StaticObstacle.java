@@ -35,4 +35,10 @@ public class StaticObstacle extends Obstacle
     public void update(float dt)
     {
     }
+
+    @Override
+    public void dispose()
+    {
+        m_texture.dispose();
+    }
 }

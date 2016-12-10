@@ -70,8 +70,15 @@ public class LevelGoal extends Obstacle
     {
     }
 
+    @Override
+    public void dispose()
+    {
+        m_texture.dispose();
+    }
+
     public void setStateManager(StateManager sm)
     {
         m_sm = sm;
     }
+
 }

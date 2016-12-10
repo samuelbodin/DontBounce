@@ -34,12 +34,9 @@ public class RicState extends State
     private static final float m_worldHeight = 14000;
     private static final float m_viewportWidth = App.m_worldW;
     private static final float m_viewportHeight = App.m_worldH;
-
-
-    WorldBackground m_background;
-
-    LevelGenerator m_level;
-    Viewport m_viewport;
+    private WorldBackground m_background;
+    private LevelGenerator m_level;
+    private Viewport m_viewport;
 
     public RicState(StateManager sm)
     {

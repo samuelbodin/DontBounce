@@ -68,4 +68,9 @@ public class BallStateFast extends BallState
         return str;
     }
 
+    @Override
+    public void dispose()
+    {
+        m_texture.dispose();
+    }
 }
