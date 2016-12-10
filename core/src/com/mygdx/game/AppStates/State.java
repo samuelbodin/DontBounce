@@ -5,10 +5,10 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public abstract class State
 {
-    StateManager m_sm = null;
+    public StateManager m_sm = null;
     Cam m_cam = null;
 
-    State(StateManager sm)
+    public State(StateManager sm)
     {
         m_sm = sm;
         m_cam = new Cam();

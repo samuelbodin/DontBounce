@@ -46,7 +46,7 @@ public class BallStateMoveable extends BallState
         } else
         {
             move = (m_prevDeltaMove+m_input.m_deltaMove)/2;
-            m_ball.m_position.x += move * 300 * dt;
+            m_ball.m_position.x += move * 500 * dt;
             m_ball.m_velocity.x += move * 150 * dt;
         }
 
