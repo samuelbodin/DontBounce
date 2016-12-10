@@ -5,7 +5,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.mygdx.game.AppStates.LevelSelectState;
 import com.mygdx.game.AppStates.RicState;
 import com.mygdx.game.AppStates.StateManager;
 import com.mygdx.game.AppStates.MenuState;
@@ -36,14 +35,15 @@ public class App extends ApplicationAdapter
         getScreenDimensions();
         m_sm = new StateManager();
         m_sb = new SpriteBatch();
-		m_sm.set(new LevelSelectState(m_sm));
-
+		m_sm.set(new UserTestMenu(m_sm));
+		m_sb.enableBlending();
         Gdx.gl.glClearColor(0, 0, 0, 1);
 	}
 
 	@Override
 	public void render ()
 	{
+		super.render();
         m_sm.update(Gdx.graphics.getDeltaTime());
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         m_sb.begin();
