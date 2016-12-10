@@ -45,4 +45,10 @@ public class LevelFinishedState extends State
     {
 
     }
+
+    @Override
+    public void resize(int width, int height)
+    {
+
+    }
 }

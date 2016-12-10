@@ -75,4 +75,10 @@ public class PauseState extends State
     {
         m_box.getTexture().dispose();
     }
+
+    @Override
+    public void resize(int width, int height)
+    {
+        
+    }
 }
