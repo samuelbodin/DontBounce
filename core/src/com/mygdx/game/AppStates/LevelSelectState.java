@@ -48,25 +48,16 @@ public class LevelSelectState extends State
         m_stage = new Stage(new StretchViewport(App.m_worldW, App.m_worldH));
         Gdx.input.setInputProcessor(m_stage);
 
-        m_btnSkin = new Skin(Gdx.files.internal("skins/default/uiskin.json"));
-
-        m_returnBtn = new TextButton("RETURN", m_btnSkin);
-        m_nextBtn = new TextButton(">", m_btnSkin);
-        m_prevBtn = new TextButton("<", m_btnSkin);
-
-        m_nextBtn.pad(30f,50f,30f,50f);
-        m_prevBtn.pad(30f,50f,30f,50f);
-        m_returnBtn.getLabel().setFontScale(3);
-        m_nextBtn.getLabel().setFontScale(3);
-        m_prevBtn.getLabel().setFontScale(3);
-
         Table table = new Table();
         table.center();
         table.setFillParent(true);
 
         m_lvlRowTop = new HorizontalGroup();
         m_lvlRowBot = new HorizontalGroup();
+        m_lvlRowBot.space(10);
+        m_lvlRowTop.space(10);
 
+        setupBtns();
         setChapter();
 
         table.add(m_lvlRowTop);
@@ -75,12 +66,13 @@ public class LevelSelectState extends State
         table.row();
 
         m_navBtns = new HorizontalGroup();
+
         m_navBtns.addActor(m_prevBtn);
         m_navBtns.addActor(m_nextBtn);
-        m_navBtns.space(235);
+        m_navBtns.space(m_returnBtn.getWidth() + 30);
 
         table.add(m_navBtns);
-        table.row().pad(10);
+        table.row().pad(10f);
         table.add(m_returnBtn).expandX();
 
         m_stage.addActor(table);
@@ -88,15 +80,28 @@ public class LevelSelectState extends State
         setupClickListeners();
     }
 
+    private void setupBtns()
+    {
+        m_btnSkin = new Skin(Gdx.files.internal("skins/default/uiskin.json"));
+
+        m_returnBtn = new TextButton("RETURN", m_btnSkin);
+        m_nextBtn = new TextButton(">>", m_btnSkin);
+        m_prevBtn = new TextButton("<<", m_btnSkin);
+
+        m_returnBtn.getLabel().setFontScale(3);
+        m_nextBtn.getLabel().setFontScale(2);
+        m_prevBtn.getLabel().setFontScale(2);
+    }
+
     private void setChapter()
     {
-        Gdx.app.log("Welcome", "To my secret lair");
         m_lvlRowBot.clear();
         m_lvlRowTop.clear();
         for (int i = 0; i < 6; i++)
         {
             Integer level = m_chapters.get(m_currentChapter).getLevels()[i];
             TextButton temp = new TextButton(level.toString(), m_btnSkin);
+            temp.getLabel().setFontScale(3);
             if (i < 3)
             {
                 m_lvlRowTop.addActor(temp);
@@ -123,7 +128,6 @@ public class LevelSelectState extends State
             @Override
             public void changed(ChangeEvent event, Actor actor)
             {
-                Gdx.app.log("Welcome", "To my secret lair!");
                 if (m_chapters.size()-1 != m_currentChapter)
                 {
                     m_currentChapter++;

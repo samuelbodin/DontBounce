@@ -154,10 +154,4 @@ public class UserTestMenu extends State
     {
 
     }
-
-    @Override
-    public void resize(int width, int height)
-    {
-
-    }
 }
