@@ -2,7 +2,6 @@ package com.mygdx.game.Basics;
 
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.App;
-import com.mygdx.game.AppStates.Cam;
 import com.mygdx.game.AppStates.StateManager;
 import com.mygdx.game.Obstacles.LevelGoal;
 import com.mygdx.game.Obstacles.StaticObstacle;
