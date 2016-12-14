@@ -116,14 +116,17 @@ public class UserTest01State extends State
             m_cam.update();
             m_background.update(dt);
             m_background.setPosition(m_cam.getDeltaPosition());
+
         }
         if(m_countDown > 0)
         {
             m_blackScreen.setPosition(0, -m_cam.viewportHeight+m_ball.getPosition().y);
-            m_countDown -= dt/2;
+            m_countDown -= dt;
             m_blackScreen.setAlpha(m_countDown);
             return;
         }
+
+
     }
 
     @Override

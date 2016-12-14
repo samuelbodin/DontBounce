@@ -53,11 +53,12 @@ public class Cam extends OrthographicCamera
         m_lastPos.x = this.position.x;
         m_lastPos.y = this.position.y;
         //float x = (this.position.x + m_bVel.x * dt) * (1.0f - m_modifier);
-        float y = (this.position.y + m_bVel.y *dt) * (1.0f - m_modifier);
+        //float y = (this.position.y + m_bVel.y *dt) * (1.0f - m_modifier);
 
         // Cameras x position should not update!
         //this.position.x = x + m_bPos.x * m_modifier;
-        this.position.y = y + m_bPos.y * m_modifier - App.m_worldH/4;
+        //this.position.y = y + m_bPos.y * m_modifier - App.m_worldH/4;
+        this.position.y = m_bPos.y - App.m_worldH/4;
 
 
     }
