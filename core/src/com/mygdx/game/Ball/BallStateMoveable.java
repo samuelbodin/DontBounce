@@ -1,10 +1,15 @@
 package com.mygdx.game.Ball;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.App;
 import com.mygdx.game.Basics.InputHandler;
+
+import org.w3c.dom.ranges.Range;
+
+import java.util.Random;
 
 /**
  * Created by Rickard on 2016-12-07.
@@ -14,25 +19,45 @@ public class BallStateMoveable extends BallState
 {
     float m_prevDeltaMove = 0;
 
+    float m_steeringFactor;
+
+    Sound sound[];
+
     public BallStateMoveable(Ball b)
     {
         m_ball = b;
         m_texture = new Texture("ball1.png");
         m_timer = 400;
         m_gravity = -50.0f;
-        m_maxSpeed = -1000.0f;
+        m_maxSpeed = -700.0f;
+        m_steeringFactor = 1.5f;
+
+        sound = new Sound[4];
+        sound[0] = Gdx.audio.newSound(Gdx.files.internal("sound/bounce01.wav"));
+        sound[1] = Gdx.audio.newSound(Gdx.files.internal("sound/bounce02.wav"));
+        sound[2] = Gdx.audio.newSound(Gdx.files.internal("sound/bounce03.wav"));
+        sound[3] = Gdx.audio.newSound(Gdx.files.internal("sound/bounce04.wav"));
     }
 
+
+    public BallStateMoveable(Ball b, float gravity, float maxSpeed, float steeringFactor)
+    {
+        m_ball = b;
+        m_texture = new Texture("ball1.png");
+        m_timer = 400;
+        m_gravity = gravity;
+        m_maxSpeed = maxSpeed;
+        m_steeringFactor = steeringFactor;
+
+
+    }
 
     @Override
     public void update(float dt)
     {
         super.update(dt);
 
-        float move = m_input.m_deltaMove * 300 * dt;
-
-        Gdx.app.log("DELTAMOVE", Float.toString(m_input.m_deltaMove));
-
+        float move = m_input.m_deltaMove * 300 * dt * m_steeringFactor;
 
         if(m_ball.m_position.x-m_ball.m_radius+move < 0)
         {
@@ -46,8 +71,8 @@ public class BallStateMoveable extends BallState
         } else
         {
             move = (m_prevDeltaMove+m_input.m_deltaMove)/2;
-            m_ball.m_position.x += move * 500 * dt;
-            m_ball.m_velocity.x += move * 150 * dt;
+            m_ball.m_position.x += move * 300 * dt * m_steeringFactor;
+            m_ball.m_velocity.x += move * 150 * dt * m_steeringFactor;
         }
 
         m_prevDeltaMove = m_input.m_deltaMove;
@@ -56,7 +81,8 @@ public class BallStateMoveable extends BallState
     @Override
     protected void onCollision(Vector2 pos, int side)
     {
-        m_ball.m_position.y = pos.y+m_ball.m_radius-1;
+        //m_ball.m_position.y = pos.y+m_ball.m_radius-1;
+        Random rnd = new Random();
 
         if(m_ball.m_velocity.y >= 0 && m_ball.m_velocity.y <= -m_gravity)
         {
@@ -66,7 +92,10 @@ public class BallStateMoveable extends BallState
         else
         {
             m_ball.m_velocity.scl(0,-0.95f);
+            sound[rnd.nextInt(sound.length)].play(1.0f);
         }
+
+
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.mygdx.game.AppStates;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -8,6 +9,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.App;
 import com.mygdx.game.Ball.Ball;
 import com.mygdx.game.Ball.BallStateFast;
+import com.mygdx.game.Ball.BallStateMoveable;
 import com.mygdx.game.Basics.Collidable;
 import com.mygdx.game.Basics.LevelGenerator;
 import com.mygdx.game.Basics.WorldBackground;
@@ -27,7 +29,7 @@ public class RicState extends State
     private WorldBackground m_background;
     private LevelGenerator m_level;
     private Viewport m_viewport;
-
+    Music m_music;
     public RicState(StateManager sm)
     {
         super(sm);
@@ -36,11 +38,8 @@ public class RicState extends State
         m_collidables = new Array<Collidable>();
         m_cam.setBall(m_ball);
 
-        m_background = new WorldBackground(m_viewportWidth, m_viewportHeight);
-        m_background.addFile("mountbg01.png");
-        m_background.addFile("mountbg02.png");
-        m_background.addFile("mountbg03.png");
-        m_background.addFile("mountbg04.png");
+        m_background = new WorldBackground(m_viewportWidth, m_viewportHeight, m_cam, true);
+        m_background.addFile("skyscrapers_background.png");
 
         m_level = new LevelGenerator(5, m_worldHeight, 12, 15, 45, m_viewportWidth/6);
         m_level.addGoal(m_sm);
@@ -49,26 +48,33 @@ public class RicState extends State
         m_viewport.setScreenBounds(0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         m_viewport.apply(true);
 
+        m_music = Gdx.audio.newMusic(Gdx.files.internal("sound/gamemusic.wav"));
+        m_music.setLooping(true);
+        m_music.setVolume(0.5f);
+        //m_music.play();
+
     }
 
 
-    public RicState(StateManager sm, int seed, float obstacleSizeFactor, float obstacleSeparationFactor, float obstacleMinSpacingFactor, boolean fast)
+    public RicState(StateManager sm, int seed, float obstacleSizeFactor, float obstacleSeparationFactor, float obstacleMinSpacingFactor, int ballType)
     {
         super(sm);
 
         m_ball = new Ball(m_viewportWidth/2, 0, m_viewportWidth/40);
-        if(fast)
+        switch (ballType)
         {
-            m_ball.setState(new BallStateFast(m_ball));
+            case 1:
+                m_ball.setState(new BallStateFast(m_ball));
+                break;
+            default:
+                m_ball.setState(new BallStateMoveable(m_ball));
         }
+
         m_collidables = new Array<Collidable>();
         m_cam.setBall(m_ball);
 
-        m_background = new WorldBackground(m_viewportWidth, m_viewportHeight);
-        m_background.addFile("mountbg01.png");
-        m_background.addFile("mountbg02.png");
-        m_background.addFile("mountbg03.png");
-        m_background.addFile("mountbg04.png");
+        m_background = new WorldBackground(m_viewportWidth, m_viewportHeight, m_cam, true);
+        m_background.addFile("skyscrapers_background.png");
 
         m_level = new LevelGenerator(seed, m_worldHeight, obstacleSizeFactor, obstacleSeparationFactor, obstacleMinSpacingFactor, m_viewportWidth/12);
         m_level.addGoal(m_sm);
@@ -77,6 +83,8 @@ public class RicState extends State
         m_viewport.setScreenBounds(0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         m_viewport.apply(true);
     }
+
+
 
     @Override
     public void update(float dt)
@@ -93,9 +101,8 @@ public class RicState extends State
         m_ball.update(dt);
         m_cam.setToBallPos(dt);
         m_cam.update();
+        m_background.update(dt);
         m_background.setPosition(m_cam.getDeltaPosition());
-
-
     }
 
     @Override
@@ -129,7 +136,7 @@ public class RicState extends State
     @Override
     public void dispose()
     {
-
+        m_music.dispose();
     }
 
     @Override

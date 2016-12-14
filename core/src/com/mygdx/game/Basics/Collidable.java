@@ -6,7 +6,7 @@ import com.mygdx.game.Ball.Ball;
 
 public abstract class Collidable extends Drawable
 {
-    protected  Vector2 m_position = null;
+    public Vector2 m_position = null;
 
     public Collidable(float x, float y)
     {

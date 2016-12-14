@@ -67,5 +67,10 @@ public class Cam extends OrthographicCamera
         Vector2 pos = new Vector2(this.position.x-m_lastPos.x,this.position.y-m_lastPos.y);
         return pos;
     }
+
+    public float getY()
+    {
+        return position.y;
+    }
 }
 

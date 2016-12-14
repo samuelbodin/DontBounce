@@ -64,9 +64,9 @@ public abstract class Obstacle extends Collidable
         {
             side1 = getSideOfThis(arr.get(i).m_x, arr.get(i).m_y);
             side2 = getSideOfThis(arr.get(i-1).m_x, arr.get(i-1).m_y);
-            Gdx.app.log("JS","-*-");
-            Gdx.app.log("JS","- Id: " + arr.get(i).m_id + " is on side: " + side1);
-            Gdx.app.log("JS","- Id: " + arr.get(i-1).m_id + " is on side: " + side2);
+            //Gdx.app.log("JS","-*-");
+            //Gdx.app.log("JS","- Id: " + arr.get(i).m_id + " is on side: " + side1);
+            //Gdx.app.log("JS","- Id: " + arr.get(i-1).m_id + " is on side: " + side2);
 
             if( (side1 != -1 && side2 != -1) && side1 != side2 )
             {
@@ -109,7 +109,7 @@ public abstract class Obstacle extends Collidable
         }
         else
         {
-            Gdx.app.log("JS","The unforeseen has happened!! getSideOfThis() returned " + side);
+            //Gdx.app.log("JS","The unforeseen has happened!! getSideOfThis() returned " + side);
         }
 
         return side;
@@ -125,7 +125,7 @@ public abstract class Obstacle extends Collidable
         {
             Vector2 collisionPosition = getCollisionPosition(arr.get(index));
 
-            Gdx.app.log("JS","- Hit - id: " + arr.get(index).m_id + " side: " + arr.get(index).m_side + " @ index: " + index);
+            //Gdx.app.log("JS","- Hit - id: " + arr.get(index).m_id + " side: " + arr.get(index).m_side + " @ index: " + index);
 
             b.onCollision(collisionPosition, arr.get(index).m_side);
         }

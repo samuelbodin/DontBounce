@@ -37,9 +37,10 @@ public class ObstacleBuilder extends Drawable
         m_body.setPosition(x+m_start.getWidth(),y);
         m_end.setPosition(m_body.getX()+m_body.getWidth(),y);
 
-        m_start.setColor(200,32,32,1);
-        m_body.setColor(200,32,32,1);
-        m_end.setColor(200,32,32,1);
+        Color c = new Color(1,0.6f,0.2f,1);
+        m_start.setColor(c);
+        m_body.setColor(c);
+        m_end.setColor(c);
 
     }
 

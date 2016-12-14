@@ -27,6 +27,7 @@ public class UserTestMenu extends State
     private TextButton m_threeBtn;
     private TextButton m_fourBtn;
     private TextButton m_fiveBtn;
+    private TextButton m_sixBtn;
 
 
 
@@ -56,6 +57,9 @@ public class UserTestMenu extends State
         m_fiveBtn = new TextButton("Test 5", m_btnSkin);
         m_fiveBtn.getLabel().setFontScale(5);
 
+        m_sixBtn = new TextButton("Test 6", m_btnSkin);
+        m_sixBtn.getLabel().setFontScale(5);
+
         Table table = new Table();
         table.center();
         table.setFillParent(true);
@@ -72,6 +76,8 @@ public class UserTestMenu extends State
         table.add(m_fourBtn).expandX().padTop(50f);
         table.row();
         table.add(m_fiveBtn).expandX().padTop(50f);
+        table.row();
+        table.add(m_sixBtn).expandX().padTop(50f);
 
         m_stage.addActor(table);
 
@@ -84,7 +90,7 @@ public class UserTestMenu extends State
             @Override
             public void changed(ChangeEvent event, Actor actor)
             {
-                m_sm.set(new RicState(m_sm, 1, 8, 15, 10, false));
+                m_sm.set(new RicState(m_sm, 1, 8, 15, 10, 0));
             }
         });
 
@@ -93,7 +99,7 @@ public class UserTestMenu extends State
             @Override
             public void changed(ChangeEvent event, Actor actor)
             {
-                m_sm.set(new RicState(m_sm, 2, 13, 15, 15, false));
+                m_sm.set(new RicState(m_sm, 2, 13, 15, 15, 0));
             }
         });
 
@@ -102,7 +108,7 @@ public class UserTestMenu extends State
             @Override
             public void changed(ChangeEvent event, Actor actor)
             {
-                m_sm.set(new RicState(m_sm, 3, 8, 25, 10, false));
+                m_sm.set(new UserTest01State(m_sm, 3, 8, 25, 10, false, false));
             }
         });
 
@@ -111,7 +117,7 @@ public class UserTestMenu extends State
             @Override
             public void changed(ChangeEvent event, Actor actor)
             {
-                m_sm.set(new RicState(m_sm, 500, 13, 25, 15,false));
+                m_sm.set(new UserTest01State(m_sm, 3, 8, 25, 10, true, true));
             }
         });
 
@@ -120,7 +126,16 @@ public class UserTestMenu extends State
             @Override
             public void changed(ChangeEvent event, Actor actor)
             {
-                m_sm.set(new RicState(m_sm, 5, 10, 10, 10, true));
+                m_sm.set(new RicState(m_sm, 5, 10, 10, 10, 1));
+            }
+        });
+
+        m_sixBtn.addListener(new ChangeListener()
+        {
+            @Override
+            public void changed(ChangeEvent event, Actor actor)
+            {
+                m_sm.set(new RicState(m_sm, 8, 15, 10, 15, 1));
             }
         });
     }
@@ -155,9 +170,4 @@ public class UserTestMenu extends State
 
     }
 
-    @Override
-    public void resize(int width, int height)
-    {
-
-    }
 }
