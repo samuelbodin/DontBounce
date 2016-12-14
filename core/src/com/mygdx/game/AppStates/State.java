@@ -1,17 +1,16 @@
 package com.mygdx.game.AppStates;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public abstract class State
 {
     public StateManager m_sm = null;
-    Cam m_cam = null;
+    com.mygdx.game.Basics.Cam m_cam = null;
 
     public State(StateManager sm)
     {
         m_sm = sm;
-        m_cam = new Cam();
+        m_cam = new com.mygdx.game.Basics.Cam();
     }
 
     public abstract void update(float dt);
