@@ -15,6 +15,9 @@ public class InputHandler
     private Application.ApplicationType m_platform;
     private final float m_desktopMoveFactor;
 
+    //For user testing: Values 0-2 to change steering mode
+    private int m_steeringMode = 0;
+
     public InputHandler()
     {
         m_desktopMoveFactor = 1f;
@@ -31,7 +34,21 @@ public class InputHandler
     {
         switch(m_platform) {
             case Android:
-                m_deltaMove = -Gdx.input.getAccelerometerX();
+                switch (m_steeringMode)
+                {
+                    case 0:
+                        //Original steering implementation
+                        m_deltaMove = -Gdx.input.getAccelerometerX();
+                        break;
+                    case 1:
+                        //Rotate phone around Z-axle steering
+                        m_deltaMove = -Gdx.input.getGyroscopeZ()*5;
+                        break;
+                    case 2:
+                        //Original steering but done with gyro
+                        m_deltaMove = Gdx.input.getGyroscopeY()*5;
+                        break;
+                }
                 break;
             case WebGL:
             case Desktop:
