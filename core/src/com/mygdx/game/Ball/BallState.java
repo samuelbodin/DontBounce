@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Basics.Drawable;
 import com.mygdx.game.Basics.InputHandler;
+import com.mygdx.game.Obstacles.Obstacle;
 
 abstract class BallState extends Drawable
 {
@@ -52,6 +53,7 @@ abstract class BallState extends Drawable
         sb.draw(m_texture,x-r,y-r,r+r,r+r);
     }
     protected abstract void onCollision(Vector2 pos, int side);
+    protected abstract void onCollision(Vector2 pos, int side, Vector2 pos1, Vector2 pos2);
 
     @Override
     public String toString()

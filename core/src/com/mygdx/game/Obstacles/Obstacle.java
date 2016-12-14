@@ -90,22 +90,26 @@ public abstract class Obstacle extends Collidable
         if((x >= m_position.x && x <= m_position.x + m_width)
                 && y >= m_position.y + m_height/2)
         {
+            // Top
             side = 0;
         }
         else if((x >= m_position.x && x <= m_position.x + m_width)
                 && y < m_position.y + m_height/2)
         {
+            // Bottom
             side = 2;
         }
         else if(x >= m_position.x + m_width/2
                 && y >= m_position.y && y <= m_position.y + m_height)
         {
-            side = 3;
+            // Right
+            side = 1;
         }
         else if(x < m_position.x + m_width/2
                 && y >= m_position.y && y <= m_position.y + m_height)
         {
-            side = 4;
+            // Left
+            side = 2;
         }
         else
         {
@@ -127,7 +131,8 @@ public abstract class Obstacle extends Collidable
 
             //Gdx.app.log("JS","- Hit - id: " + arr.get(index).m_id + " side: " + arr.get(index).m_side + " @ index: " + index);
 
-            b.onCollision(collisionPosition, arr.get(index).m_side);
+            //b.onCollision(collisionPosition, arr.get(index).m_side);
+            b.onCollision(collisionPosition, arr.get(index).m_side, this.m_position, new Vector2(this.m_width,this.m_height));
         }
     }
 

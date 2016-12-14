@@ -84,6 +84,53 @@ public class BallStateMoveable extends BallState
         //m_ball.m_position.y = pos.y+m_ball.m_radius-1;
         Random rnd = new Random();
 
+
+        if(m_ball.m_velocity.y >= 0 && m_ball.m_velocity.y <= -m_gravity)
+        {
+            m_ball.m_isOnGround = true;
+            m_ball.m_velocity.y = 0;
+        }
+        else
+        {
+            m_ball.m_velocity.scl(0,-0.95f);
+            sound[rnd.nextInt(sound.length)].play(1.0f);
+            Gdx.app.log("COLL", "KROCK");
+        }
+    }
+
+    @Override
+    protected void onCollision(Vector2 pos, int side, Vector2 pos1, Vector2 pos2 )
+    {
+        //m_ball.m_position.y = pos.y+m_ball.m_radius-1;
+        Random rnd = new Random();
+
+        // Move ball from overlapping obstacle
+        switch (side)
+        {
+            case 0: // Top
+                m_ball.m_position.y = pos1.y+pos2.y+m_ball.m_radius;
+                break;
+            case 1: // Right
+                m_ball.m_position.y = pos1.x+pos2.x+m_ball.m_radius;
+                break;
+            case 2: // Bottom
+                m_ball.m_position.y = pos1.y-m_ball.m_radius;
+                break;
+            case 3: // Left
+                m_ball.m_position.y = pos1.x-m_ball.m_radius;
+                break;
+            default:
+                if(m_ball.m_position.x <= pos1.x+(pos2.x/2))
+                {
+                    m_ball.m_position.x = pos1.x-m_ball.m_radius-1;
+                }
+                else
+                {
+                    m_ball.m_position.x = pos1.x+pos2.x+m_ball.m_radius+1;
+                }
+                break;
+        }
+
         if(m_ball.m_velocity.y >= 0 && m_ball.m_velocity.y <= -m_gravity)
         {
             m_ball.m_isOnGround = true;
@@ -94,8 +141,6 @@ public class BallStateMoveable extends BallState
             m_ball.m_velocity.scl(0,-0.95f);
             sound[rnd.nextInt(sound.length)].play(1.0f);
         }
-
-
     }
 
     @Override

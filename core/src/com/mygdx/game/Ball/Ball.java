@@ -63,6 +63,10 @@ public class Ball
     {
         m_state.onCollision(pos, side);
     }
+    public void onCollision(Vector2 pos, int side, Vector2 pos1, Vector2 pos2)
+    {
+        m_state.onCollision(pos, side, pos1, pos2);
+    }
     public Vector2 getPosition()
     {
         return m_position;

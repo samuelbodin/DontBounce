@@ -59,6 +59,12 @@ public class BallStateNormal extends BallState
     }
 
     @Override
+    protected void onCollision(Vector2 pos, int side, Vector2 pos1, Vector2 pos2)
+    {
+
+    }
+
+    @Override
     public String toString()
     {
         String str = super.toString();
