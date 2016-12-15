@@ -1,32 +1,34 @@
 package com.mygdx.game.AppStates;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.App;
-import com.mygdx.game.Basics.AssetLoader;
 
 public class MenuState extends State
 {
 
-    private StateManager m_sm;
+    private BitmapFont m_font;
+    private ImageButton m_playBtn, m_levelBtn, m_soundBtn;
+    private Label m_heading;
+    private Skin m_skin;
+    private Sprite m_background;
     private Stage m_stage;
-    private AssetLoader m_al;
-    private Skin m_btnSkin;
-    private TextButton m_playBtn;
-    private TextButton m_levelBtn;
-    private TextButton m_continueBtn;
+    private StateManager m_sm;
+    private TextureAtlas m_icons;
+
 
     public MenuState(StateManager sm)
     {
@@ -37,29 +39,68 @@ public class MenuState extends State
         m_stage = new Stage(new StretchViewport(App.m_worldW, App.m_worldH));
         Gdx.input.setInputProcessor(m_stage);
 
-        m_btnSkin = new Skin(Gdx.files.internal("skins/default/uiskin.json"));
+        // Background
+        Texture bg = new Texture(Gdx.files.internal("menubg.png"));
+        m_background = new Sprite(bg, 0, 0, bg.getWidth(), bg.getHeight());
+        m_background.setSize(bg.getWidth(), bg.getHeight());
 
-        m_playBtn = new TextButton("PLAY", m_btnSkin);
-        m_playBtn.getLabel().setFontScale(3);
+        m_icons = new TextureAtlas("icons/icons.pack");
+        m_skin = new Skin(m_icons);
 
-        m_levelBtn = new TextButton("SELECT LEVEL", m_btnSkin);
-        m_levelBtn.getLabel().setFontScale(3);
 
-        m_continueBtn = new TextButton("CONTINUE", m_btnSkin);
-        m_continueBtn.getLabel().setFontScale(3);
+        // Heading & Font
+        m_font = new BitmapFont(Gdx.files.internal("slackeyfont/slackey100.fnt"));
 
-        Table table = new Table();
-        table.center();
-        table.setFillParent(true);
+        Label.LabelStyle ls = new Label.LabelStyle(m_font, new Color(0,0,0,0.5f));
 
+        m_heading = new Label("Don't Bounce", ls);
+        m_heading.setFontScale(0.7f);
+
+
+        // Buttons
+        ImageButton.ImageButtonStyle playBtnStyle = new ImageButton.ImageButtonStyle();
+        playBtnStyle.up = m_skin.getDrawable("play");
+        playBtnStyle.down = m_skin.getDrawable("play");
+
+        ImageButton.ImageButtonStyle levelBtnStyle = new ImageButton.ImageButtonStyle();
+        levelBtnStyle.up = m_skin.getDrawable("pic");
+        levelBtnStyle.down = m_skin.getDrawable("pic");
+
+        ImageButton.ImageButtonStyle soundBtnStyle = new ImageButton.ImageButtonStyle();
+        soundBtnStyle.up = m_skin.getDrawable("sound1");
+        soundBtnStyle.checked = m_skin.getDrawable("sound2");
+
+        m_playBtn = new ImageButton(playBtnStyle);
+        m_levelBtn = new ImageButton(levelBtnStyle);
+        m_soundBtn = new ImageButton(soundBtnStyle);
+
+        m_playBtn.setColor(new Color(255, 0, 0, 0.5f));
+        //m_levelBtn.setColor(new Color(0, 255, 0, 1));
+
+
+        // Add click listeners
         setupClickListeners();
 
+        // Table
+        Table table = new Table();
+        table.setFillParent(true);
+        table.center();
+        Table controls = new Table();
+        Table footer = new Table();
 
-        table.add(m_playBtn).expandX();
+        //table.debug();
+        table.add(m_heading).expand(0, 2).bottom();
         table.row();
-        table.add(m_continueBtn).expandX().padTop(30f);
+        table.add(controls).expandY();
         table.row();
-        table.add(m_levelBtn).expandX().padTop(30f);
+        table.add(footer).expandY().bottom().right();
+
+       // controls.debug();
+        controls.add(m_playBtn).width(200).height(200).expandX().padRight(50);
+        controls.add(m_levelBtn).width(200).height(200).expandX();
+
+        footer.add(m_soundBtn).width(100).height(100).padBottom(20);
+        //footer.debug();
 
         m_stage.addActor(table);
 
@@ -77,14 +118,6 @@ public class MenuState extends State
             }
         });
 
-        m_continueBtn.addListener(new ChangeListener()
-        {
-            @Override
-            public void changed(ChangeEvent event, Actor actor)
-            {
-                //m_sm.pop();
-            }
-        });
 
         m_levelBtn.addListener(new ChangeListener()
         {
@@ -108,9 +141,14 @@ public class MenuState extends State
         m_stage.getViewport().update(width, height);
     }
 
+
     @Override
-    public void render(SpriteBatch sr)
+    public void render(SpriteBatch sb)
     {
+        m_stage.getBatch().begin();
+        m_stage.getBatch().draw(m_background, 0, 0, App.m_worldW, App.m_worldH);
+        m_stage.getBatch().end();
+
         m_stage.draw();
     }
 
@@ -124,5 +162,9 @@ public class MenuState extends State
     public void dispose()
     {
 
+        m_background.getTexture().dispose();
     }
+
+
+
 }
