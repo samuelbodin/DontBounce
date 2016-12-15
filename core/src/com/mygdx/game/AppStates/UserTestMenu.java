@@ -146,7 +146,7 @@ public class UserTestMenu extends State
             public void changed(ChangeEvent event, Actor actor)
             {
                 // Ball trail and foreground
-                String [] bgFiles = {"flatbg01.png", "flatbg02.png", "flatbg01.png"};
+                String [] bgFiles = {"flatbg01.png", "flatbg02.png", "flatbg03.png"};
                 m_sm.set(new RicState(m_sm, 5, 8, 25, 10, 1, true, bgFiles, "flatbgforeground.png"));
             }
         });
