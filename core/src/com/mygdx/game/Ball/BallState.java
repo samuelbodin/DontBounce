@@ -38,6 +38,7 @@ abstract class BallState extends Drawable
     {
         m_ball = b;
         initTrail();
+
     }
 
     private void initTrail()
@@ -113,7 +114,6 @@ abstract class BallState extends Drawable
     @Override
     public void render(SpriteBatch sb)
     {
-
         if(doTrail)
         {
             for (Sprite s : m_trail)
