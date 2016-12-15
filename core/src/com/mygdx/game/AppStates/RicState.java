@@ -23,7 +23,7 @@ public class RicState extends State
     private Ball m_ball = null;
     private Array<Collidable> m_collidables = null;
     private static final float m_worldWidth = App.m_worldW;
-    private static final float m_worldHeight = 15000;
+    private static final float m_worldHeight = 500000;
     private static final float m_viewportWidth = App.m_worldW;
     private static final float m_viewportHeight = App.m_worldH;
     private WorldBackground m_background;
@@ -113,14 +113,18 @@ public class RicState extends State
 
         handleInput();
         m_ball.update(dt);
+        float balldia = 32
 
         for (Collidable c : m_collidables)
         {
-            // KOLLA c.m_position.y
+            if(c.m_position.y < m_ball.getPosition().y - balldia || c.m_position.y > m_ball.getPosition().y + balldia)
+            {
+                continue;
+            }
             c.update(dt);
             c.checkCollision(m_ball);
         }
-
+        Gdx.app.log("DT", Float.toString(balldia));
         if(m_cam.position.y > -m_worldHeight)
         {
             m_cam.setToBallPos(dt);
@@ -140,6 +144,10 @@ public class RicState extends State
 
         for(Collidable c : m_collidables)
         {
+            if(c.m_position.y < m_ball.getPosition().y - App.m_worldH || c.m_position.y > m_ball.getPosition().y + App.m_worldH)
+            {
+                continue;
+            }
             c.render(sb);
         }
 
