@@ -63,19 +63,16 @@ public class MenuState extends State
         playBtnStyle.down = m_skin.getDrawable("play");
 
         ImageButton.ImageButtonStyle levelBtnStyle = new ImageButton.ImageButtonStyle();
-        levelBtnStyle.up = m_skin.getDrawable("pic");
-        levelBtnStyle.down = m_skin.getDrawable("pic");
+        levelBtnStyle.up = m_skin.getDrawable("pics");
+        levelBtnStyle.down = m_skin.getDrawable("pics");
 
         ImageButton.ImageButtonStyle soundBtnStyle = new ImageButton.ImageButtonStyle();
-        soundBtnStyle.up = m_skin.getDrawable("sound1");
-        soundBtnStyle.checked = m_skin.getDrawable("sound2");
+        soundBtnStyle.up = m_skin.getDrawable("sound");
+        soundBtnStyle.checked = m_skin.getDrawable("soundmute");
 
         m_playBtn = new ImageButton(playBtnStyle);
         m_levelBtn = new ImageButton(levelBtnStyle);
         m_soundBtn = new ImageButton(soundBtnStyle);
-
-        m_playBtn.setColor(new Color(255, 0, 0, 0.5f));
-        //m_levelBtn.setColor(new Color(0, 255, 0, 1));
 
 
         // Add click listeners
