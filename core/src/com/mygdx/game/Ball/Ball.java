@@ -1,5 +1,6 @@
 package com.mygdx.game.Ball;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
@@ -28,13 +29,18 @@ public class Ball
         m_history.addToHistory(new com.mygdx.game.Basics.Circle(m_position,m_radius, m_iterator++));
     }
 
+    public void doTrail()
+    {
+        m_state.doTrail = true;
+    }
+
     public void setState(BallState s)
     {
         m_state = s;
     }
     public void update(float dt)
     {
-        m_state.update(dt);
+        //m_state.update(dt);
 
         if(m_isOnGround)
         {
@@ -52,6 +58,8 @@ public class Ball
         }
 
         m_position.add(m_velocity.x*dt,m_velocity.y*dt);
+
+        m_state.update(dt);
 
         m_history.addToHistory(new com.mygdx.game.Basics.Circle(m_position, m_radius, m_iterator++));
     }

@@ -21,9 +21,9 @@ public class ObstacleBuilder extends Drawable
         m_posX = x;
         m_posY = y;
 
-        m_start = new Sprite(new Texture("plstart.png"));
-        m_body = new Sprite(new Texture("plbody.png"));
-        m_end = new Sprite(new Texture("plend.png"));
+        m_start = new Sprite(new Texture("flatobleft.png"));
+        m_body = new Sprite(new Texture("flatobbody.png"));
+        m_end = new Sprite(new Texture("flatobright.png"));
 
         m_start.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         m_body.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
@@ -37,10 +37,10 @@ public class ObstacleBuilder extends Drawable
         m_body.setPosition(x+m_start.getWidth(),y);
         m_end.setPosition(m_body.getX()+m_body.getWidth(),y);
 
-        Color c = new Color(1,0.6f,0.2f,1);
-        m_start.setColor(c);
-        m_body.setColor(c);
-        m_end.setColor(c);
+        //Color c = new Color(1,0.6f,0.2f,1);
+        //m_start.setColor(c);
+        //m_body.setColor(c);
+        //m_end.setColor(c);
 
     }
 

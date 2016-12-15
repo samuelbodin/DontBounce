@@ -1,11 +1,13 @@
 package com.mygdx.game.AppStates;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.Basics.WorldBackground;
 
 public abstract class State
 {
     public StateManager m_sm = null;
     com.mygdx.game.Basics.Cam m_cam = null;
+    private WorldBackground m_background;
 
     public State(StateManager sm)
     {

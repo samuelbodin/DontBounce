@@ -47,10 +47,9 @@ public class UserTest01State extends State
         m_cam.setBall(m_ball);
 
         m_background = new WorldBackground(m_viewportWidth, m_viewportHeight, m_cam, true);
-        m_background.addFile("mountbg01.png");
-        m_background.addFile("mountbg01.png");
-        m_background.addFile("mountbg03.png");
-        m_background.addFile("mountbg04.png");
+        //m_background.addFile("flatbg01.png");
+        //m_background.addFile("flatbg02.png");
+        //m_background.addFile("flatbg03.png");
 
         m_level = new LevelGenerator(5, m_worldHeight, 12, 15, 45, m_viewportWidth/6);
         m_level.addGoal(m_sm);
@@ -81,10 +80,9 @@ public class UserTest01State extends State
         m_cam.setBall(m_ball);
 
         m_background = new WorldBackground(m_viewportWidth, m_viewportHeight, m_cam, foreground);
-        m_background.addFile("mountbg01.png");
-        m_background.addFile("mountbg01.png");
-        m_background.addFile("mountbg03.png");
-        m_background.addFile("mountbg04.png");
+        //m_background.addFile("flatbg01.png");
+        //m_background.addFile("flatbg02.png");
+        //m_background.addFile("flatbg03.png");
 
         m_level = new LevelGenerator(seed, m_worldHeight, obstacleSizeFactor, obstacleSeparationFactor, obstacleMinSpacingFactor, m_viewportWidth/12);
         m_level.addGoal(m_sm);
@@ -112,10 +110,14 @@ public class UserTest01State extends State
             }
 
             m_ball.update(dt);
-            m_cam.setToBallPos(dt);
-            m_cam.update();
-            m_background.update(dt);
-            m_background.setPosition(m_cam.getDeltaPosition());
+            Gdx.app.log("CAM: ", Float.toString(m_cam.position.y));
+            if(m_cam.position.y > -m_worldHeight)
+            {
+                m_cam.setToBallPos(dt);
+                m_cam.update();
+                m_background.update(dt);
+                m_background.setPosition(m_cam.getDeltaPosition());
+            }
 
         }
         if(m_countDown > 0)

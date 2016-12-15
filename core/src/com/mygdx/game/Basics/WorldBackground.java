@@ -26,7 +26,7 @@ public class WorldBackground extends Drawable
 
     private Sprite[] m_foreground;
     private Cam m_cam;
-    private Texture m_texture[];
+    private Texture m_texture = null;
     private boolean m_useForeground = false;
 
     public WorldBackground(float viewportWidth, float viewportHeight)
@@ -50,30 +50,45 @@ public class WorldBackground extends Drawable
         m_viewportWidth = viewportWidth;
         m_viewportHeight = viewportHeight;
         m_useForeground = foreground;
-        if(m_useForeground)
+/*        if(m_useForeground)
         {
-            m_texture = new Texture[3];
-            m_texture[0] = new Texture("skyscraper3.png");
-            m_texture[1] = new Texture("skyscraper3d.png");
-            m_texture[2] = new Texture("skyscraper3e.png");
+            m_texture = new Texture("flatbgforeground.png");
+
 
             m_foreground = new Sprite[2];
-            m_foreground[0] = new Sprite(m_texture[0]);
-            m_foreground[1] = new Sprite(m_texture[0]);
+            m_foreground[0] = new Sprite(m_texture);
+            m_foreground[1] = new Sprite(m_texture);
             for (Sprite s : m_foreground)
             {
                 s.setSize(m_viewportWidth * 1.2f, m_viewportWidth * 1.2f * (s.getHeight() / s.getWidth()));
             }
             m_foreground[0].setPosition((m_viewportWidth - m_foreground[0].getWidth()) / 2, -m_cam.position.y);
             m_foreground[1].setPosition(m_foreground[0].getX(), m_foreground[0].getY() - m_foreground[1].getHeight());
-        }
+        }*/
     }
 
-    public void addFile(String filename)
+    public void addBackgroundImage(String filename)
     {
         m_sprite.push( new Sprite(new Texture(filename)) );
         setSize();
         setPosition();
+    }
+
+    public void addForegroundImage(String filename)
+    {
+        m_texture = new Texture(filename);
+
+        m_foreground = new Sprite[3];
+        m_foreground[0] = new Sprite(m_texture);
+        m_foreground[1] = new Sprite(m_texture);
+        m_foreground[2] = new Sprite(m_texture);
+        for (Sprite s : m_foreground)
+        {
+            s.setSize(m_viewportWidth * 1.2f, m_viewportWidth * 1.2f * (s.getHeight() / s.getWidth()));
+        }
+        m_foreground[0].setPosition((m_viewportWidth - m_foreground[0].getWidth()) / 2, -m_cam.position.y);
+        m_foreground[1].setPosition(m_foreground[0].getX(), m_foreground[0].getY() - m_foreground[1].getHeight());
+        m_foreground[2].setPosition(m_foreground[0].getX(), m_foreground[1].getY() - m_foreground[2].getHeight());
     }
 
     private void setSize()
@@ -88,9 +103,11 @@ public class WorldBackground extends Drawable
 
     private void setPosition()
     {
+        int i = 0;
         for(Sprite s : m_sprite)
         {
-            s.setPosition((m_viewportWidth-s.getWidth())/2,(m_viewportHeight-s.getHeight()));
+            s.setPosition((m_viewportWidth-s.getWidth())/2,(m_viewportHeight-s.getHeight())-i*150);
+            i++;
         }
     }
 
@@ -101,7 +118,7 @@ public class WorldBackground extends Drawable
         int i = 0;
         for(Sprite s : m_sprite)
         {
-            s.setPosition(s.getX(), s.getY() + (pos.y * (m_lagFactor+(i/10)) ));
+            s.setPosition(s.getX(), s.getY() + pos.y*m_lagFactor );
             i++;
         }
     }
@@ -109,45 +126,19 @@ public class WorldBackground extends Drawable
     @Override
     public void update(float dt)
     {
-        //Gdx.app.log("Camera ", Float.toString(m_cam.position.y));
-
         if(m_useForeground)
         {
             for (int i = 0; i < m_foreground.length; i++)
             {
                 m_foreground[i].setPosition(m_foreground[i].getX(), m_foreground[i].getY() + (m_cam.getDeltaPosition().y * 0.1f));
-                //Gdx.app.log("Spr ", Float.toString(m_foreground[i].getY()));
 
-                if (m_foreground[i].getY() >= m_cam.position.y + (m_cam.viewportHeight) - (m_cam.viewportHeight / 4))
+                if (m_foreground[i].getY()-m_foreground[i].getHeight() >= m_cam.position.y + (m_cam.viewportHeight) - (m_cam.viewportHeight / 4))
                 {
-                    //int val = (int)Math.ceil(m_cam.position.y/s.getHeight());
-
-                    //float setToPos = (float)(val-2)*s.getHeight();
-                    m_foreground[i].setPosition(m_foreground[i].getX(), m_foreground[(i + 1) % m_foreground.length].getY() - (m_foreground[i].getHeight()));
-                    //Gdx.app.log("Cam ", Float.toString(m_cam.position.y));
-                    //Gdx.app.log("Spr ", Float.toString(s.getY()));
-                    //Gdx.app.log("Mod ", Float.toString(val));
-                    //Gdx.app.log("Pos ", Float.toString(setToPos));
-                }
-            }
-
-
-            if (Math.abs(m_cam.getDeltaPosition().y) > 10)
-            {
-                for (int i = 0; i < m_foreground.length; i++)
-                {
-                    m_foreground[i].setTexture(m_texture[2]);
+                    m_foreground[i].setPosition(m_foreground[i].getX(), m_foreground[(i + 1) % m_foreground.length].getY() - (m_foreground[i].getHeight()*2));
                 }
 
-            } else
-            {
-                for (int i = 0; i < m_foreground.length; i++)
-                {
-                    m_foreground[i].setTexture(m_texture[0]);
-                }
             }
         }
-
     }
 
     @Override
@@ -173,6 +164,8 @@ public class WorldBackground extends Drawable
         {
             s.getTexture().dispose();
         }
+
+        m_texture.dispose();
 
     }
 }

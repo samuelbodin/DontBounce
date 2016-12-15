@@ -1,8 +1,12 @@
 package com.mygdx.game.Ball;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.App;
+
+import java.util.Random;
 
 /**
  * Created by Rickard on 2016-12-09.
@@ -10,14 +14,20 @@ import com.mygdx.game.App;
 
 public class BallStateFast extends BallState
 {
-
+    Sound sound[];
     public BallStateFast(Ball b)
     {
         m_ball = b;
-        m_texture = new Texture("ball2.png");
+        m_texture = new Texture("flatball.png");
         m_timer = 400;
         m_gravity = -80.0f;
         m_maxSpeed = -1500.0f;
+
+        sound = new Sound[4];
+        sound[0] = Gdx.audio.newSound(Gdx.files.internal("sound/bounce01.wav"));
+        sound[1] = Gdx.audio.newSound(Gdx.files.internal("sound/bounce02.wav"));
+        sound[2] = Gdx.audio.newSound(Gdx.files.internal("sound/bounce03.wav"));
+        sound[3] = Gdx.audio.newSound(Gdx.files.internal("sound/bounce04.wav"));
     }
 
 
@@ -60,9 +70,54 @@ public class BallStateFast extends BallState
     }
 
     @Override
-    protected void onCollision(Vector2 pos, int side, Vector2 pos1, Vector2 pos2)
+    protected void onCollision(Vector2 pos, int side, Vector2 pos1, Vector2 pos2 )
     {
+        //m_ball.m_position.y = pos.y+m_ball.m_radius-1;
+        Random rnd = new Random();
 
+        // Move ball from overlapping obstacle
+        switch (side)
+        {
+            case 0: // Top
+                //m_ball.m_position.y = pos1.y+pos2.y+m_ball.m_radius;
+                m_ball.m_position.y = pos.y+m_ball.m_radius;
+                break;
+            case 1: // Right
+                //m_ball.m_position.x = pos1.x+pos2.x+m_ball.m_radius;
+                m_ball.m_position.x = pos.x+m_ball.m_radius;
+                break;
+            case 2: // Bottom
+                //m_ball.m_position.y = pos1.y-m_ball.m_radius;
+                m_ball.m_position.y = pos.y-m_ball.m_radius;
+                break;
+            case 3: // Left
+                m_ball.m_position.x = pos1.x-m_ball.m_radius;
+                m_ball.m_position.x = pos.x-m_ball.m_radius;
+                break;
+            default:
+                if(m_ball.m_position.x <= pos1.x+(pos2.x/2))
+                {
+                    m_ball.m_position.x = pos1.x-m_ball.m_radius-1;
+                }
+                else
+                {
+                    m_ball.m_position.x = pos1.x+pos2.x+m_ball.m_radius+1;
+                }
+                break;
+        }
+
+        if(m_ball.m_velocity.y >= -30 && m_ball.m_velocity.y <= -m_gravity)
+        {
+            m_ball.m_isOnGround = true;
+            m_ball.m_velocity.y = 0;
+        }
+        else
+        {
+            //m_ball.m_velocity.scl(0,-0.90f);
+            m_ball.m_velocity.y *= -0.9;
+
+            sound[rnd.nextInt(sound.length)].play(1.0f * (m_ball.m_velocity.y/700) + 0.2f, 1f * (m_ball.m_velocity.y/700) + 1f, 0);
+        }
     }
 
     @Override

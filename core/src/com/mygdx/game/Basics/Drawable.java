@@ -10,6 +10,7 @@ public abstract class Drawable implements Disposable
 {
     protected int m_zIndex = 0;
     protected Texture m_texture = null;
+    protected Sprite m_sprite = null;
 
     public abstract void update(float dt);
     public abstract void render(SpriteBatch sb);

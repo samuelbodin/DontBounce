@@ -8,7 +8,7 @@ import java.util.Stack;
 
 public class StateManager
 {
-    private Stack<State> m_states = null;
+    public Stack<State> m_states = null;
 
     public StateManager()
     {
@@ -29,6 +29,11 @@ public class StateManager
     public void pop()
     {
         m_states.pop();
+    }
+
+    public State peek()
+    {
+        return m_states.peek();
     }
 
     public void update(float dt)

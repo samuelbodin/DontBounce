@@ -3,6 +3,8 @@ package com.mygdx.game.Ball;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g3d.attributes.FloatAttribute;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.App;
 import com.mygdx.game.Basics.InputHandler;
@@ -25,31 +27,25 @@ public class BallStateMoveable extends BallState
 
     public BallStateMoveable(Ball b)
     {
-        m_ball = b;
-        m_texture = new Texture("ball1.png");
-        m_timer = 400;
-        m_gravity = -50.0f;
-        m_maxSpeed = -700.0f;
-        m_steeringFactor = 1.5f;
-
-        sound = new Sound[4];
-        sound[0] = Gdx.audio.newSound(Gdx.files.internal("sound/bounce01.wav"));
-        sound[1] = Gdx.audio.newSound(Gdx.files.internal("sound/bounce02.wav"));
-        sound[2] = Gdx.audio.newSound(Gdx.files.internal("sound/bounce03.wav"));
-        sound[3] = Gdx.audio.newSound(Gdx.files.internal("sound/bounce04.wav"));
+        this(b, -100f, -1400f, 1.5f);
     }
 
 
     public BallStateMoveable(Ball b, float gravity, float maxSpeed, float steeringFactor)
     {
         m_ball = b;
-        m_texture = new Texture("ball1.png");
+        m_texture = new Texture("flatball.png");
+        m_sprite = new Sprite(m_texture);
         m_timer = 400;
         m_gravity = gravity;
         m_maxSpeed = maxSpeed;
         m_steeringFactor = steeringFactor;
 
-
+        sound = new Sound[4];
+        sound[0] = Gdx.audio.newSound(Gdx.files.internal("sound/bounce01.wav"));
+        sound[1] = Gdx.audio.newSound(Gdx.files.internal("sound/bounce02.wav"));
+        sound[2] = Gdx.audio.newSound(Gdx.files.internal("sound/bounce03.wav"));
+        sound[3] = Gdx.audio.newSound(Gdx.files.internal("sound/bounce04.wav"));
     }
 
     @Override
@@ -72,10 +68,16 @@ public class BallStateMoveable extends BallState
         {
             move = (m_prevDeltaMove+m_input.m_deltaMove)/2;
             m_ball.m_position.x += move * 300 * dt * m_steeringFactor;
-            m_ball.m_velocity.x += move * 150 * dt * m_steeringFactor;
+            m_ball.m_velocity.x += move * 20 * dt * m_steeringFactor;
         }
+        m_sprite.setOriginCenter();
+        m_sprite.setSize(m_ball.m_radius*2, m_ball.m_radius*2);
+        m_sprite.setPosition(m_ball.m_position.x-m_ball.m_radius, m_ball.m_position.y-m_ball.m_radius);
+        //m_sprite.setSize(m_ball.m_radius*2, m_ball.m_radius*2);
+        //m_sprite.setOriginCenter();
 
         m_prevDeltaMove = m_input.m_deltaMove;
+
     }
 
     @Override
@@ -85,7 +87,7 @@ public class BallStateMoveable extends BallState
         Random rnd = new Random();
 
 
-        if(m_ball.m_velocity.y >= 0 && m_ball.m_velocity.y <= -m_gravity)
+        if(m_ball.m_velocity.y >= -30 && m_ball.m_velocity.y <= -m_gravity)
         {
             m_ball.m_isOnGround = true;
             m_ball.m_velocity.y = 0;
@@ -94,7 +96,6 @@ public class BallStateMoveable extends BallState
         {
             m_ball.m_velocity.scl(0,-0.95f);
             sound[rnd.nextInt(sound.length)].play(1.0f);
-            Gdx.app.log("COLL", "KROCK");
         }
     }
 
@@ -108,16 +109,20 @@ public class BallStateMoveable extends BallState
         switch (side)
         {
             case 0: // Top
-                m_ball.m_position.y = pos1.y+pos2.y+m_ball.m_radius;
+                //m_ball.m_position.y = pos1.y+pos2.y+m_ball.m_radius;
+                m_ball.m_position.y = pos.y+m_ball.m_radius+1;
                 break;
             case 1: // Right
-                m_ball.m_position.y = pos1.x+pos2.x+m_ball.m_radius;
+                //m_ball.m_position.x = pos1.x+pos2.x+m_ball.m_radius;
+                m_ball.m_position.x = pos.x+m_ball.m_radius+1;
                 break;
             case 2: // Bottom
-                m_ball.m_position.y = pos1.y-m_ball.m_radius;
+                //m_ball.m_position.y = pos1.y-m_ball.m_radius;
+                m_ball.m_position.y = pos.y-m_ball.m_radius-1;
                 break;
             case 3: // Left
-                m_ball.m_position.y = pos1.x-m_ball.m_radius;
+                //m_ball.m_position.x = pos1.x-m_ball.m_radius;
+                m_ball.m_position.x = pos.x-m_ball.m_radius-1;
                 break;
             default:
                 if(m_ball.m_position.x <= pos1.x+(pos2.x/2))
@@ -131,15 +136,18 @@ public class BallStateMoveable extends BallState
                 break;
         }
 
-        if(m_ball.m_velocity.y >= 0 && m_ball.m_velocity.y <= -m_gravity)
+        if(m_ball.m_velocity.y >= -30 && m_ball.m_velocity.y <= -m_gravity)
         {
+
             m_ball.m_isOnGround = true;
             m_ball.m_velocity.y = 0;
         }
         else
         {
-            m_ball.m_velocity.scl(0,-0.95f);
-            sound[rnd.nextInt(sound.length)].play(1.0f);
+            //m_ball.m_velocity.scl(0,-0.90f);
+            m_ball.m_velocity.y *= -0.6;
+
+            sound[rnd.nextInt(sound.length)].play(1.0f * (m_ball.m_velocity.y/700) + 0.2f, 1f * (m_ball.m_velocity.y/700) + 1f, 0);
         }
     }
 

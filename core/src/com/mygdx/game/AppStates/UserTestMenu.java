@@ -43,22 +43,22 @@ public class UserTestMenu extends State
         m_btnSkin = new Skin(Gdx.files.internal("skins/default/uiskin.json"));
 
         m_oneBtn = new TextButton("Test 1", m_btnSkin);
-        m_oneBtn.getLabel().setFontScale(5);
+        m_oneBtn.getLabel().setFontScale(2);
 
         m_twoBtn = new TextButton("Test 2", m_btnSkin);
-        m_twoBtn.getLabel().setFontScale(5);
+        m_twoBtn.getLabel().setFontScale(2);
 
         m_threeBtn = new TextButton("Test 3", m_btnSkin);
-        m_threeBtn.getLabel().setFontScale(5);
+        m_threeBtn.getLabel().setFontScale(2);
 
         m_fourBtn = new TextButton("Test 4", m_btnSkin);
-        m_fourBtn.getLabel().setFontScale(5);
+        m_fourBtn.getLabel().setFontScale(2);
 
         m_fiveBtn = new TextButton("Test 5", m_btnSkin);
-        m_fiveBtn.getLabel().setFontScale(5);
+        m_fiveBtn.getLabel().setFontScale(2);
 
         m_sixBtn = new TextButton("Test 6", m_btnSkin);
-        m_sixBtn.getLabel().setFontScale(5);
+        m_sixBtn.getLabel().setFontScale(2);
 
         Table table = new Table();
         table.center();
@@ -90,7 +90,9 @@ public class UserTestMenu extends State
             @Override
             public void changed(ChangeEvent event, Actor actor)
             {
-                m_sm.set(new RicState(m_sm, 1, 8, 15, 10, 0));
+                // Slow moving
+                String [] bgFiles = {"flatbg01.png", "flatbg02.png", "flatbg03.png"};
+                m_sm.set(new RicState(m_sm, 1, 8, 15, 10, 3, false, bgFiles, "flatbgforeground.png"));
             }
         });
 
@@ -99,7 +101,9 @@ public class UserTestMenu extends State
             @Override
             public void changed(ChangeEvent event, Actor actor)
             {
-                m_sm.set(new RicState(m_sm, 2, 13, 15, 15, 0));
+                // Normal moving speed
+                String [] bgFiles = {"flatbg01.png", "flatbg02.png", "flatbg03.png"};
+                m_sm.set(new RicState(m_sm, 1, 8, 15, 10, 4, false, bgFiles, "flatbgforeground.png"));
             }
         });
 
@@ -108,7 +112,9 @@ public class UserTestMenu extends State
             @Override
             public void changed(ChangeEvent event, Actor actor)
             {
-                m_sm.set(new UserTest01State(m_sm, 3, 8, 25, 10, false, false));
+                // Fast moving
+                String [] bgFiles = {"flatbg01.png", "flatbg02.png", "flatbg03.png"};
+                m_sm.set(new RicState(m_sm, 1, 8, 15, 10, 5, false, bgFiles, "flatbgforeground.png"));
             }
         });
 
@@ -117,7 +123,9 @@ public class UserTestMenu extends State
             @Override
             public void changed(ChangeEvent event, Actor actor)
             {
-                m_sm.set(new UserTest01State(m_sm, 3, 8, 25, 10, true, true));
+                // Ball trail
+                String [] bgFiles = {"flatbg01.png", "flatbg02.png", "flatbg03.png"};
+                m_sm.set(new RicState(m_sm, 3, 8, 25, 10, 1, false, bgFiles, "flatbgforeground.png"));
             }
         });
 
@@ -126,7 +134,9 @@ public class UserTestMenu extends State
             @Override
             public void changed(ChangeEvent event, Actor actor)
             {
-                m_sm.set(new RicState(m_sm, 5, 10, 10, 10, 1));
+                // Foreground
+                String [] bgFiles = {"flatbg01.png", "flatbg02.png", "flatbg03.png"};
+                m_sm.set(new RicState(m_sm, 4, 8, 25, 10, 2, true, bgFiles, "flatbgforeground.png"));
             }
         });
 
@@ -135,7 +145,9 @@ public class UserTestMenu extends State
             @Override
             public void changed(ChangeEvent event, Actor actor)
             {
-                m_sm.set(new RicState(m_sm, 8, 15, 10, 15, 1));
+                // Ball trail and foreground
+                String [] bgFiles = {"flatbg01.png", "flatbg02.png", "flatbg01.png"};
+                m_sm.set(new RicState(m_sm, 5, 8, 25, 10, 1, true, bgFiles, "flatbgforeground.png"));
             }
         });
     }
