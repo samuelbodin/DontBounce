@@ -8,16 +8,18 @@ import java.util.ArrayList;
 public class Config
 {
 
-    private ArrayList<Chapter> m_chapters;
+    private ArrayList<Chapter> m_chapters = null;
     private static Config m_instance = null;
 
 
     private Config()
     {
+
+        m_chapters = new ArrayList<Chapter>();
         m_chapters.add(new ChapterOne());
     }
 
-    private static Config getInstance()
+    public static Config getInstance()
     {
         if(m_instance == null)
         {

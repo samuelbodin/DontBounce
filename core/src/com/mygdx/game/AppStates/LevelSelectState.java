@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.App;
+import com.mygdx.game.Basics.Config;
 import com.mygdx.game.levels.Chapter;
 import com.mygdx.game.levels.ChapterOne;
 
@@ -40,11 +41,14 @@ public class LevelSelectState extends State
     private TextButtonStyle m_levelBtnSkin;
     private Chapter m_chapter;
     private Integer m_currentLevel;
+    private Config m_cfg;
 
     public LevelSelectState(StateManager sm)
     {
 
         super(sm);
+
+        m_cfg = Config.getInstance();
 
         m_sm = sm;
 
@@ -114,11 +118,12 @@ public class LevelSelectState extends State
         m_levelTable.clear();
         m_chapter = m_chapters.get(m_currentChapter);
 
-        for (int i = 0; i < m_chapter.getLevels().length; i++)
+        for (int i = 0; i < m_chapter.getLevels().size(); i++)
         {
-            m_currentLevel = m_chapter.getLevels()[i];
+            m_currentLevel = m_chapter.getLevels().get(i);
 
             TextButton tmp = new TextButton(m_currentLevel.toString(), m_levelBtnSkin);
+            tmp.setName(m_currentLevel.toString());
             tmp.getLabel().setFontScale(0.7f);
             m_levelTable.add(tmp).width(200).height(100).padRight(20).expandX();
 
@@ -132,8 +137,7 @@ public class LevelSelectState extends State
                 @Override
                 public void changed(ChangeEvent event, Actor actor)
                 {
-
-                    m_sm.set(new RicState(m_sm, m_currentLevel, 8, 25, 10, 2, true, m_chapter.getBackgrounds(), m_chapter.getForeground()));
+                    m_sm.set(new RicState(m_sm, m_cfg.getLevel(Integer.parseInt(actor.getName()))));
                 }
             });
 

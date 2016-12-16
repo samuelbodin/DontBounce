@@ -13,6 +13,8 @@ import java.util.List;
 
 public class LevelData {
 
+    public int m_levelId;
+    public int m_chapterId;
     public float m_worldHeight = 15000;
     public Music m_music = null;
     public int m_seed;
@@ -43,6 +45,32 @@ public class LevelData {
         m_ballGravity = -10f;
         m_ballMaxSpeed = -1500f;
         m_ballSensitivity = 2f;
+    }
+
+    public LevelData(
+        int levelId,
+        int chapterId,
+        int seed,
+        boolean foreground,
+        int obstacleSizeFactor,
+        int obstacleSeparationFactor,
+        float obstacleMinSpacingFactor,
+        float ballGravity,
+        float ballMaxSpeed,
+        float ballSensitivity
+    )
+    {
+        m_levelId = levelId;
+        m_chapterId = chapterId;
+        m_seed = seed;
+        m_foreground = foreground;
+        m_obstacleSizeFactor = obstacleSizeFactor;
+        m_obstacleSeparationFactor = obstacleSeparationFactor;
+        m_obstacleMinSpacingFactor = obstacleMinSpacingFactor;
+        m_ballGravity = ballGravity;
+        m_ballMaxSpeed = ballMaxSpeed;
+        m_ballSensitivity = ballSensitivity;
+
     }
 
 }
