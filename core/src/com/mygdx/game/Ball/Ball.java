@@ -93,6 +93,11 @@ public class Ball
         return m_history.m_circles;
     }
 
+    public void dispose()
+    {
+        m_state.dispose();
+    }
+
     @Override
     public String toString()
     {

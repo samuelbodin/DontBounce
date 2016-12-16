@@ -40,7 +40,7 @@ public class Config
             {
                 if(level == j)
                 {
-                    return chapter.getLevel(level);
+                    //return chapter.getLevel(level);
                 }
             }
         }
