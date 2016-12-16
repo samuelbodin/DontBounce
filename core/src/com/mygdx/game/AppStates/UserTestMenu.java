@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.Basics.AssetLoader;
+import com.mygdx.game.Basics.LevelData;
 
 /**
  * Created by Rickard on 2016-12-09.
@@ -92,7 +93,7 @@ public class UserTestMenu extends State
             {
                 // Slow moving
                 String [] bgFiles = {"flatbg01.png", "flatbg02.png", "flatbg03.png"};
-                m_sm.set(new RicState(m_sm, 1, 8, 15, 10, 3, false, bgFiles, "flatbgforeground.png"));
+                m_sm.set(new RicState(m_sm, new LevelData()));
             }
         });
 
@@ -103,7 +104,7 @@ public class UserTestMenu extends State
             {
                 // Normal moving speed
                 String [] bgFiles = {"flatbg01.png", "flatbg02.png", "flatbg03.png"};
-                m_sm.set(new RicState(m_sm, 1, 8, 15, 10, 4, false, bgFiles, "flatbgforeground.png"));
+                m_sm.set(new RicState(m_sm, new LevelData()));
             }
         });
 
@@ -114,7 +115,7 @@ public class UserTestMenu extends State
             {
                 // Fast moving
                 String [] bgFiles = {"flatbg01.png", "flatbg02.png", "flatbg03.png"};
-                m_sm.set(new RicState(m_sm, 1, 8, 15, 10, 5, false, bgFiles, "flatbgforeground.png"));
+                m_sm.set(new RicState(m_sm, new LevelData()));
             }
         });
 
@@ -125,7 +126,7 @@ public class UserTestMenu extends State
             {
                 // Ball trail
                 String [] bgFiles = {"flatbg01.png", "flatbg02.png", "flatbg03.png"};
-                m_sm.set(new RicState(m_sm, 3, 8, 25, 10, 1, false, bgFiles, "flatbgforeground.png"));
+                m_sm.set(new RicState(m_sm, new LevelData()));
             }
         });
 
@@ -135,8 +136,20 @@ public class UserTestMenu extends State
             public void changed(ChangeEvent event, Actor actor)
             {
                 // Foreground
-                String [] bgFiles = {"flatbg01.png", "flatbg02.png", "flatbg03.png"};
-                m_sm.set(new RicState(m_sm, 4, 8, 25, 10, 2, true, bgFiles, "flatbgforeground.png"));
+                LevelData levelData = new LevelData();
+                levelData.m_seed = 4;
+                levelData.m_backgroundFiles.add("flatbg01.png");
+                levelData.m_backgroundFiles.add("flatbg02.png");
+                levelData.m_backgroundFiles.add("flatbg03.png");
+                levelData.m_foregroundFile = "flatbgforeground.png";
+                levelData.m_foreground = true;
+                levelData.m_obstacleSizeFactor = 8;
+                levelData.m_obstacleSeparationFactor = 25;
+                levelData.m_obstacleMinSpacingFactor = 10;
+                levelData.m_ballGravity = -10f;
+                levelData.m_ballMaxSpeed = -1500f;
+                levelData.m_ballSensitivity = 2f;
+                m_sm.set(new RicState(m_sm, levelData));
             }
         });
 
@@ -147,7 +160,7 @@ public class UserTestMenu extends State
             {
                 // Ball trail and foreground
                 String [] bgFiles = {"flatbg01.png", "flatbg02.png", "flatbg03.png"};
-                m_sm.set(new RicState(m_sm, 5, 8, 25, 10, 1, true, bgFiles, "flatbgforeground.png"));
+                m_sm.set(new RicState(m_sm, new LevelData()));
             }
         });
     }

@@ -76,12 +76,9 @@ public class LevelGenerator
         } while(m_lastObstableY > -m_worldHeight+(m_minObstacleYSpace*2));
     }
 
-    public void addGoal(StateManager sm)
+    public LevelGoal getGoal()
     {
-        //LevelGoal lg = new LevelGoal(0, m_lastObstableY - (m_minObstacleYSpace*3), m_worldWidth, 100);
-        LevelGoal lg = new LevelGoal(0, -m_worldHeight-(App.m_worldH/2), m_worldWidth, 100);
-        lg.setStateManager(sm);
-        m_collidables.add(lg);
+        return new LevelGoal(0, -m_worldHeight-(App.m_worldH/2), m_worldWidth, 100);
     }
 
     public Array<Collidable> getCollidables()
