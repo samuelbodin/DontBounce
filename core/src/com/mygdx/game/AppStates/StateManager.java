@@ -1,5 +1,6 @@
 package com.mygdx.game.AppStates;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.AppStates.State;
@@ -18,10 +19,12 @@ public class StateManager
     public void set(State s)
     {
         if(!m_states.empty()) {
-            m_states.peek().dispose();
-            m_states.clear();
+            //m_states.peek().dispose();
+            //m_states.clear();
+            m_states.pop().dispose();
         }
         m_states.push(s);
+
     }
 
     public void push(State s)
@@ -31,7 +34,9 @@ public class StateManager
 
     public void pop()
     {
-        m_states.pop();
+        //Gdx.app.log("RL", m_states.peek().toString());
+        //m_states.peek().dispose();
+        m_states.pop().dispose();
     }
 
     public State peek()

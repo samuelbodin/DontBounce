@@ -24,6 +24,7 @@ public class PauseState extends State
     private Sprite m_box;
     private Ball m_ball;
     private BitmapFont font;
+    private boolean delta = false;
 
     public PauseState(StateManager sm)
     {
@@ -48,7 +49,9 @@ public class PauseState extends State
     @Override
     public void update(float dt)
     {
-        handleInput();
+
+            handleInput();
+
     }
 
     @Override
@@ -63,8 +66,7 @@ public class PauseState extends State
     @Override
     public void handleInput()
     {
-        if(Gdx.input.justTouched())
-        {
+        if(Gdx.input.justTouched()) {
             m_sm.pop();
             //m_sm.set(new UserTestMenu(m_sm));
         }
@@ -74,6 +76,8 @@ public class PauseState extends State
     public void dispose()
     {
         m_box.getTexture().dispose();
+        font.dispose();
+        Gdx.app.log("RL", "PausState disposar");
     }
 
     @Override

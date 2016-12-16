@@ -24,17 +24,14 @@ public class RicState extends State
 {
     private Ball m_ball = null;
     private Array<Collidable> m_collidables = null;
-    private static final float m_worldWidth = App.m_worldW;
-    private static final float m_worldHeight = 1500;
     private static final float m_viewportWidth = App.m_worldW;
     private static final float m_viewportHeight = App.m_worldH;
     private WorldBackground m_background = null;
     private LevelGenerator m_level = null;
     private LevelGoal m_goal = null;
     private Viewport m_viewport = null;
-    Music m_music = null;
-
-    LevelData m_levelData;
+    private Music m_music = null;
+    private LevelData m_levelData = null;
 
     public RicState(StateManager sm)
     {
@@ -45,25 +42,26 @@ public class RicState extends State
     public RicState(StateManager sm, LevelData levelData)
     {
         super(sm);
+        m_levelData = levelData;
 
         //Setting up ball
         m_ball = new Ball(m_viewportWidth/2, 0, m_viewportWidth/40);
-        m_ball.setState(new BallStateMoveable(m_ball, levelData.m_ballGravity, levelData.m_ballMaxSpeed, levelData.m_ballSensitivity));
+        m_ball.setState(new BallStateMoveable(m_ball, m_levelData.m_ballGravity, m_levelData.m_ballMaxSpeed, m_levelData.m_ballSensitivity));
         m_ball.doTrail();
 
         // Paranting camera to ball
         m_cam.setBall(m_ball);
 
         // Creating new world background and add images
-        m_background = new WorldBackground(m_viewportWidth, m_viewportHeight, m_cam, levelData.m_foreground);
-        for(String s : levelData.m_backgroundFiles)
+        m_background = new WorldBackground(m_viewportWidth, m_viewportHeight, m_cam, m_levelData.m_foreground);
+        for(String s : m_levelData.m_backgroundFiles)
         {
             m_background.addBackgroundImage(s);
-            m_background.addForegroundImage(levelData.m_foregroundFile);
         }
+        m_background.addForegroundImage(m_levelData.m_foregroundFile);
 
         //Creating a new level and filling list of collidables
-        m_level = new LevelGenerator(levelData.m_seed, m_worldHeight, levelData.m_obstacleSizeFactor, levelData.m_obstacleSeparationFactor, levelData.m_obstacleMinSpacingFactor, m_viewportWidth/12);
+        m_level = new LevelGenerator(m_levelData.m_seed, m_levelData.m_worldHeight, m_levelData.m_obstacleSizeFactor, m_levelData.m_obstacleSeparationFactor, m_levelData.m_obstacleMinSpacingFactor, m_viewportWidth/12);
         m_goal = m_level.getGoal();
         m_collidables = new Array<Collidable>();
         m_collidables = m_level.getCollidables();
@@ -74,20 +72,19 @@ public class RicState extends State
         m_viewport.apply(true);
 
         //Setting up music
-        //m_music = Gdx.audio.newMusic(Gdx.files.internal("sound/gamemusic.wav"));
-        //m_music.setLooping(true);
-        //m_music.setVolume(0.5f);
+        m_music = Gdx.audio.newMusic(Gdx.files.internal("sound/gamemusic.wav"));
+        m_music.setLooping(true);
+        m_music.setVolume(0.5f);
         //m_music.play();
     }
 
     @Override
     public void update(float dt)
     {
-
         handleInput();
         m_ball.update(dt);
-        float balldia = 32;
 
+        // Check collision with obstacles that are visible
         for (Collidable c : m_collidables)
         {
             if(c.isOnScreen(m_ball.getPosition()))
@@ -97,13 +94,16 @@ public class RicState extends State
             }
         }
 
-        if(m_cam.position.y > -m_worldHeight)
+        // Stop camera at worlds end
+        if(m_cam.position.y > -m_levelData.m_worldHeight)
         {
             m_cam.setToBallPos(dt);
             m_cam.update();
             m_background.update(dt);
             m_background.setPosition(m_cam.getDeltaPosition());
         }
+
+        // Check collision with goal when goal is on screen
         if( ((Collidable)m_goal).isOnScreen(m_ball.getPosition()) )
         {
             if(m_goal.checkCollision(m_ball))
@@ -120,7 +120,7 @@ public class RicState extends State
 
         m_background.render(sb);
 
-
+        // Render only obstables that are in "camera view"
         for(Collidable c : m_collidables)
         {
             if(c.isOnScreen(m_ball.getPosition()))
@@ -128,6 +128,7 @@ public class RicState extends State
                 c.render(sb);
             }
         }
+
         m_goal.render(sb);
         m_ball.render(sb);
     }
@@ -137,7 +138,7 @@ public class RicState extends State
     {
         if(Gdx.input.justTouched())
         {
-            //m_music.stop();
+            m_music.stop();
             m_sm.push(new PauseState(m_sm));
         }
     }
@@ -145,14 +146,16 @@ public class RicState extends State
     @Override
     public void dispose()
     {
-        /*if(m_music.isPlaying())
+        if(m_music.isPlaying())
         {
             m_music.stop();
         }
-        m_music.dispose();*/
+        m_music.dispose();
         m_background.dispose();
         m_goal.dispose();
         m_ball.dispose();
+
+        Gdx.app.log("RL", "RicState disposar");
 
     }
 

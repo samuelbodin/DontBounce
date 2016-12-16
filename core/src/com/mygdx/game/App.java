@@ -60,6 +60,7 @@ public class App extends ApplicationAdapter
 	@Override
 	public void dispose ()
 	{
-
+		super.dispose();
+		Gdx.app.log("RL", "App desposar");
 	}
 }

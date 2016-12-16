@@ -92,7 +92,6 @@ public class UserTestMenu extends State
             public void changed(ChangeEvent event, Actor actor)
             {
                 // Slow moving
-                String [] bgFiles = {"flatbg01.png", "flatbg02.png", "flatbg03.png"};
                 m_sm.set(new RicState(m_sm, new LevelData()));
             }
         });
@@ -103,7 +102,6 @@ public class UserTestMenu extends State
             public void changed(ChangeEvent event, Actor actor)
             {
                 // Normal moving speed
-                String [] bgFiles = {"flatbg01.png", "flatbg02.png", "flatbg03.png"};
                 m_sm.set(new RicState(m_sm, new LevelData()));
             }
         });
@@ -114,7 +112,6 @@ public class UserTestMenu extends State
             public void changed(ChangeEvent event, Actor actor)
             {
                 // Fast moving
-                String [] bgFiles = {"flatbg01.png", "flatbg02.png", "flatbg03.png"};
                 m_sm.set(new RicState(m_sm, new LevelData()));
             }
         });
@@ -125,7 +122,6 @@ public class UserTestMenu extends State
             public void changed(ChangeEvent event, Actor actor)
             {
                 // Ball trail
-                String [] bgFiles = {"flatbg01.png", "flatbg02.png", "flatbg03.png"};
                 m_sm.set(new RicState(m_sm, new LevelData()));
             }
         });
@@ -136,20 +132,7 @@ public class UserTestMenu extends State
             public void changed(ChangeEvent event, Actor actor)
             {
                 // Foreground
-                LevelData levelData = new LevelData();
-                levelData.m_seed = 4;
-                levelData.m_backgroundFiles.add("flatbg01.png");
-                levelData.m_backgroundFiles.add("flatbg02.png");
-                levelData.m_backgroundFiles.add("flatbg03.png");
-                levelData.m_foregroundFile = "flatbgforeground.png";
-                levelData.m_foreground = true;
-                levelData.m_obstacleSizeFactor = 8;
-                levelData.m_obstacleSeparationFactor = 25;
-                levelData.m_obstacleMinSpacingFactor = 10;
-                levelData.m_ballGravity = -10f;
-                levelData.m_ballMaxSpeed = -1500f;
-                levelData.m_ballSensitivity = 2f;
-                m_sm.set(new RicState(m_sm, levelData));
+                m_sm.set(new RicState(m_sm, new LevelData()));
             }
         });
 
@@ -159,7 +142,6 @@ public class UserTestMenu extends State
             public void changed(ChangeEvent event, Actor actor)
             {
                 // Ball trail and foreground
-                String [] bgFiles = {"flatbg01.png", "flatbg02.png", "flatbg03.png"};
                 m_sm.set(new RicState(m_sm, new LevelData()));
             }
         });
@@ -186,6 +168,9 @@ public class UserTestMenu extends State
     @Override
     public void dispose()
     {
+        m_btnSkin.dispose();
+        m_stage.dispose();
+        Gdx.app.log("RL", "UserTestMenu disposar");
 
     }
 
