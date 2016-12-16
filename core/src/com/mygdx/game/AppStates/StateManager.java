@@ -17,7 +17,10 @@ public class StateManager
 
     public void set(State s)
     {
-        m_states.clear();
+        if(!m_states.empty()) {
+            m_states.peek().dispose();
+            m_states.clear();
+        }
         m_states.push(s);
     }
 

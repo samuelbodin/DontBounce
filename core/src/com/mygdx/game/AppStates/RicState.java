@@ -25,7 +25,7 @@ public class RicState extends State
     private Ball m_ball = null;
     private Array<Collidable> m_collidables = null;
     private static final float m_worldWidth = App.m_worldW;
-    private static final float m_worldHeight = 15000;
+    private static final float m_worldHeight = 1500;
     private static final float m_viewportWidth = App.m_worldW;
     private static final float m_viewportHeight = App.m_worldH;
     private WorldBackground m_background = null;
@@ -46,32 +46,37 @@ public class RicState extends State
     {
         super(sm);
 
+        //Setting up ball
         m_ball = new Ball(m_viewportWidth/2, 0, m_viewportWidth/40);
-        m_ball.setState(new BallStateMoveable(m_ball, -10.0f, -1500.0f, 2.0f));
+        m_ball.setState(new BallStateMoveable(m_ball, levelData.m_ballGravity, levelData.m_ballMaxSpeed, levelData.m_ballSensitivity));
         m_ball.doTrail();
 
-
-        m_collidables = new Array<Collidable>();
+        // Paranting camera to ball
         m_cam.setBall(m_ball);
 
+        // Creating new world background and add images
         m_background = new WorldBackground(m_viewportWidth, m_viewportHeight, m_cam, levelData.m_foreground);
-
         for(String s : levelData.m_backgroundFiles)
         {
             m_background.addBackgroundImage(s);
             m_background.addForegroundImage(levelData.m_foregroundFile);
         }
 
+        //Creating a new level and filling list of collidables
         m_level = new LevelGenerator(levelData.m_seed, m_worldHeight, levelData.m_obstacleSizeFactor, levelData.m_obstacleSeparationFactor, levelData.m_obstacleMinSpacingFactor, m_viewportWidth/12);
         m_goal = m_level.getGoal();
+        m_collidables = new Array<Collidable>();
         m_collidables = m_level.getCollidables();
+
+        // Setting up viewport
         m_viewport = new FitViewport(App.m_worldW, App.m_worldH, m_cam);
         m_viewport.setScreenBounds(0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         m_viewport.apply(true);
 
-        m_music = Gdx.audio.newMusic(Gdx.files.internal("sound/gamemusic.wav"));
-        m_music.setLooping(true);
-        m_music.setVolume(0.5f);
+        //Setting up music
+        //m_music = Gdx.audio.newMusic(Gdx.files.internal("sound/gamemusic.wav"));
+        //m_music.setLooping(true);
+        //m_music.setVolume(0.5f);
         //m_music.play();
     }
 
@@ -132,7 +137,7 @@ public class RicState extends State
     {
         if(Gdx.input.justTouched())
         {
-            m_music.stop();
+            //m_music.stop();
             m_sm.push(new PauseState(m_sm));
         }
     }
@@ -140,8 +145,15 @@ public class RicState extends State
     @Override
     public void dispose()
     {
-        m_music.stop();
-        m_music.dispose();
+        /*if(m_music.isPlaying())
+        {
+            m_music.stop();
+        }
+        m_music.dispose();*/
+        m_background.dispose();
+        m_goal.dispose();
+        m_ball.dispose();
+
     }
 
     @Override

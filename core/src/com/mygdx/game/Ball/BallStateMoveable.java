@@ -41,11 +41,11 @@ public class BallStateMoveable extends BallState
         m_maxSpeed = maxSpeed;
         m_steeringFactor = steeringFactor;
 
-        sound = new Sound[4];
-        sound[0] = Gdx.audio.newSound(Gdx.files.internal("sound/bounce01.wav"));
-        sound[1] = Gdx.audio.newSound(Gdx.files.internal("sound/bounce02.wav"));
-        sound[2] = Gdx.audio.newSound(Gdx.files.internal("sound/bounce03.wav"));
-        sound[3] = Gdx.audio.newSound(Gdx.files.internal("sound/bounce04.wav"));
+        //sound = new Sound[4];
+        //sound[0] = Gdx.audio.newSound(Gdx.files.internal("sound/bounce01.wav"));
+        //sound[1] = Gdx.audio.newSound(Gdx.files.internal("sound/bounce02.wav"));
+        //sound[2] = Gdx.audio.newSound(Gdx.files.internal("sound/bounce03.wav"));
+        //sound[3] = Gdx.audio.newSound(Gdx.files.internal("sound/bounce04.wav"));
     }
 
     @Override
@@ -95,7 +95,7 @@ public class BallStateMoveable extends BallState
         else
         {
             m_ball.m_velocity.scl(0,-0.95f);
-            sound[rnd.nextInt(sound.length)].play(1.0f);
+            //sound[rnd.nextInt(sound.length)].play(1.0f);
         }
     }
 
@@ -147,7 +147,7 @@ public class BallStateMoveable extends BallState
             //m_ball.m_velocity.scl(0,-0.90f);
             m_ball.m_velocity.y *= -0.6;
 
-            sound[rnd.nextInt(sound.length)].play(1.0f * (m_ball.m_velocity.y/700) + 0.2f, 1f * (m_ball.m_velocity.y/700) + 1f, 0);
+            //sound[rnd.nextInt(sound.length)].play(1.0f * (m_ball.m_velocity.y/700) + 0.2f, 1f * (m_ball.m_velocity.y/700) + 1f, 0);
         }
     }
 
