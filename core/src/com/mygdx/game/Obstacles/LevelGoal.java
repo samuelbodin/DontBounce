@@ -21,7 +21,6 @@ import com.mygdx.game.Basics.Circle;
 public class LevelGoal extends Obstacle
 {
     Sprite m_sprite;
-    StateManager m_sm = null;
 
     public LevelGoal(float x, float y, float w, float h)
     {
@@ -39,7 +38,6 @@ public class LevelGoal extends Obstacle
     public void render(SpriteBatch sb)
     {
         m_sprite.draw(sb);
-        //sb.draw(m_texture,m_position.x,m_position.y,m_width,m_height);
     }
 
     @Override
@@ -50,7 +48,7 @@ public class LevelGoal extends Obstacle
 
 
     @Override
-    public void checkCollision(Ball b)
+    public boolean checkCollision(Ball b)
     {
         Array<Circle> arr = b.getCircles();
 
@@ -58,12 +56,9 @@ public class LevelGoal extends Obstacle
 
         if(index != -1)
         {
-            Vector2 collisionPosition = getCollisionPosition(arr.get(index));
-
-            //Gdx.app.log("JS","- Hit - id: " + arr.get(index).m_id + " side: " + arr.get(index).m_side + " @ index: " + index);
-
-            m_sm.set(new UserTestMenu(m_sm));
+            return true;
         }
+        return false;
     }
 
     @Override
@@ -75,11 +70,6 @@ public class LevelGoal extends Obstacle
     public void dispose()
     {
         m_texture.dispose();
-    }
-
-    public void setStateManager(StateManager sm)
-    {
-        m_sm = sm;
     }
 
 }

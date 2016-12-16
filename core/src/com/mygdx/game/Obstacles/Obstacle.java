@@ -2,6 +2,7 @@ package com.mygdx.game.Obstacles;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.App;
 import com.mygdx.game.Basics.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -34,6 +35,11 @@ public abstract class Obstacle extends Collidable
     }
 
     protected abstract Vector2 getCollisionPosition(Circle c);
+
+    @Override
+    public boolean isOnScreen(Vector2 ballPos) {
+        return !(m_position.y < ballPos.y - App.m_worldH || m_position.y > ballPos.y + App.m_worldH);
+    }
 
     protected int getPossibleCollisionIndex(Array<Circle> arr)
     {
@@ -119,7 +125,7 @@ public abstract class Obstacle extends Collidable
         return side;
     }
 
-    public void checkCollision(Ball b)
+    public boolean checkCollision(Ball b)
     {
         Array<Circle> arr = b.getCircles();
 
@@ -133,7 +139,9 @@ public abstract class Obstacle extends Collidable
 
             //b.onCollision(collisionPosition, arr.get(index).m_side);
             b.onCollision(collisionPosition, arr.get(index).m_side, this.m_position, new Vector2(this.m_width,this.m_height));
+            return true;
         }
+        return false;
     }
 
     @Override
