@@ -1,10 +1,7 @@
 package com.mygdx.game.Basics;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.App;
 import com.mygdx.game.Ball.Ball;
 
 public class Cam extends OrthographicCamera
@@ -14,31 +11,13 @@ public class Cam extends OrthographicCamera
     private Vector2 m_bPos = null;
     private Vector2 m_bVel = null;
     private Vector2 m_lastPos = null;
-
+    private float m_worldW = 0f;
+    private float m_worldH = 0f;
 
     public Cam()
     {
         super();
         super.setToOrtho(false);
-    }
-
-    public Cam(float viewportWidth, float viewportHeight)
-    {
-        super();
-        super.setToOrtho(false,viewportWidth,viewportHeight);
-    }
-
-    public Cam(float viewportWidth)
-    {
-        super();
-        float aspectRatio = 16/9;
-        super.setToOrtho(false,viewportWidth,viewportWidth*aspectRatio);
-    }
-
-    public void setPos(float x, float y)
-    {
-        //this.position.x = x;
-        //this.position.y = y;
     }
 
     public void setBall(Ball b)
@@ -52,15 +31,8 @@ public class Cam extends OrthographicCamera
     {
         m_lastPos.x = this.position.x;
         m_lastPos.y = this.position.y;
-        //float x = (this.position.x + m_bVel.x * dt) * (1.0f - m_modifier);
-        //float y = (this.position.y + m_bVel.y *dt) * (1.0f - m_modifier);
 
-        // Cameras x position should not update!
-        //this.position.x = x + m_bPos.x * m_modifier;
-        //this.position.y = y + m_bPos.y * m_modifier - App.m_worldH/4;
-        this.position.y = m_bPos.y - App.m_worldH/4;
-
-
+        this.position.y = m_bPos.y - m_worldH /4;
     }
 
     public Vector2 getDeltaPosition()
@@ -72,6 +44,16 @@ public class Cam extends OrthographicCamera
     public float getY()
     {
         return position.y;
+    }
+
+    public void setWorldDimensions(float worldW, float worldH)
+    {
+        m_worldW = m_worldW;
+        m_worldH = worldH;
+    }
+    public boolean isOnScreen(Vector2 pos)
+    {
+        return !(pos.y < m_bPos.y - m_worldH || pos.y > m_bPos.y + m_worldH);
     }
 }
 
