@@ -3,6 +3,7 @@ package com.mygdx.game.AppStates;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.App;
 import com.mygdx.game.Ball.Ball;
 import com.mygdx.game.Basics.Collidable;
 import com.mygdx.game.Obstacles.StaticObstacle;
@@ -16,10 +17,9 @@ public class TestState extends State
     {
         super(sm);
 
-        m_ball = new Ball(0, 0, 25);
+        m_ball = new Ball(App.m_worldW / 2, 0, App.m_worldW / 40, App.m_worldW);
         m_collidables = new Array<Collidable>();
         m_collidables.add(new StaticObstacle(0,-500,100,25));
-        m_cam.setPos(0,0);
         m_cam.setBall(m_ball);
     }
     @Override
