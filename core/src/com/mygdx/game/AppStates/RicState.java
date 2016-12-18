@@ -8,9 +8,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.App;
 import com.mygdx.game.Ball.Ball;
-import com.mygdx.game.Ball.BallStateFast;
-import com.mygdx.game.Ball.BallStateMoveable;
 import com.mygdx.game.Basics.Collidable;
+import com.mygdx.game.Basics.InputHandler;
 import com.mygdx.game.Basics.LevelData;
 import com.mygdx.game.Basics.LevelGenerator;
 import com.mygdx.game.Basics.WorldBackground;
@@ -24,19 +23,13 @@ public class RicState extends State
 {
     private Ball m_ball = null;
     private Array<Collidable> m_collidables = null;
-    private static final float m_viewportWidth = App.m_worldW;
-    private static final float m_viewportHeight = App.m_worldH;
     private WorldBackground m_background = null;
     private LevelGenerator m_level = null;
     private LevelGoal m_goal = null;
     private Viewport m_viewport = null;
     private Music m_music = null;
     private LevelData m_levelData = null;
-
-    public RicState(StateManager sm)
-    {
-        super(sm);
-    }
+    private InputHandler m_input = null;
 
     //Ändras till att ta in en int och requesta leveldata från "config"
     public RicState(StateManager sm, LevelData levelData)
@@ -45,49 +38,68 @@ public class RicState extends State
         m_levelData = levelData;
 
         //Setting up ball
-        m_ball = new Ball(m_viewportWidth/2, 0, m_viewportWidth/40);
-        m_ball.setState(new BallStateMoveable(m_ball, m_levelData.m_ballGravity, m_levelData.m_ballMaxSpeed, m_levelData.m_ballSensitivity));
-        m_ball.doTrail();
+        m_ball = new Ball(App.m_worldW / 2, 0, App.m_worldW / 40, App.m_worldW, m_levelData);
 
         // Paranting camera to ball
         m_cam.setBall(m_ball);
+        m_cam.setWorldDimensions(App.m_worldW,App.m_worldH);
 
+        m_input = new InputHandler();
+
+        setupBackground();
+        setupLevel();
+        setupViewPort();
+        //setupMusic();
+    }
+
+    void setupBackground()
+    {
         // Creating new world background and add images
-        m_background = new WorldBackground(m_viewportWidth, m_viewportHeight, m_cam, m_levelData.m_foreground);
+        m_background = new WorldBackground(App.m_worldW, App.m_worldH, m_cam, m_levelData.m_foreground);
         for(String s : m_levelData.m_backgroundFiles)
         {
             m_background.addBackgroundImage(s);
         }
         m_background.addForegroundImage(m_levelData.m_foregroundFile);
+    }
 
+    void setupLevel()
+    {
         //Creating a new level and filling list of collidables
-        m_level = new LevelGenerator(m_levelData.m_seed, m_levelData.m_worldHeight, m_levelData.m_obstacleSizeFactor, m_levelData.m_obstacleSeparationFactor, m_levelData.m_obstacleMinSpacingFactor, m_viewportWidth/12);
+        m_level = new LevelGenerator(m_levelData.m_seed, m_levelData.m_worldHeight, m_levelData.m_obstacleSizeFactor, m_levelData.m_obstacleSeparationFactor, m_levelData.m_obstacleMinSpacingFactor, App.m_worldW/12);
         m_goal = m_level.getGoal();
         m_collidables = new Array<Collidable>();
         m_collidables = m_level.getCollidables();
+    }
 
+    void setupViewPort()
+    {
         // Setting up viewport
         m_viewport = new FitViewport(App.m_worldW, App.m_worldH, m_cam);
-        m_viewport.setScreenBounds(0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+        m_viewport.setScreenBounds(0,0,App.m_screenW,App.m_screenH);
         m_viewport.apply(true);
+    }
 
+    void setupMusic()
+    {
         //Setting up music
         m_music = Gdx.audio.newMusic(Gdx.files.internal("sound/gamemusic.wav"));
         m_music.setLooping(true);
         m_music.setVolume(0.5f);
-        //m_music.play();
+        m_music.play();
     }
 
     @Override
     public void update(float dt)
     {
         handleInput();
+
         m_ball.update(dt);
 
         // Check collision with obstacles that are visible
         for (Collidable c : m_collidables)
         {
-            if(c.isOnScreen(m_ball.getPosition()))
+            if(m_cam.isOnScreen(c.getPosition()))
             {
                 c.update(dt);
                 c.checkCollision(m_ball);
@@ -104,7 +116,7 @@ public class RicState extends State
         }
 
         // Check collision with goal when goal is on screen
-        if( ((Collidable)m_goal).isOnScreen(m_ball.getPosition()) )
+        if( m_cam.isOnScreen( ((Collidable)m_goal).getPosition() ) )
         {
             if(m_goal.checkCollision(m_ball))
             {
@@ -123,7 +135,7 @@ public class RicState extends State
         // Render only obstables that are in "camera view"
         for(Collidable c : m_collidables)
         {
-            if(c.isOnScreen(m_ball.getPosition()))
+            if(m_cam.isOnScreen(c.getPosition()))
             {
                 c.render(sb);
             }
@@ -136,21 +148,30 @@ public class RicState extends State
     @Override
     public void handleInput()
     {
-        if(Gdx.input.justTouched())
+        if (Gdx.input.justTouched())
         {
-            m_music.stop();
+            if(m_music != null)
+            {
+                m_music.stop();
+            }
             m_sm.push(new PauseState(m_sm));
+        }
+        else
+        {
+            m_input.update();
+            m_ball.setDeltaMove(m_input.m_deltaMove);
         }
     }
 
     @Override
     public void dispose()
     {
-        if(m_music.isPlaying())
+        if(m_music != null)
         {
             m_music.stop();
+            m_music.dispose();
         }
-        m_music.dispose();
+
         m_background.dispose();
         m_goal.dispose();
         m_ball.dispose();
@@ -164,6 +185,4 @@ public class RicState extends State
     {
 
     }
-
-
 }
