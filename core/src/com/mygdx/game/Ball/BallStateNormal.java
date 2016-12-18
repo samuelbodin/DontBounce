@@ -15,9 +15,29 @@ public class BallStateNormal extends BallState
     }
 
     @Override
+    protected boolean hasDeltaMove()
+    {
+        return false;
+    }
+
+    @Override
+    public void updateSprite()
+    {
+        m_sprite.setOriginCenter();
+        m_sprite.setSize(m_ball.m_radius*2, m_ball.m_radius*2);
+        m_sprite.setPosition(m_ball.m_position.x-m_ball.m_radius, m_ball.m_position.y-m_ball.m_radius);
+    }
+
+    @Override
     public void update(float dt)
     {
 
+    }
+
+    @Override
+    public void render(SpriteBatch sb)
+    {
+        m_sprite.draw(sb);
     }
 
     @Override
@@ -55,12 +75,6 @@ public class BallStateNormal extends BallState
             m_ball.m_position.x = pos.x - m_ball.m_radius;
             m_ball.m_velocity.scl(-1f,1f);
         }
-
-    }
-
-    @Override
-    protected void onCollision(Vector2 pos, int side, Vector2 pos1, Vector2 pos2)
-    {
 
     }
 
