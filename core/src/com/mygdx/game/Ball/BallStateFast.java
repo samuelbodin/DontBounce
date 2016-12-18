@@ -3,8 +3,11 @@ package com.mygdx.game.Ball;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.App;
+import com.mygdx.game.Basics.InputHandler;
 
 import java.util.Random;
 
@@ -14,12 +17,20 @@ import java.util.Random;
 
 public class BallStateFast extends BallState
 {
+    private float m_prevDeltaMove = 0f;
+    private float m_currentDeltaMove = 0f;
+    private boolean m_deltaMoveHasUpdated = false;
+    private boolean m_doTrail = false;
+    private Sprite m_trail[] = null;
+    private float m_steeringFactor;
+
     Sound sound[];
+
+
     public BallStateFast(Ball b)
     {
         m_ball = b;
         m_texture = new Texture("flatball.png");
-        m_timer = 400;
         m_gravity = -80.0f;
         m_maxSpeed = -1500.0f;
 
@@ -30,94 +41,145 @@ public class BallStateFast extends BallState
         sound[3] = Gdx.audio.newSound(Gdx.files.internal("sound/bounce04.wav"));
     }
 
+    @Override
+    protected boolean hasDeltaMove()
+    {
+        return true;
+    }
+
+    @Override
+    protected void setDeltaMove(float deltaMove)
+    {
+        m_currentDeltaMove = deltaMove;
+        m_deltaMoveHasUpdated = true;
+    }
+
+    @Override
+    public void render(SpriteBatch sb)
+    {
+        m_sprite.draw(sb);
+    }
+
+    @Override
+    public void updateSprite()
+    {
+        m_sprite.setOriginCenter();
+        m_sprite.setSize(m_ball.m_radius*2, m_ball.m_radius*2);
+        m_sprite.setPosition(m_ball.m_position.x-m_ball.m_radius, m_ball.m_position.y-m_ball.m_radius);
+    }
+
+    private void initTrail()
+    {
+        m_trail = new Sprite[5];
+        float alpha = 0.12f;
+        for(int i = 0; i < m_trail.length; i++)
+        {
+            m_trail[i] = new Sprite(new Texture("flatball.png"));
+            m_trail[i].setOriginCenter();
+            float shrinkFactor = i*m_ball.m_radius/10;
+            m_trail[i].setSize(m_ball.m_radius*2-shrinkFactor, m_ball.m_radius*2-shrinkFactor);
+            m_trail[i].setPosition(0,0);
+            if(i==0)
+            {
+                /*First trail is a hidden tracking object.
+                * Alpha is therefor set to 0 (invisible).
+                * */
+                m_trail[i].setAlpha(0f);
+            }
+            else
+            {
+                m_trail[i].setAlpha(alpha);
+            }
+
+            alpha -= 0.02f;
+        }
+    }
+
+    private void updateTrail()
+    {
+        if(m_trail == null)
+        {
+            initTrail();
+        }
+
+        float lastX = 0, lastY = 0;
+        for(int i = 0; i < m_trail.length; i++)
+        {
+            if(i == 0)
+            {
+                //m_trail[i].setPosition(m_trail[i+1].getX(), m_trail[i+1].getY());
+                lastX = m_trail[i].getX();
+                lastY = m_trail[i].getY();
+                m_trail[i].setPosition(m_ball.m_position.x-m_ball.m_radius, m_ball.m_position.y-m_ball.m_radius);
+            }
+            else
+            {
+                //m_trail[i].setPosition(x - r, y - r + 10 * i);
+                float tmpLastX = m_trail[i].getX();
+                float tmpLastY = m_trail[i].getY();
+                m_trail[i].setPosition(lastX, lastY);
+                lastX = tmpLastX;
+                lastY = tmpLastY;
+            }
+        }
+    }
 
     @Override
     public void update(float dt)
     {
-        super.update(dt);
+        if(m_deltaMoveHasUpdated)
+        {
+            float move = (m_prevDeltaMove+m_currentDeltaMove)/2;
 
-        float move = m_input.m_deltaMove * 300 * dt;
-        if(m_ball.m_position.x-m_ball.m_radius+move < 0)
-        {
-            m_ball.m_velocity.x = 0;
-            m_ball.m_position.x = m_ball.m_radius;
+            m_ball.m_position.x += move * 300 * dt * m_steeringFactor;
+            m_ball.m_velocity.x += move * 20 * dt * m_steeringFactor;
+
+            m_deltaMoveHasUpdated = false;
         }
-        else if(m_ball.m_position.x+m_ball.m_radius+move > App.m_worldW)
-        {
-            m_ball.m_velocity.x = 0;
-            m_ball.m_position.x =  App.m_worldW-m_ball.m_radius;
-        } else
-        {
-            m_ball.m_position.x += m_input.m_deltaMove * 300 * dt;
-            //m_ball.m_velocity.x += m_input.m_deltaMove * 50 * dt;
-        }
+
+        m_prevDeltaMove = m_currentDeltaMove;
+
+        updateTrail();
     }
 
     @Override
     protected void onCollision(Vector2 pos, int side)
     {
-        m_ball.m_position.y = pos.y+m_ball.m_radius-1;
-
-        if(m_ball.m_velocity.y >= 0 && m_ball.m_velocity.y <= -m_gravity)
-        {
-            m_ball.m_isOnGround = true;
-            m_ball.m_velocity.y = 0;
-        }
-        else
-        {
-            m_ball.m_velocity.scl(0,-0.95f);
-        }
-    }
-
-    @Override
-    protected void onCollision(Vector2 pos, int side, Vector2 pos1, Vector2 pos2 )
-    {
-        //m_ball.m_position.y = pos.y+m_ball.m_radius-1;
         Random rnd = new Random();
 
         // Move ball from overlapping obstacle
         switch (side)
         {
             case 0: // Top
-                //m_ball.m_position.y = pos1.y+pos2.y+m_ball.m_radius;
                 m_ball.m_position.y = pos.y+m_ball.m_radius;
+
+                if(m_ball.m_velocity.y > 0 && m_ball.m_velocity.y <= -m_gravity)
+                {
+
+                    m_ball.m_isOnGround = true;
+                    m_ball.m_velocity.y = 0;
+                }
+
                 break;
             case 1: // Right
-                //m_ball.m_position.x = pos1.x+pos2.x+m_ball.m_radius;
-                m_ball.m_position.x = pos.x+m_ball.m_radius;
+                m_ball.m_position.x = pos.x+m_ball.m_radius+1;
+                m_ball.m_position.y--;
                 break;
             case 2: // Bottom
-                //m_ball.m_position.y = pos1.y-m_ball.m_radius;
-                m_ball.m_position.y = pos.y-m_ball.m_radius;
+                m_ball.m_position.y = pos.y-m_ball.m_radius-1;
                 break;
             case 3: // Left
-                m_ball.m_position.x = pos1.x-m_ball.m_radius;
-                m_ball.m_position.x = pos.x-m_ball.m_radius;
-                break;
-            default:
-                if(m_ball.m_position.x <= pos1.x+(pos2.x/2))
-                {
-                    m_ball.m_position.x = pos1.x-m_ball.m_radius-1;
-                }
-                else
-                {
-                    m_ball.m_position.x = pos1.x+pos2.x+m_ball.m_radius+1;
-                }
+                m_ball.m_position.x = pos.x-m_ball.m_radius-1;
+                m_ball.m_position.y--;
                 break;
         }
 
-        if(m_ball.m_velocity.y >= -30 && m_ball.m_velocity.y <= -m_gravity)
+        if(!m_ball.m_isOnGround)
         {
-            m_ball.m_isOnGround = true;
-            m_ball.m_velocity.y = 0;
+            //sound[rnd.nextInt(sound.length)].play(1.0f * (m_ball.m_velocity.y/700) + 0.2f, 1f * (m_ball.m_velocity.y/700) + 1f, 0);
         }
-        else
-        {
-            //m_ball.m_velocity.scl(0,-0.90f);
-            m_ball.m_velocity.y *= -0.9;
 
-            sound[rnd.nextInt(sound.length)].play(1.0f * (m_ball.m_velocity.y/700) + 0.2f, 1f * (m_ball.m_velocity.y/700) + 1f, 0);
-        }
+        m_ball.m_velocity.scl(0,-0.6f);
     }
 
     @Override
