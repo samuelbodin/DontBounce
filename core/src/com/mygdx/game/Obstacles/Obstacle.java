@@ -1,8 +1,6 @@
 package com.mygdx.game.Obstacles;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.App;
 import com.mygdx.game.Basics.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -36,11 +34,6 @@ public abstract class Obstacle extends Collidable
 
     protected abstract Vector2 getCollisionPosition(Circle c);
 
-    @Override
-    public boolean isOnScreen(Vector2 ballPos) {
-        return !(m_position.y < ballPos.y - App.m_worldH || m_position.y > ballPos.y + App.m_worldH);
-    }
-
     protected int getPossibleCollisionIndex(Array<Circle> arr)
     {
         int side1 = -1;
@@ -70,9 +63,6 @@ public abstract class Obstacle extends Collidable
         {
             side1 = getSideOfThis(arr.get(i).m_x, arr.get(i).m_y);
             side2 = getSideOfThis(arr.get(i-1).m_x, arr.get(i-1).m_y);
-            //Gdx.app.log("JS","-*-");
-            //Gdx.app.log("JS","- Id: " + arr.get(i).m_id + " is on side: " + side1);
-            //Gdx.app.log("JS","- Id: " + arr.get(i-1).m_id + " is on side: " + side2);
 
             if( (side1 != -1 && side2 != -1) && side1 != side2 )
             {
@@ -115,11 +105,7 @@ public abstract class Obstacle extends Collidable
                 && y >= m_position.y && y <= m_position.y + m_height)
         {
             // Left
-            side = 2;
-        }
-        else
-        {
-            //Gdx.app.log("JS","The unforeseen has happened!! getSideOfThis() returned " + side);
+            side = 3;
         }
 
         return side;
@@ -135,10 +121,19 @@ public abstract class Obstacle extends Collidable
         {
             Vector2 collisionPosition = getCollisionPosition(arr.get(index));
 
-            //Gdx.app.log("JS","- Hit - id: " + arr.get(index).m_id + " side: " + arr.get(index).m_side + " @ index: " + index);
+            if(arr.get(index).m_side == -1)
+            {
+                if( arr.get(index).m_x >= m_position.x + m_width/2 )
+                {
+                    arr.get(index).m_side = 1;
+                }
+                else
+                {
+                    arr.get(index).m_side = 3;
+                }
+            }
 
-            //b.onCollision(collisionPosition, arr.get(index).m_side);
-            b.onCollision(collisionPosition, arr.get(index).m_side, this.m_position, new Vector2(this.m_width,this.m_height));
+            b.onCollision(collisionPosition, arr.get(index).m_side);
             return true;
         }
         return false;
