@@ -13,7 +13,12 @@ public abstract class Collidable extends Drawable
         m_position = new Vector2(x,y);
     }
     public abstract boolean checkCollision(Ball b);
-    public abstract boolean isOnScreen(Vector2 ballPos);
+
+    public Vector2 getPosition()
+    {
+        return new Vector2(m_position);
+    }
+
     protected abstract boolean isColliding(Circle c);
     protected abstract Vector2 getCollisionPosition(Circle c);
 
