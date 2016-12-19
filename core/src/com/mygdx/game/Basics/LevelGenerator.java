@@ -38,6 +38,8 @@ public class LevelGenerator
 
         m_collidables = new Array<Collidable>();
         m_noise = new SimplexNoise(seed);
+        //generateInverted();
+        generate();
     }
 
     private void generate()
