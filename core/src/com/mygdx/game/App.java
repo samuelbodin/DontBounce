@@ -21,7 +21,7 @@ public class App extends ApplicationAdapter
 	{
         m_sm = new StateManager();
         m_sb = new SpriteBatch();
-		m_sm.set(new UserTestMenu(m_sm));
+		m_sm.set(new MenuState(m_sm));
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 	}
 

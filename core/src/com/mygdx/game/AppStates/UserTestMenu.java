@@ -82,7 +82,7 @@ public class UserTestMenu extends State
 
     private void setupClickListeners()
     {
-        m_oneBtn.addListener(new ChangeListener()
+/*        m_oneBtn.addListener(new ChangeListener()
         {
             @Override
             public void changed(ChangeEvent event, Actor actor)
@@ -140,7 +140,7 @@ public class UserTestMenu extends State
                 // Ball trail and foreground
                 m_sm.set(new RicState(m_sm, new LevelData()));
             }
-        });
+        });*/
     }
 
     @Override

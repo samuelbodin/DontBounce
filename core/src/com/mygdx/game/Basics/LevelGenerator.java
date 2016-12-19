@@ -18,6 +18,7 @@ public class LevelGenerator
     private float m_obstacleX, m_obstacleY, m_lastObstacleX, m_lastObstableY, m_minObstacleYSpace, m_obstacleYSpaceFactor, m_obstacleWidth, m_snapMargin;
     private Array<Vector2> m_powerUps;
     private Color m_tint;
+    private LevelData m_levelData;
 
     public LevelGenerator(int seed)
     {
@@ -28,24 +29,34 @@ public class LevelGenerator
     }
 
 
-    public LevelGenerator(int seed, float worldWidth, float worldHeight, float levelHeight, float obstacleSizeFactor, float obstacleSeparationFactor, float obstacleMinSpacingFactor, float obstacleSnapMargin, Color tint)
+    //public LevelGenerator(int seed, float worldWidth, float worldHeight, float levelHeight, float obstacleSizeFactor, float obstacleSeparationFactor, float obstacleMinSpacingFactor, float obstacleSnapMargin, boolean hasHoles, Color tint)
+    public LevelGenerator(LevelData levelData, float worldWidth, float worldHeight)
     {
         m_worldWidth = worldWidth;
         m_worldHeight = worldHeight;
-        m_levelHeight = levelHeight;
+        m_levelData = levelData;
+        m_levelHeight = m_levelData.m_worldHeight;
 
-        m_minObstacleYSpace = m_worldWidth/(obstacleMinSpacingFactor/15);
-        m_obstacleYSpaceFactor = (m_worldWidth/2)/(obstacleSeparationFactor/10);
-        m_obstacleWidth = (m_worldWidth/4)*(obstacleSizeFactor/15);
-        m_snapMargin = obstacleSnapMargin;
+        m_minObstacleYSpace = m_worldWidth/(m_levelData.m_obstacleMinSpacingFactor/15);
+        m_obstacleYSpaceFactor = (m_worldWidth/2)/(m_levelData.m_obstacleSeparationFactor/10);
+        m_obstacleWidth = (m_worldWidth/4)*(m_levelData.m_obstacleSizeFactor/15);
+        m_snapMargin = m_levelData.m_obstacleSnapMargin;
 
-        m_tint = tint;
+        m_tint = m_levelData.m_tint;
 
         m_collidables = new Array<Collidable>();
         m_powerUps = new Array<Vector2>();
-        m_noise = new SimplexNoise(seed);
-        //generateInverted();
-        generate();
+        m_noise = new SimplexNoise(m_levelData.m_seed);
+        if(m_levelData.m_hasHoles)
+        {
+            generateInverted();
+        }
+        else
+        {
+            generate();
+        }
+
+
     }
 
     private void generate()

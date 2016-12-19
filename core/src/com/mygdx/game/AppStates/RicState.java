@@ -74,7 +74,9 @@ public class RicState extends State
         Color c = new Color(0.25f,0.5f,0.75f,1);
 
         //Creating a new level and filling list of collidables
-        m_level = new LevelGenerator(m_levelData.m_seed, m_config.m_worldW, m_config.m_worldH, m_levelData.m_worldHeight, m_levelData.m_obstacleSizeFactor, m_levelData.m_obstacleSeparationFactor, m_levelData.m_obstacleMinSpacingFactor, m_config.m_worldW/12, c);
+        m_level = new LevelGenerator(m_levelData, m_config.m_worldW, m_config.m_worldH);
+
+        //m_level = new LevelGenerator(m_levelData.m_seed, m_config.m_worldW, m_config.m_worldH, m_levelData.m_worldHeight, m_levelData.m_obstacleSizeFactor, m_levelData.m_obstacleSeparationFactor, m_levelData.m_obstacleMinSpacingFactor, m_levelData.m_obstacleSnapMargin, m_levelData.m_hasHoles, m_levelData.m_tint);
 
         m_goal = m_level.getGoal();
         m_powerUps = m_level.getPowerUps();
