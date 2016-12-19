@@ -1,9 +1,11 @@
 package com.mygdx.game.Basics;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.App;
 import com.mygdx.game.AppStates.StateManager;
 import com.mygdx.game.Obstacles.LevelGoal;
+import com.mygdx.game.Obstacles.PowerUp;
 import com.mygdx.game.Obstacles.StaticObstacle;
 
 
@@ -17,10 +19,12 @@ public class LevelGenerator
     private Array<Collidable> m_collidables = null;
     private SimplexNoise m_noise = null;
     private float m_obstacleX, m_obstacleY, m_lastObstacleX, m_lastObstableY, m_minObstacleYSpace, m_obstacleYSpaceFactor, m_obstacleWidth, m_snapMargin;
+    private Array<Vector2> m_powerUps;
 
     public LevelGenerator(int seed)
     {
         m_collidables = new Array<Collidable>();
+        m_powerUps = new Array<Vector2>();
         m_noise = new SimplexNoise(seed);
         generate();
     }
@@ -37,6 +41,7 @@ public class LevelGenerator
         m_snapMargin = obstacleSnapMargin;
 
         m_collidables = new Array<Collidable>();
+        m_powerUps = new Array<Vector2>();
         m_noise = new SimplexNoise(seed);
         //generateInverted();
         generate();
@@ -47,8 +52,6 @@ public class LevelGenerator
         int i=0;
         do
         {
-            //m_obstacleX = Math.abs((float) m_noise.noise(i + 50, i + 25)) % 1f;
-            //m_obstacleY = Math.abs((float) m_noise.noise(i + 25, i + 50)) % 1f;
             m_obstacleX = Math.abs((float) m_noise.noise(1, i*0.1)) % 1f;
             m_obstacleY = m_obstacleX;
             if (m_obstacleY < 0.2f)
@@ -72,6 +75,10 @@ public class LevelGenerator
             }
             m_obstacleY = m_obstacleY * m_obstacleYSpaceFactor + m_minObstacleYSpace;
             m_collidables.add(new StaticObstacle(m_obstacleX, m_lastObstableY - m_obstacleY, m_obstacleWidth, 32));
+            if(m_obstacleY % 10 > 0)
+            {
+                m_powerUps.add(new Vector2(m_obstacleX,(m_lastObstableY - m_obstacleY)-(m_minObstacleYSpace/4)));
+            }
             m_lastObstableY -= m_obstacleY;
             m_lastObstacleX = m_obstacleX;
             i++;
@@ -120,6 +127,17 @@ public class LevelGenerator
     public LevelGoal getGoal()
     {
         return new LevelGoal(0, -m_worldHeight-(App.m_worldH/2), m_worldWidth, 100);
+    }
+
+    public Array<PowerUp> getPowerUps()
+    {
+        Array<PowerUp> tempArray = new Array<PowerUp>();
+        float powerUpSize = 64;
+        for(Vector2 v : m_powerUps)
+        {
+            tempArray.add(new PowerUp(v.x,v.y,powerUpSize,powerUpSize));
+        }
+        return tempArray;
     }
 
     public Array<Collidable> getCollidables()

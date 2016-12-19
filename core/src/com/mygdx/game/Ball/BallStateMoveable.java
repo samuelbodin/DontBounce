@@ -65,7 +65,7 @@ public class BallStateMoveable extends BallState
         m_maxSpeed = maxSpeed;
         m_steeringFactor = steeringFactor;
 
-        m_doTrail = true;
+        m_doTrail = false;
         //sound = new Sound[4];
         //sound[0] = Gdx.audio.newSound(Gdx.files.internal("sound/bounce01.wav"));
         //sound[1] = Gdx.audio.newSound(Gdx.files.internal("sound/bounce02.wav"));
