@@ -76,7 +76,7 @@ public class LevelFinishedState extends State
             @Override
             public void changed(ChangeEvent event, Actor actor)
             {
-                m_sm.set(new RicState(m_sm, new LevelData()));
+                m_sm.set(new RicState(m_sm, m_config.getNextLevel()));
             }
         });
         m_mainMenu.addListener(new ChangeListener()
@@ -92,7 +92,7 @@ public class LevelFinishedState extends State
             @Override
             public void changed(ChangeEvent event, Actor actor)
             {
-
+                m_sm.set(new RicState(m_sm, m_config.getCurrentLevel()));
             }
         });
     }
@@ -101,8 +101,6 @@ public class LevelFinishedState extends State
     {
         float btnSize = 150f;
         float btnPad = 10f;
-        //Get value from config in the future
-        Boolean lastLvl = false;
 
         m_rootTable.setFillParent(true);
 
@@ -114,7 +112,7 @@ public class LevelFinishedState extends State
         m_labelTable.add(m_finishTimeLabel);
 
         m_buttonTable.add(m_restart).size(btnSize).pad(btnPad);
-        if (!lastLvl)
+        if (m_config.getNextLevel() != null)
         {
             m_buttonTable.add(m_continue).size(btnSize).pad(btnPad);
         }

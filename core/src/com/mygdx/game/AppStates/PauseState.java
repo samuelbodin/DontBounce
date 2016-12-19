@@ -2,22 +2,18 @@ package com.mygdx.game.AppStates;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.glutils.GLFrameBuffer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.App;
 import com.mygdx.game.Ball.Ball;
 
@@ -29,9 +25,9 @@ public class PauseState extends State
     private TextureAtlas m_icons;
     private Skin m_skin;
     private BitmapFont m_font;
-    private TextButton m_return;
+    private ImageButton m_return, m_restart, m_mainMenu;
     private TextButton.TextButtonStyle m_returnSkin;
-    private Table m_layoutTable;
+    private Table m_labelTable, m_buttonTable, m_rootTable;
     private Label m_header;
     private Label.LabelStyle m_headerSkin;
 
@@ -45,33 +41,46 @@ public class PauseState extends State
         m_stage = new Stage(new StretchViewport(m_config.m_worldW, m_config.m_worldH));
 
         //Move this to AssetLoader in the future
-        m_icons = new TextureAtlas("icons/icons.pack");
+        m_icons = new TextureAtlas("icons/levelMenuIcons/levelMenuIcons.pack");
         m_skin = new Skin(m_icons);
 
-        m_layoutTable = new Table();
-        m_layoutTable.setFillParent(true);
+        m_labelTable = new Table();
+        m_rootTable = new Table();
+        m_buttonTable = new Table();
 
         m_returnSkin = new TextButton.TextButtonStyle();
         m_headerSkin = new Label.LabelStyle(m_font, Color.WHITE);
 
-        m_returnSkin.up = m_skin.getDrawable("btn");
-        m_returnSkin.down = m_skin.getDrawable("btn");
-        m_returnSkin.font = m_font;
-
         m_header = new Label("PAUSED", m_headerSkin);
-        m_return = new TextButton("Return to game", m_returnSkin);
+
+        m_return = new ImageButton(m_skin.getDrawable("continue"));
+        m_restart = new ImageButton(m_skin.getDrawable("restart"));
+        m_mainMenu = new ImageButton(m_skin.getDrawable("mainmenu"));
+
+        fillStage();
+        setupClickListeners();
+        Gdx.input.setInputProcessor(m_stage);
+    }
+
+    private void fillStage()
+    {
+        float buttonSize = 150f;
+        float buttonPad = 10f;
+        m_rootTable.setFillParent(true);
 
         m_header.setFontScale(0.7f);
-        m_return.getLabel().setFontScale(0.5f);
 
-        m_layoutTable.add(m_header);
-        m_layoutTable.row();
-        m_layoutTable.add(m_return).width(600f).height(100f);
+        m_labelTable.add(m_header);
 
-        m_stage.addActor(m_layoutTable);
+        m_buttonTable.add(m_restart).size(buttonSize).pad(buttonPad);
+        m_buttonTable.add(m_return).size(buttonSize).pad(buttonPad);
+        m_buttonTable.add(m_mainMenu).size(buttonSize).pad(buttonPad);
 
-        Gdx.input.setInputProcessor(m_stage);
-        setupClickListeners();
+        m_rootTable.add(m_labelTable);
+        m_rootTable.row();
+        m_rootTable.add(m_buttonTable);
+
+        m_stage.addActor(m_rootTable);
     }
 
     private void setupClickListeners()
@@ -81,8 +90,23 @@ public class PauseState extends State
             @Override
             public void changed(ChangeEvent event, Actor actor)
             {
-                Gdx.app.log("PW", "return click");
                 m_sm.pop();
+            }
+        });
+        m_mainMenu.addListener(new ChangeListener()
+        {
+            @Override
+            public void changed(ChangeEvent event, Actor actor)
+            {
+                m_sm.set(new MenuState(m_sm));
+            }
+        });
+        m_restart.addListener(new ChangeListener()
+        {
+            @Override
+            public void changed(ChangeEvent event, Actor actor)
+            {
+                m_sm.set(new RicState(m_sm, m_config.getCurrentLevel()));
             }
         });
     }
@@ -113,7 +137,6 @@ public class PauseState extends State
         m_skin.dispose();
         m_font.dispose();
         m_stage.dispose();
-        Gdx.app.log("RL", "PausState disposar");
     }
 
     @Override
