@@ -18,7 +18,7 @@ import com.mygdx.game.Basics.WorldBackground;
 import com.mygdx.game.Obstacles.LevelGoal;
 import com.mygdx.game.Obstacles.PowerUp;
 
-public class RicState extends State
+public class PlayState extends State
 {
     private Ball m_ball = null;
     private Array<Collidable> m_collidables = null;
@@ -34,7 +34,7 @@ public class RicState extends State
     private TimeHandler m_time;
 
     //Ändras till att ta in en int och requesta leveldata från "config"
-    public RicState(StateManager sm, LevelData levelData)
+    public PlayState(StateManager sm, LevelData levelData)
     {
         super(sm);
         m_levelData = levelData;
@@ -212,7 +212,7 @@ public class RicState extends State
         m_goal.dispose();
         m_ball.dispose();
 
-        Gdx.app.log("RL", "RicState disposar");
+        Gdx.app.log("RL", "PlayState disposar");
 
     }
 

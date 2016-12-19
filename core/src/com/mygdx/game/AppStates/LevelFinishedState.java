@@ -13,8 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.mygdx.game.App;
-import com.mygdx.game.Basics.LevelData;
 import com.mygdx.game.Basics.TimeHandler;
 
 public class LevelFinishedState extends State
@@ -76,7 +74,7 @@ public class LevelFinishedState extends State
             @Override
             public void changed(ChangeEvent event, Actor actor)
             {
-                m_sm.set(new RicState(m_sm, m_config.getNextLevel()));
+                m_sm.set(new PlayState(m_sm, m_config.getNextLevel()));
             }
         });
         m_mainMenu.addListener(new ChangeListener()
@@ -92,7 +90,7 @@ public class LevelFinishedState extends State
             @Override
             public void changed(ChangeEvent event, Actor actor)
             {
-                m_sm.set(new RicState(m_sm, m_config.getCurrentLevel()));
+                m_sm.set(new PlayState(m_sm, m_config.getCurrentLevel()));
             }
         });
     }

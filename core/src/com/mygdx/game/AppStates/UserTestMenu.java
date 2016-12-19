@@ -88,7 +88,7 @@ public class UserTestMenu extends State
             public void changed(ChangeEvent event, Actor actor)
             {
                 // Slow moving
-                m_sm.set(new RicState(m_sm, new LevelData()));
+                m_sm.set(new PlayState(m_sm, new LevelData()));
             }
         });
 
@@ -98,7 +98,7 @@ public class UserTestMenu extends State
             public void changed(ChangeEvent event, Actor actor)
             {
                 // Normal moving speed
-                m_sm.set(new RicState(m_sm, new LevelData()));
+                m_sm.set(new PlayState(m_sm, new LevelData()));
             }
         });
 
@@ -108,7 +108,7 @@ public class UserTestMenu extends State
             public void changed(ChangeEvent event, Actor actor)
             {
                 // Fast moving
-                m_sm.set(new RicState(m_sm, new LevelData()));
+                m_sm.set(new PlayState(m_sm, new LevelData()));
             }
         });
 
@@ -118,7 +118,7 @@ public class UserTestMenu extends State
             public void changed(ChangeEvent event, Actor actor)
             {
                 // Ball trail
-                m_sm.set(new RicState(m_sm, new LevelData()));
+                m_sm.set(new PlayState(m_sm, new LevelData()));
             }
         });
 
@@ -128,7 +128,7 @@ public class UserTestMenu extends State
             public void changed(ChangeEvent event, Actor actor)
             {
                 // Foreground
-                m_sm.set(new RicState(m_sm, new LevelData()));
+                m_sm.set(new PlayState(m_sm, new LevelData()));
             }
         });
 
@@ -138,7 +138,7 @@ public class UserTestMenu extends State
             public void changed(ChangeEvent event, Actor actor)
             {
                 // Ball trail and foreground
-                m_sm.set(new RicState(m_sm, new LevelData()));
+                m_sm.set(new PlayState(m_sm, new LevelData()));
             }
         });*/
     }

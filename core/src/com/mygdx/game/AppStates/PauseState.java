@@ -14,8 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.mygdx.game.App;
-import com.mygdx.game.Ball.Ball;
 
 
 public class PauseState extends State
@@ -106,7 +104,7 @@ public class PauseState extends State
             @Override
             public void changed(ChangeEvent event, Actor actor)
             {
-                m_sm.set(new RicState(m_sm, m_config.getCurrentLevel()));
+                m_sm.set(new PlayState(m_sm, m_config.getCurrentLevel()));
             }
         });
     }
