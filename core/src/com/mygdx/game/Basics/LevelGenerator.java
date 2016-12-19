@@ -9,10 +9,6 @@ import com.mygdx.game.Obstacles.PowerUp;
 import com.mygdx.game.Obstacles.StaticObstacle;
 
 
-/**
- * Created by Rickard on 2016-12-07.
- */
-
 public class LevelGenerator
 {
     public float m_worldWidth = 0, m_worldHeight = 0;

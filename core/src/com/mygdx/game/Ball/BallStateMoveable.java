@@ -14,9 +14,6 @@ import org.w3c.dom.ranges.Range;
 
 import java.util.Random;
 
-/**
- * Created by Rickard on 2016-12-07.
- */
 
 public class BallStateMoveable extends BallState
 {

@@ -14,9 +14,6 @@ import com.mygdx.game.AppStates.UserTestMenu;
 import com.mygdx.game.Ball.Ball;
 import com.mygdx.game.Basics.Circle;
 
-/**
- * Created by Rickard on 2016-12-08.
- */
 
 public class LevelGoal extends Obstacle
 {

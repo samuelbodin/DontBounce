@@ -17,10 +17,6 @@ import com.mygdx.game.Basics.WorldBackground;
 import com.mygdx.game.Obstacles.LevelGoal;
 import com.mygdx.game.Obstacles.PowerUp;
 
-/**
- * Created by Rickard on 2016-12-07.
- */
-
 public class RicState extends State
 {
     private Ball m_ball = null;
@@ -43,11 +39,11 @@ public class RicState extends State
         m_levelData = levelData;
 
         //Setting up ball
-        m_ball = new Ball(App.m_worldW / 2, 0, App.m_worldW / 40, App.m_worldW, m_levelData);
+        m_ball = new Ball(m_config.m_worldW/ 2, 0, m_config.m_worldW / 40, m_config.m_worldW, m_levelData);
 
         // Paranting camera to ball
         m_cam.setBall(m_ball);
-        m_cam.setWorldDimensions(App.m_worldW,App.m_worldH);
+        m_cam.setWorldDimensions(m_config.m_worldW, m_config.m_worldH);
 
         m_input = new InputHandler();
 
@@ -63,7 +59,7 @@ public class RicState extends State
     void setupBackground()
     {
         // Creating new world background and add images
-        m_background = new WorldBackground(App.m_worldW, App.m_worldH, m_cam, m_levelData.m_foreground);
+        m_background = new WorldBackground(m_config.m_worldW, m_config.m_worldH, m_cam, m_levelData.m_foreground);
         for(String s : m_levelData.m_backgroundFiles)
         {
             m_background.addBackgroundImage(s);
@@ -74,7 +70,7 @@ public class RicState extends State
     void setupLevel()
     {
         //Creating a new level and filling list of collidables
-        m_level = new LevelGenerator(m_levelData.m_seed, m_levelData.m_worldHeight, m_levelData.m_obstacleSizeFactor, m_levelData.m_obstacleSeparationFactor, m_levelData.m_obstacleMinSpacingFactor, App.m_worldW/12);
+        m_level = new LevelGenerator(m_levelData.m_seed, m_levelData.m_worldHeight, m_levelData.m_obstacleSizeFactor, m_levelData.m_obstacleSeparationFactor, m_levelData.m_obstacleMinSpacingFactor, m_config.m_worldW/12);
         m_goal = m_level.getGoal();
         m_powerUps = m_level.getPowerUps();
         m_collidables = new Array<Collidable>();
@@ -85,8 +81,8 @@ public class RicState extends State
     void setupViewPort()
     {
         // Setting up viewport
-        m_viewport = new FitViewport(App.m_worldW, App.m_worldH, m_cam);
-        m_viewport.setScreenBounds(0,0,App.m_screenW,App.m_screenH);
+        m_viewport = new FitViewport(m_config.m_worldW, m_config.m_worldH, m_cam);
+        m_viewport.setScreenBounds(0, 0, m_config.m_worldW, m_config.m_worldH);
         m_viewport.apply(true);
     }
 
@@ -101,7 +97,7 @@ public class RicState extends State
 
     void setupTimer()
     {
-        m_time = new TimeHandler(30, m_cam.getY()+(App.m_worldH/2)-20);
+        m_time = new TimeHandler(30, m_cam.getY() + (m_config.m_worldH / 2) - 20);
     }
 
     @Override

@@ -11,10 +11,6 @@ import com.mygdx.game.Basics.InputHandler;
 
 import java.util.Random;
 
-/**
- * Created by Rickard on 2016-12-09.
- */
-
 public class BallStateFast extends BallState
 {
     private float m_prevDeltaMove = 0f;

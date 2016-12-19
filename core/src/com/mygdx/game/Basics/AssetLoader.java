@@ -5,10 +5,6 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
-/**
- * Created by Pontus on 2016-12-07.
- */
-
 public class AssetLoader
 {
     private TextureAtlas m_gameElements;

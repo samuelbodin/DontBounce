@@ -22,15 +22,9 @@ import com.mygdx.game.App;
 import com.mygdx.game.Ball.Ball;
 
 
-/**
- * Created by Rickard on 2016-12-10.
- */
-
 public class PauseState extends State
 {
     private StateManager m_sm;
-    private static final float m_viewportWidth = App.m_worldW;
-    private static final float m_viewportHeight = App.m_worldH;
     private Stage m_stage;
     private TextureAtlas m_icons;
     private Skin m_skin;
@@ -45,9 +39,10 @@ public class PauseState extends State
     {
         super(sm);
         m_sm = sm;
+
         m_font = new BitmapFont(Gdx.files.internal("slackeyfont/slackey100.fnt"));
 
-        m_stage = new Stage(new StretchViewport(m_viewportWidth, m_viewportHeight));
+        m_stage = new Stage(new StretchViewport(m_config.m_worldW, m_config.m_worldH));
 
         //Move this to AssetLoader in the future
         m_icons = new TextureAtlas("icons/icons.pack");

@@ -13,10 +13,6 @@ import java.util.Stack;
 import static jdk.nashorn.internal.runtime.regexp.joni.Syntax.Java;
 
 
-/**
- * Created by Rickard on 2016-12-07.
- */
-
 public class WorldBackground extends Drawable
 {
     private Stack<Sprite> m_sprite = null;
@@ -39,8 +35,6 @@ public class WorldBackground extends Drawable
         {
             s.setSize(m_viewportWidth*1.2f,m_viewportWidth*1.2f*(s.getHeight()/s.getWidth()));
         }
-
-
     }
 
     public WorldBackground(float viewportWidth, float viewportHeight, Cam cam, boolean foreground)
