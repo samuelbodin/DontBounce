@@ -1,5 +1,6 @@
 package com.mygdx.game.Basics;
 
+import com.badlogic.gdx.Gdx;
 import com.mygdx.game.levels.Chapter;
 import com.mygdx.game.levels.ChapterOne;
 
@@ -22,6 +23,10 @@ public class Config
     {
         m_chapters = new ArrayList<Chapter>();
         m_chapters.add(new ChapterOne());
+
+        m_screenH = Gdx.graphics.getHeight();
+        m_screenW = Gdx.graphics.getWidth();
+        m_aspectR = (m_screenH/m_screenW);
     }
 
 

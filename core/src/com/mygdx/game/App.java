@@ -12,27 +12,13 @@ import com.mygdx.game.AppStates.UserTestMenu;
 
 public class App extends ApplicationAdapter
 {
-    public static final int m_worldW = 720;
-    public static final int m_worldH = 1280;
-    public static int m_screenW = 0;
-    public static int m_screenH = 0;
-    public static float m_aspectR = 0.0f;
-
     private StateManager m_sm = null;
     private SpriteBatch m_sb = null;
 
 
-	private void getScreenDimensions()
-	{
-		m_screenH = Gdx.graphics.getHeight();
-		m_screenW = Gdx.graphics.getWidth();
-		m_aspectR = (m_screenH/m_screenW);
-	}
-	
 	@Override
 	public void create ()
 	{
-        getScreenDimensions();
         m_sm = new StateManager();
         m_sb = new SpriteBatch();
 		m_sm.set(new UserTestMenu(m_sm));
