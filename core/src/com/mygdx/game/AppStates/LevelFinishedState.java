@@ -32,8 +32,8 @@ public class LevelFinishedState extends State
         super(sm);
         m_sm = sm;
 
-        float viewportW = App.m_worldW;
-        float viewportH = App.m_worldH;
+        float viewportW = m_config.m_worldW;
+        float viewportH = m_config.m_worldH;
         TextureAtlas icons;
         Skin buttonSkin;
         Label.LabelStyle fontStyle;
