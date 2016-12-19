@@ -12,6 +12,7 @@ import com.mygdx.game.Basics.Collidable;
 import com.mygdx.game.Basics.InputHandler;
 import com.mygdx.game.Basics.LevelData;
 import com.mygdx.game.Basics.LevelGenerator;
+import com.mygdx.game.Basics.TimeHandler;
 import com.mygdx.game.Basics.WorldBackground;
 import com.mygdx.game.Obstacles.LevelGoal;
 
@@ -31,6 +32,8 @@ public class RicState extends State
     private LevelData m_levelData = null;
     private InputHandler m_input = null;
 
+    private TimeHandler m_time;
+
     //Ändras till att ta in en int och requesta leveldata från "config"
     public RicState(StateManager sm, LevelData levelData)
     {
@@ -49,7 +52,10 @@ public class RicState extends State
         setupBackground();
         setupLevel();
         setupViewPort();
+        setupTimer();
         //setupMusic();
+
+
     }
 
     void setupBackground()
@@ -89,6 +95,11 @@ public class RicState extends State
         m_music.play();
     }
 
+    void setupTimer()
+    {
+        m_time = new TimeHandler(30, m_cam.getY()+(App.m_worldH/2)-20);
+    }
+
     @Override
     public void update(float dt)
     {
@@ -113,6 +124,8 @@ public class RicState extends State
             m_cam.update();
             m_background.update(dt);
             m_background.setPosition(m_cam.getDeltaPosition());
+            // Set timer position after camera is updated.
+            m_time.update(dt, m_cam.getDeltaPosition());
         }
 
         // Check collision with goal when goal is on screen
@@ -120,8 +133,15 @@ public class RicState extends State
         {
             if(m_goal.checkCollision(m_ball))
             {
-                m_sm.push(new LevelFinishedState(m_sm));
+                m_time.stop();
+                m_sm.set(new LevelFinishedState(m_sm));
             }
+        }
+
+        // Start timer
+        if(!m_time.isRunning())
+        {
+            m_time.start();
         }
     }
 
@@ -129,8 +149,8 @@ public class RicState extends State
     public void render(SpriteBatch sb)
     {
         sb.setProjectionMatrix(m_cam.combined);
-
         m_background.render(sb);
+
 
         // Render only obstables that are in "camera view"
         for(Collidable c : m_collidables)
@@ -143,6 +163,7 @@ public class RicState extends State
 
         m_goal.render(sb);
         m_ball.render(sb);
+        m_time.render(sb);
     }
 
     @Override

@@ -48,7 +48,7 @@ public class Cam extends OrthographicCamera
 
     public void setWorldDimensions(float worldW, float worldH)
     {
-        m_worldW = m_worldW;
+        m_worldW = m_worldW; //Ska det vara m_worldW = worldW; ? //RL
         m_worldH = worldH;
     }
     public boolean isOnScreen(Vector2 pos)

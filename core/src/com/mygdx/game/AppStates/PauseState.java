@@ -117,6 +117,7 @@ public class PauseState extends State
         m_icons.dispose();
         m_skin.dispose();
         m_font.dispose();
+        m_stage.dispose();
         Gdx.app.log("RL", "PausState disposar");
     }
 
