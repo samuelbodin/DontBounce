@@ -21,7 +21,8 @@ public class StateManager
 
     public void set(State s)
     {
-        if(!m_states.empty()) {
+        if(!m_states.empty())
+        {
             //m_states.peek().dispose();
             //m_states.clear();
             m_states.pop().dispose();
