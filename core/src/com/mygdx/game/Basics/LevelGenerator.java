@@ -28,7 +28,7 @@ public class LevelGenerator
     }
 
 
-    public LevelGenerator(int seed, float worldWidth, float worldHeight, float levelHeight, float obstacleSizeFactor, float obstacleSeparationFactor, float obstacleMinSpacingFactor, float obstacleSnapMargin, Color tint)
+    public LevelGenerator(int seed, float worldWidth, float worldHeight, float levelHeight, float obstacleSizeFactor, float obstacleSeparationFactor, float obstacleMinSpacingFactor, float obstacleSnapMargin, boolean hasHoles, Color tint)
     {
         m_worldWidth = worldWidth;
         m_worldHeight = worldHeight;
@@ -44,8 +44,16 @@ public class LevelGenerator
         m_collidables = new Array<Collidable>();
         m_powerUps = new Array<Vector2>();
         m_noise = new SimplexNoise(seed);
-        //generateInverted();
-        generate();
+        if(hasHoles)
+        {
+            generateInverted();
+        }
+        else
+        {
+            generate();
+        }
+
+
     }
 
     private void generate()

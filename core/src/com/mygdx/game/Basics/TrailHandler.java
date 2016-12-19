@@ -23,9 +23,6 @@ public class TrailHandler
             m_trail[i].setPosition(0,0);
             if(i==0)
             {
-                /*First trail is a hidden tracking object.
-                * Alpha is therefor set to 0 (invisible).
-                * */
                 m_trail[i].setAlpha(0f);
             }
             else

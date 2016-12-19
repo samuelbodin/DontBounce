@@ -2,6 +2,7 @@ package com.mygdx.game.Basics;
 
 import com.badlogic.gdx.LifecycleListener;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Color;
 import com.mygdx.game.App;
 
 import java.util.ArrayList;
@@ -23,8 +24,11 @@ public class LevelData {
     public float m_ballGravity;
     public float m_ballMaxSpeed;
     public float m_ballSensitivity;
+    public float m_obstacleSnapMargin;
+    public Color m_tint;
+    public boolean m_hasHoles = false;
 
-
+    /*
     public LevelData()
     {
         m_backgroundFiles = new ArrayList<String>();
@@ -38,10 +42,12 @@ public class LevelData {
         m_obstacleSizeFactor = 8;
         m_obstacleSeparationFactor = 25;
         m_obstacleMinSpacingFactor = 10;
+        m_obstacleSnapMargin = 80;
         m_ballGravity = -10f;
         m_ballMaxSpeed = -1500f;
         m_ballSensitivity = 2f;
     }
+    */
 
     public LevelData(
         int levelId,
@@ -51,6 +57,8 @@ public class LevelData {
         int obstacleSizeFactor,
         int obstacleSeparationFactor,
         float obstacleMinSpacingFactor,
+        float obstacleSnapMargin,
+        boolean hasHoles,
         float ballGravity,
         float ballMaxSpeed,
         float ballSensitivity
@@ -63,6 +71,8 @@ public class LevelData {
         m_obstacleSizeFactor = obstacleSizeFactor;
         m_obstacleSeparationFactor = obstacleSeparationFactor;
         m_obstacleMinSpacingFactor = obstacleMinSpacingFactor;
+        m_obstacleSnapMargin = obstacleSnapMargin;
+        m_hasHoles = hasHoles;
         m_ballGravity = ballGravity;
         m_ballMaxSpeed = ballMaxSpeed;
         m_ballSensitivity = ballSensitivity;

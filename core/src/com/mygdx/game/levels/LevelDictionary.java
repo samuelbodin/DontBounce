@@ -44,39 +44,39 @@ public class LevelDictionary
     private void loadChapterOne()
     {
         m_data.add(
-            new LevelData(1, 1, 1, true, 8, 25, 10, -10f, -1500f, 2f)
+            new LevelData(1, 1, 1, true, 8, 25, 10, 80, true, -10f, -1500f, 2f)
         );
 
         m_data.add(
-            new LevelData(2, 1, 2, true, 8, 25, 10, -10f, -1500f, 2f)
+            new LevelData(2, 1, 2, true, 8, 25, 10, 80, true, -10f, -1500f, 2f)
         );
 
         m_data.add(
-            new LevelData(3, 1, 3, true, 8, 25, 10, -10f, -1500f, 2f)
+            new LevelData(3, 1, 3, true, 8, 25, 10, 80, true, -10f, -1500f, 2f)
         );
 
         m_data.add(
-            new LevelData(4, 1, 4, true, 8, 25, 10, -10f, -1500f, 2f)
+            new LevelData(4, 1, 4, true, 8, 25, 10, 80, true, -10f, -1500f, 2f)
         );
 
         m_data.add(
-            new LevelData(5, 1, 5, true, 8, 25, 10, -10f, -1500f, 2f)
+            new LevelData(5, 1, 5, true, 8, 25, 10, 80, true, -10f, -1500f, 2f)
         );
 
         m_data.add(
-            new LevelData(6, 1, 6, true, 8, 25, 10, -10f, -1500f, 2f)
+            new LevelData(6, 1, 6, true, 8, 25, 10, 80, true, -10f, -1500f, 2f)
         );
 
         m_data.add(
-            new LevelData(7, 1, 7, true, 8, 25, 10, -10f, -1500f, 2f)
+            new LevelData(7, 1, 7, true, 8, 25, 10, 80, true, -10f, -1500f, 2f)
         );
 
         m_data.add(
-            new LevelData(8, 1, 8, true, 8, 25, 10, -10f, -1500f, 2f)
+            new LevelData(8, 1, 8, true, 8, 25, 10, 80, true, -10f, -1500f, 2f)
         );
 
         m_data.add(
-            new LevelData(9, 1, 9, true, 8, 25, 10, -10f, -1500f, 2f)
+            new LevelData(9, 1, 9, true, 8, 25, 10, 80, true, -10f, -1500f, 2f)
         );
     }
 }
