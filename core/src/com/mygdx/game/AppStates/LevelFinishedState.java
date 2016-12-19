@@ -21,46 +21,52 @@ public class LevelFinishedState extends State
 {
 
     private StateManager m_sm;
-    private float m_viewportW = App.m_worldW;
-    private float m_viewportH = App.m_worldH;
-    private float m_finishTime = 25.50f;
+    private TimeHandler m_timeHandler;
     private Stage m_stage;
     private Table m_rootTable, m_buttonTable, m_labelTable;
     private ImageButton m_continue, m_restart, m_mainMenu;
-    private TextureAtlas m_icons;
-    private Skin m_buttonSkin;
     private Label m_finishTimeLabel, m_headerLabel;
-    private Label.LabelStyle m_fontStyle;
-    private BitmapFont m_font;
 
     public LevelFinishedState(StateManager sm)
     {
         super(sm);
         m_sm = sm;
 
-        m_stage = new Stage(new StretchViewport(m_viewportW, m_viewportH));
+        float viewportW = App.m_worldW;
+        float viewportH = App.m_worldH;
+        TextureAtlas icons;
+        Skin buttonSkin;
+        Label.LabelStyle fontStyle;
+        BitmapFont font;
+
+        m_stage = new Stage(new StretchViewport(viewportW, viewportH));
 
         m_rootTable = new Table();
         m_buttonTable = new Table();
         m_labelTable = new Table();
 
-        m_icons = new TextureAtlas("icons/levelMenuIcons/levelMenuIcons.pack");
-        m_buttonSkin = new Skin(m_icons);
+        icons = new TextureAtlas("icons/levelMenuIcons/levelMenuIcons.pack");
+        buttonSkin = new Skin(icons);
 
-        m_continue = new ImageButton(m_buttonSkin.getDrawable("continue"));
-        m_restart = new ImageButton(m_buttonSkin.getDrawable("restart"));
-        m_mainMenu = new ImageButton(m_buttonSkin.getDrawable("mainmenu"));
+        m_continue = new ImageButton(buttonSkin.getDrawable("continue"));
+        m_restart = new ImageButton(buttonSkin.getDrawable("restart"));
+        m_mainMenu = new ImageButton(buttonSkin.getDrawable("mainmenu"));
 
-        m_font = new BitmapFont(Gdx.files.internal("slackeyfont/slackey100.fnt"));
-        m_fontStyle = new Label.LabelStyle(m_font, Color.WHITE);
+        font = new BitmapFont(Gdx.files.internal("slackeyfont/slackey100.fnt"));
+        fontStyle = new Label.LabelStyle(font, Color.WHITE);
 
-        m_headerLabel = new Label("LEVEL COMPLETE", m_fontStyle);
-        m_finishTimeLabel = new Label("Time: " + Float.toString(m_finishTime), m_fontStyle);
+        m_headerLabel = new Label("LEVEL COMPLETE", fontStyle);
+        m_finishTimeLabel = new Label("", fontStyle);
 
         fillStage();
         setupClickListeners();
 
         Gdx.input.setInputProcessor(m_stage);
+    }
+    public LevelFinishedState(StateManager sm, TimeHandler th)
+    {
+        this(sm);
+        m_timeHandler = th;
     }
 
     private void setupClickListeners()
@@ -130,6 +136,7 @@ public class LevelFinishedState extends State
     @Override
     public void render(SpriteBatch sr)
     {
+        m_finishTimeLabel.setText(m_timeHandler.getTimeString() + "s");
         m_stage.draw();
     }
 
