@@ -7,17 +7,18 @@ import com.mygdx.game.Basics.LevelData;
 
 public class Ball
 {
-    float m_radius = 0f;
-    Vector2 m_position = null;
-    Vector2 m_velocity = null;
+    private float m_radius = 0f;
+    private Vector2 m_position = null;
+    private Vector2 m_velocity = null;
     private BallState m_state = null;
     private BallPositionHistory m_history = null;
-    float m_worldW = 0f;
-    float m_gravity = 0f;
-    float m_maxSpeed = 0f;
-    float m_defaultMaxSpeed = 0f;
-    float m_userInput = 0f;
-    int m_iterator = 0;
+    private float m_worldW = 0f;
+    private float m_gravity = 0f;
+    private float m_maxSpeed = 0f;
+    private float m_defaultMaxSpeed = 0f;
+    private float m_userInput = 0f;
+    private int m_iterator = 0;
+    private float m_dtModifier = 1f;
 
     public Ball (float x, float y, float r, float worldW, LevelData ld)
     {
@@ -26,13 +27,13 @@ public class Ball
         m_velocity = new Vector2(0,0);
         m_radius = r;
         m_gravity = ld.m_ballGravity;
-        m_defaultMaxSpeed = ld.m_ballMaxSpeed;
+        m_maxSpeed = m_defaultMaxSpeed = ld.m_ballMaxSpeed;
 
 
         m_history = new BallPositionHistory(3);
         m_history.addToHistory(new com.mygdx.game.Basics.Circle(m_position,m_radius, m_iterator++));
 
-        m_state = new BallStateMoveable(this);
+        m_state = new BallStateNormal(this);
         m_state.setSpriteSize(m_radius*2,m_radius*2);
     }
 
@@ -67,10 +68,23 @@ public class Ball
         m_maxSpeed = maxSpeed;
     }
 
-    void setState(BallState s)
+    public void setState(BallState s)
     {
         m_state = s;
         m_state.setSpriteSize(m_radius*2,m_radius*2);
+        m_state.updateSprite(m_position.x-m_radius, m_position.y-m_radius);
+    }
+
+    public void resetState()
+    {
+        m_state = new BallStateNormal(this);
+        m_state.setSpriteSize(m_radius*2,m_radius*2);
+    }
+
+    public void resetVariables()
+    {
+        resetDtModifier();
+        resetMaxSpeed();
     }
 
     public void update(float dt)
@@ -82,7 +96,7 @@ public class Ball
             m_velocity.y = m_maxSpeed;
         }
 
-        m_position.add(m_velocity.x*dt,m_velocity.y*dt);
+        m_position.add(m_velocity.x*dt,m_velocity.y*dt*m_dtModifier );
 
         handleUserInput();
 
@@ -214,6 +228,21 @@ public class Ball
     public void dispose()
     {
         m_state.dispose();
+    }
+
+    public void setDtModifier(float dtm)
+    {
+        m_dtModifier = dtm;
+    }
+
+    public float getDtModifier()
+    {
+        return m_dtModifier;
+    }
+
+    public void resetDtModifier()
+    {
+        m_dtModifier = 1f;
     }
 
     @Override

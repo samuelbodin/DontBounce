@@ -1,30 +1,38 @@
 package com.mygdx.game.Ball;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g3d.attributes.FloatAttribute;
-import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.App;
-import com.mygdx.game.Basics.InputHandler;
-
-import org.w3c.dom.ranges.Range;
 
 import java.util.Random;
 
+/**
+ * Created by Rickard on 2016-12-19.
+ */
 
-public class BallStateMoveable extends BallState
+public class BallStateSuperSpeed extends BallState
 {
 
-    Sound sound[] = null;
+    float m_timer;
+    Sound m_sound[] = null;
 
-    public BallStateMoveable(Ball b)
+    public BallStateSuperSpeed()
+    {
+
+    }
+
+    public BallStateSuperSpeed(Ball b)
     {
         super(b);
         setupSprite();
-        m_ball.resetMaxSpeed();
+        m_ball.setMaxSpeed(-3000f);
+        m_timer = 3f;
+    }
+
+    public void setBall(Ball b)
+    {
+        m_ball = b;
     }
 
     @Override
@@ -37,6 +45,7 @@ public class BallStateMoveable extends BallState
     {
         m_texture = new Texture("flatball.png");
         m_sprite = new Sprite(m_texture);
+        m_sprite.setColor(0.5f,0.8f,0.8f,1);
         m_sprite.setOriginCenter();
     }
 
@@ -56,6 +65,15 @@ public class BallStateMoveable extends BallState
     public void update(float dt)
     {
         m_ball.applyGravity();
+
+        m_sprite.setColor(0.7f,0.9f,0.5f,1);
+        m_timer -= dt;
+
+        if(m_timer <= 0)
+        {
+            m_ball.resetState();
+        }
+
     }
 
     @Override
@@ -67,10 +85,10 @@ public class BallStateMoveable extends BallState
     @Override
     protected void playBounceSound(float velY)
     {
-        if(sound != null)
+        if(m_sound != null)
         {
             Random rnd = new Random();
-            sound[rnd.nextInt(sound.length)].play(1.0f * (velY/700) + 0.2f, 1f * (velY/700) + 1f, 0);
+            m_sound[rnd.nextInt(m_sound.length)].play(1.0f * (velY/700) + 0.2f, 1f * (velY/700) + 1f, 0);
         }
     }
 

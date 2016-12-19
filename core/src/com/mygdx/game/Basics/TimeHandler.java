@@ -58,14 +58,17 @@ public class TimeHandler
         m_font.draw(sb, String.format("%.2f", m_timer), m_drawPosition.x, m_drawPosition.y);
     }
 
-    public void update(float dt, Vector2 deltaMove)
+    public void updatePosition(Vector2 deltaMove)
+    {
+        m_drawPosition.y += deltaMove.y;
+    }
+
+    public void update(float dt)
     {
         if(m_running)
         {
             m_timer += dt;
         }
-
-        m_drawPosition.y += deltaMove.y;
     }
 
     public void dispose()

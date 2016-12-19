@@ -12,8 +12,6 @@ import com.mygdx.game.Obstacles.Obstacle;
 abstract class BallState extends Drawable
 {
     Ball m_ball = null;
-    float m_gravity = 0f;
-    float m_maxSpeed = 0f;
 
     BallState()
     {
@@ -22,6 +20,7 @@ abstract class BallState extends Drawable
     BallState(Ball b)
     {
         m_ball = b;
+        m_ball.resetVariables();
     }
     public void setBall(Ball b)
     {

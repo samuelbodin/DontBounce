@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.game.App;
 import com.mygdx.game.Ball.Ball;
 import com.mygdx.game.Basics.Collidable;
 import com.mygdx.game.Basics.InputHandler;
@@ -16,7 +15,7 @@ import com.mygdx.game.Basics.LevelGenerator;
 import com.mygdx.game.Basics.TimeHandler;
 import com.mygdx.game.Basics.WorldBackground;
 import com.mygdx.game.Obstacles.LevelGoal;
-import com.mygdx.game.Obstacles.PowerUp;
+import com.mygdx.game.Obstacles.PowerUpSuperSpeed;
 
 public class PlayState extends State
 {
@@ -25,7 +24,7 @@ public class PlayState extends State
     private WorldBackground m_background = null;
     private LevelGenerator m_level = null;
     private LevelGoal m_goal = null;
-    private Array<PowerUp> m_powerUps = null;
+    private Array<PowerUpSuperSpeed> m_powerUps = null;
     private Viewport m_viewport = null;
     private Music m_music = null;
     private LevelData m_levelData = null;
@@ -79,7 +78,7 @@ public class PlayState extends State
         //m_level = new LevelGenerator(m_levelData.m_seed, m_config.m_worldW, m_config.m_worldH, m_levelData.m_worldHeight, m_levelData.m_obstacleSizeFactor, m_levelData.m_obstacleSeparationFactor, m_levelData.m_obstacleMinSpacingFactor, m_levelData.m_obstacleSnapMargin, m_levelData.m_hasHoles, m_levelData.m_tint);
 
         m_goal = m_level.getGoal();
-        m_powerUps = m_level.getPowerUps();
+        //m_powerUps = m_level.getPowerUps();
         m_collidables = new Array<Collidable>();
         m_collidables = m_level.getCollidables();
 
@@ -135,7 +134,7 @@ public class PlayState extends State
             m_background.update(dt);
             m_background.setPosition(m_cam.getDeltaPosition());
             // Set timer position after camera is updated.
-            m_time.update(dt, m_cam.getDeltaPosition());
+            m_time.updatePosition(m_cam.getDeltaPosition());
         }
 
         // Check collision with goal when goal is on screen
@@ -153,6 +152,7 @@ public class PlayState extends State
         {
             m_time.start();
         }
+        m_time.update(dt*m_ball.getDtModifier());
     }
 
     @Override
@@ -170,16 +170,6 @@ public class PlayState extends State
                 c.render(sb);
             }
         }
-
-        // Render only power ups that are in "camera view"
-        for(PowerUp p : m_powerUps)
-        {
-            if(m_cam.isOnScreen(p.getPosition()))
-            {
-                p.render(sb);
-            }
-        }
-
 
         m_goal.render(sb);
         m_ball.render(sb);
