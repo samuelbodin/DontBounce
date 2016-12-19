@@ -4,10 +4,6 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 
-/**
- * Created by Rickard on 2016-12-07.
- */
-
 public class InputHandler
 {
 

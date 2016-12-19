@@ -10,10 +10,6 @@ import com.mygdx.game.Obstacles.StaticObstacle;
 import com.badlogic.gdx.graphics.Color;
 
 
-/**
- * Created by Rickard on 2016-12-07.
- */
-
 public class LevelGenerator
 {
     public float m_worldWidth = 0, m_worldHeight = 0, m_levelHeight = 0;

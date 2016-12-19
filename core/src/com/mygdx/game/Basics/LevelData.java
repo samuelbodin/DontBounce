@@ -7,10 +7,6 @@ import com.mygdx.game.App;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Rickard on 2016-12-16.
- */
-
 public class LevelData {
 
     public int m_levelId;

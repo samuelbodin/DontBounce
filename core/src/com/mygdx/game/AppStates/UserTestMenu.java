@@ -12,10 +12,6 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.game.Basics.AssetLoader;
 import com.mygdx.game.Basics.LevelData;
 
-/**
- * Created by Rickard on 2016-12-09.
- */
-
 public class UserTestMenu extends State
 {
 

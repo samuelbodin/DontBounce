@@ -17,6 +17,7 @@ public abstract class Obstacle extends Collidable
         super(x,y);
         m_width = w;
         m_height = h;
+
     }
 
     @Override

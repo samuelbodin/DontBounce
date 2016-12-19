@@ -36,7 +36,7 @@ public class MenuState extends State
 
         m_sm = sm;
 
-        m_stage = new Stage(new StretchViewport(App.m_worldW, App.m_worldH));
+        m_stage = new Stage(new StretchViewport(m_config.m_worldW, m_config.m_worldH));
         Gdx.input.setInputProcessor(m_stage);
 
         // Background
@@ -85,19 +85,16 @@ public class MenuState extends State
         Table controls = new Table();
         Table footer = new Table();
 
-        //table.debug();
         table.add(m_heading).expand(0, 2).bottom();
         table.row();
         table.add(controls).expandY();
         table.row();
         table.add(footer).expandY().bottom().right();
 
-       // controls.debug();
         controls.add(m_playBtn).width(200).height(200).expandX().padRight(50);
         controls.add(m_levelBtn).width(200).height(200).expandX();
 
         footer.add(m_soundBtn).width(100).height(100).padBottom(20);
-        //footer.debug();
 
         m_stage.addActor(table);
 
@@ -143,7 +140,7 @@ public class MenuState extends State
     public void render(SpriteBatch sb)
     {
         m_stage.getBatch().begin();
-        m_stage.getBatch().draw(m_background, 0, 0, App.m_worldW, App.m_worldH);
+        m_stage.getBatch().draw(m_background, 0, 0, m_config.m_worldW, m_config.m_worldH);
         m_stage.getBatch().end();
 
         m_stage.draw();

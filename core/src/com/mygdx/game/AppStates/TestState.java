@@ -17,7 +17,7 @@ public class TestState extends State
     {
         super(sm);
 
-        m_ball = new Ball(App.m_worldW / 2, 0, App.m_worldW / 40, App.m_worldW);
+        m_ball = new Ball(m_config.m_worldW / 2, 0, m_config.m_worldW / 40, m_config.m_worldW);
         m_collidables = new Array<Collidable>();
         m_collidables.add(new StaticObstacle(0,-500,100,25));
         m_cam.setBall(m_ball);

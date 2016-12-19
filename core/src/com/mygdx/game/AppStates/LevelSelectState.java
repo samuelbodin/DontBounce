@@ -41,18 +41,15 @@ public class LevelSelectState extends State
     private TextButtonStyle m_levelBtnSkin;
     private Chapter m_chapter;
     private Integer m_currentLevel;
-    private Config m_cfg;
 
     public LevelSelectState(StateManager sm)
     {
 
         super(sm);
 
-        //m_cfg = Config.getInstance();
-
         m_sm = sm;
 
-        m_stage = new Stage(new StretchViewport(App.m_worldW, App.m_worldH));
+        m_stage = new Stage(new StretchViewport(m_config.m_worldW, m_config.m_worldH));
         Gdx.input.setInputProcessor(m_stage);
 
         // Background
@@ -137,7 +134,7 @@ public class LevelSelectState extends State
                 @Override
                 public void changed(ChangeEvent event, Actor actor)
                 {
-                    m_sm.set(new RicState(m_sm, m_cfg.getLevel(Integer.parseInt(actor.getName()))));
+                    m_sm.set(new RicState(m_sm, m_config.getLevel(Integer.parseInt(actor.getName()))));
                 }
             });
 
@@ -192,7 +189,7 @@ public class LevelSelectState extends State
     public void render(SpriteBatch sr)
     {
         m_stage.getBatch().begin();
-        m_stage.getBatch().draw(m_background, 0, 0, App.m_worldW, App.m_worldH);
+        m_stage.getBatch().draw(m_background, 0, 0, m_config.m_worldW, m_config.m_worldH);
         m_stage.getBatch().end();
 
         m_stage.draw();
