@@ -27,9 +27,9 @@ public class LevelGoal extends Obstacle
         super(x,y,w,h);
         m_texture = new Texture("goal.png");
         m_sprite = new Sprite(m_texture);
-        //m_sprite.setAlpha(0.5f);
-        float scale = App.m_worldW / m_sprite.getWidth();
-        m_sprite.setSize(App.m_worldW, m_sprite.getHeight()*scale);
+        m_sprite.setAlpha(0.8f);
+        float scale = w / m_sprite.getWidth();
+        m_sprite.setSize(w, m_sprite.getHeight()*scale);
         m_sprite.setPosition(m_position.x,m_position.y);
 
     }

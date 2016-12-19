@@ -2,6 +2,7 @@ package com.mygdx.game.AppStates;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -73,8 +74,11 @@ public class RicState extends State
 
     void setupLevel()
     {
+        // TODO: Get color tint from Config when posible
+        Color c = new Color(0.25f,0.5f,0.75f,1);
+
         //Creating a new level and filling list of collidables
-        m_level = new LevelGenerator(m_levelData.m_seed, m_levelData.m_worldHeight, m_levelData.m_obstacleSizeFactor, m_levelData.m_obstacleSeparationFactor, m_levelData.m_obstacleMinSpacingFactor, App.m_worldW/12);
+        m_level = new LevelGenerator(m_levelData.m_seed, App.m_worldW, App.m_worldH, m_levelData.m_worldHeight, m_levelData.m_obstacleSizeFactor, m_levelData.m_obstacleSeparationFactor, m_levelData.m_obstacleMinSpacingFactor, App.m_worldW/12, c);
         m_goal = m_level.getGoal();
         m_powerUps = m_level.getPowerUps();
         m_collidables = new Array<Collidable>();

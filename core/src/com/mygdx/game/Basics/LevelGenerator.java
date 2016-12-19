@@ -3,10 +3,11 @@ package com.mygdx.game.Basics;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.App;
-import com.mygdx.game.AppStates.StateManager;
 import com.mygdx.game.Obstacles.LevelGoal;
 import com.mygdx.game.Obstacles.PowerUp;
 import com.mygdx.game.Obstacles.StaticObstacle;
+
+import com.badlogic.gdx.graphics.Color;
 
 
 /**
@@ -15,11 +16,12 @@ import com.mygdx.game.Obstacles.StaticObstacle;
 
 public class LevelGenerator
 {
-    public float m_worldWidth = 0, m_worldHeight = 0;
+    public float m_worldWidth = 0, m_worldHeight = 0, m_levelHeight = 0;
     private Array<Collidable> m_collidables = null;
     private SimplexNoise m_noise = null;
     private float m_obstacleX, m_obstacleY, m_lastObstacleX, m_lastObstableY, m_minObstacleYSpace, m_obstacleYSpaceFactor, m_obstacleWidth, m_snapMargin;
     private Array<Vector2> m_powerUps;
+    private Color m_tint;
 
     public LevelGenerator(int seed)
     {
@@ -30,15 +32,18 @@ public class LevelGenerator
     }
 
 
-    public LevelGenerator(int seed, float worldHeight, float obstacleSizeFactor, float obstacleSeparationFactor, float obstacleMinSpacingFactor, float obstacleSnapMargin)
+    public LevelGenerator(int seed, float worldWidth, float worldHeight, float levelHeight, float obstacleSizeFactor, float obstacleSeparationFactor, float obstacleMinSpacingFactor, float obstacleSnapMargin, Color tint)
     {
-        m_worldWidth = App.m_worldW;
+        m_worldWidth = worldWidth;
         m_worldHeight = worldHeight;
+        m_levelHeight = levelHeight;
 
         m_minObstacleYSpace = m_worldWidth/(obstacleMinSpacingFactor/15);
         m_obstacleYSpaceFactor = (m_worldWidth/2)/(obstacleSeparationFactor/10);
         m_obstacleWidth = (m_worldWidth/4)*(obstacleSizeFactor/15);
         m_snapMargin = obstacleSnapMargin;
+
+        m_tint = tint;
 
         m_collidables = new Array<Collidable>();
         m_powerUps = new Array<Vector2>();
@@ -74,15 +79,15 @@ public class LevelGenerator
                 m_obstacleX = 0;
             }
             m_obstacleY = m_obstacleY * m_obstacleYSpaceFactor + m_minObstacleYSpace;
-            m_collidables.add(new StaticObstacle(m_obstacleX, m_lastObstableY - m_obstacleY, m_obstacleWidth, 32));
-            if(m_obstacleY % 10 > 0)
+            m_collidables.add(new StaticObstacle(m_obstacleX, m_lastObstableY - m_obstacleY, m_obstacleWidth, 32, m_tint));
+            if(m_obstacleY % 10 > 5)
             {
                 m_powerUps.add(new Vector2(m_obstacleX,(m_lastObstableY - m_obstacleY)-(m_minObstacleYSpace/4)));
             }
             m_lastObstableY -= m_obstacleY;
             m_lastObstacleX = m_obstacleX;
             i++;
-        } while(m_lastObstableY > -m_worldHeight+(m_minObstacleYSpace*2));
+        } while(m_lastObstableY > -m_levelHeight +(m_minObstacleYSpace*2));
     }
 
     private void generateInverted()
@@ -121,12 +126,12 @@ public class LevelGenerator
             m_lastObstableY -= m_obstacleY;
             m_lastObstacleX = m_obstacleX;
             i++;
-        } while(m_lastObstableY > -m_worldHeight+(m_minObstacleYSpace*2));
+        } while(m_lastObstableY > -m_levelHeight +(m_minObstacleYSpace*2));
     }
 
     public LevelGoal getGoal()
     {
-        return new LevelGoal(0, -m_worldHeight-(App.m_worldH/2), m_worldWidth, 100);
+        return new LevelGoal(0, -m_levelHeight -(m_worldHeight/2), m_worldWidth, 100);
     }
 
     public Array<PowerUp> getPowerUps()

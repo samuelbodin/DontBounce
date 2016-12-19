@@ -12,15 +12,21 @@ import com.mygdx.game.Basics.Circle;
 
 import org.w3c.dom.css.Rect;
 
+import com.badlogic.gdx.graphics.Color;
+
 public class StaticObstacle extends Obstacle
 {
     ObstacleBuilder m_ob;
 
     public StaticObstacle(float x, float y, float w, float h)
     {
+        this(x,y,w,h, Color.ORANGE);
+    }
+
+    public StaticObstacle(float x, float y, float w, float h, Color tint)
+    {
         super(x,y,w,h);
-        m_ob = new ObstacleBuilder(x,y,w,h);
-        //m_texture = new Texture("obs1.png");
+        m_ob = new ObstacleBuilder(x,y,w,h,tint);
     }
 
     @Override
