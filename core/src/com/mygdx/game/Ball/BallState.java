@@ -29,11 +29,15 @@ abstract class BallState extends Drawable
     }
 
 
-    protected abstract boolean hasDeltaMove();
-    protected abstract void updateSprite();
-    protected abstract void onCollision(Vector2 pos, int side);
+    protected void onCollision(Vector2 pos, int side)
+    {
+    }
 
-    protected void setDeltaMove(float deltaMove)
+    protected abstract boolean hasOnCollision();
+    protected abstract void updateSprite(float x, float y);
+    protected abstract void setSpriteSize(float width, float height);
+
+    protected void playBounceSound(float velY)
     {
     }
 

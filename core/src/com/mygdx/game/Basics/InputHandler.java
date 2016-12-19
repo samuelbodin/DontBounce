@@ -7,63 +7,82 @@ import com.badlogic.gdx.Input;
 public class InputHandler
 {
 
-    public float m_deltaMove;
-    private Application.ApplicationType m_platform;
-    private final float m_desktopMoveFactor;
+    private float m_prevDeltaMove = 0f;
+    private float m_currentDeltaMove = 0f;
+    private float m_moveFactor = 0f;
+    private float m_moveValue = 0f;
+    private Application.ApplicationType m_platform = null;
 
-    //For user testing: Values 0-2 to change steering mode
-    private int m_steeringMode = 0;
+    private int m_left = 0;
+    private int m_right = 0;
 
     public InputHandler()
     {
-        m_desktopMoveFactor = 1f;
-        m_platform = Gdx.app.getType();
+        m_moveFactor = 1.5f;
+        setupPlatform();
     }
 
-    public InputHandler(float desktopMoveFactor)
-    {
-        m_desktopMoveFactor = desktopMoveFactor;
-        m_platform = Gdx.app.getType();
-    }
 
-    public void update()
+     public float getMoveValue()
+     {
+         return m_moveValue;
+     }
+
+    private void setupPlatform()
     {
-        switch(m_platform) {
-            case Android:
-                switch (m_steeringMode)
-                {
-                    case 0:
-                        //Original steering implementation
-                        m_deltaMove = -Gdx.input.getAccelerometerX();
-                        break;
-                    case 1:
-                        //Rotate phone around Z-axle steering
-                        m_deltaMove = -Gdx.input.getGyroscopeZ()*5;
-                        break;
-                    case 2:
-                        //Original steering but done with gyro
-                        m_deltaMove = Gdx.input.getGyroscopeY()*5;
-                        break;
-                }
-                break;
-            case WebGL:
-            case Desktop:
-                if ( (Gdx.input.isKeyPressed(Input.Keys.LEFT) && Gdx.input.isKeyPressed(Input.Keys.RIGHT)) ||
-                        (!Gdx.input.isKeyPressed(Input.Keys.LEFT) && !Gdx.input.isKeyPressed(Input.Keys.RIGHT)) )
-                {
-                    m_deltaMove = 0;
-                }
-                else if(Gdx.input.isKeyPressed(Input.Keys.LEFT))
-                {
-                    m_deltaMove = -m_desktopMoveFactor;
-                }
-                else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))
-                {
-                    m_deltaMove = m_desktopMoveFactor;
-                }
-                break;
+        m_platform = Gdx.app.getType();
+
+        if(m_platform == Application.ApplicationType.Desktop)
+        {
+            m_left = Input.Keys.LEFT;
+            m_right = Input.Keys.RIGHT;
         }
     }
 
+    private void handlePlatform()
+    {
+        if(m_platform == Application.ApplicationType.Android)
+        {
+            m_currentDeltaMove = getInputAndroid();
+        }
+        else if(m_platform == Application.ApplicationType.Desktop)
+        {
+            m_currentDeltaMove = getInputDesktop();
+        }
+    }
+
+    private float getInputAndroid()
+    {
+        return -Gdx.input.getAccelerometerX();
+    }
+
+    private float getInputDesktop()
+    {
+        if ( (Gdx.input.isKeyPressed(m_left) && Gdx.input.isKeyPressed(m_right)) ||
+                (!Gdx.input.isKeyPressed(m_left) && !Gdx.input.isKeyPressed(m_right)) )
+        {
+            return 0f;
+        }
+        else if(Gdx.input.isKeyPressed(m_left))
+        {
+            return -1f;
+        }
+        else if(Gdx.input.isKeyPressed(m_right))
+        {
+            return 1f;
+        }
+
+        return 0f;
+    }
+
+
+    public void update(float dt)
+    {
+        handlePlatform();
+
+        m_moveValue =(m_prevDeltaMove+m_currentDeltaMove)/2;
+        m_moveValue = m_moveValue * 320 * dt * m_moveFactor;
+        m_prevDeltaMove = m_currentDeltaMove;
+    }
 
 }

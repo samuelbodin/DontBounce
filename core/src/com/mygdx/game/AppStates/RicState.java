@@ -110,6 +110,9 @@ public class RicState extends State
     {
         handleInput();
 
+        m_input.update(dt);
+        m_ball.addToPositionX(m_input.getMoveValue());
+
         m_ball.update(dt);
 
         // Check collision with obstacles that are visible
@@ -191,11 +194,6 @@ public class RicState extends State
                 m_music.stop();
             }
             m_sm.push(new PauseState(m_sm));
-        }
-        else
-        {
-            m_input.update();
-            m_ball.setDeltaMove(m_input.m_deltaMove);
         }
     }
 
