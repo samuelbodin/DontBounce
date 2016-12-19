@@ -75,7 +75,7 @@ public class Config
         }
         else
         {
-            return m_chapters.get(m_currentChapter).getLevel(m_currentLevel + 1);
+            return m_chapters.get(m_currentChapter).getLevel(m_currentLevel + 2);
         }
 
         return null;
@@ -85,4 +85,5 @@ public class Config
     {
         return (m_currentChapter + 1) < m_chapters.size();
     }
+
 }
