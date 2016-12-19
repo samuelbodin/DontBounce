@@ -19,9 +19,9 @@ public class TimeHandler
     {
 
         m_font = new BitmapFont(Gdx.files.internal("slackeyfont/slackey100.fnt"));
-        m_font.setColor(1,1,1,0.5f);
+        m_font.setColor(1,1,1,0.8f);
         m_font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        m_font.getData().setScale(0.5f);
+        m_font.getData().setScale(0.6f);
 
         m_drawPosition = new Vector2(x,y);
         m_timer = 0f;

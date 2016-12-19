@@ -28,7 +28,6 @@ public class LevelGoal extends Obstacle
         float scale = w / m_sprite.getWidth();
         m_sprite.setSize(w, m_sprite.getHeight()*scale);
         m_sprite.setPosition(m_position.x,m_position.y);
-
     }
 
     @Override
