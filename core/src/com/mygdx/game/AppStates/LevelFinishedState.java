@@ -14,6 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.App;
+import com.mygdx.game.Basics.LevelData;
+import com.mygdx.game.Basics.TimeHandler;
 
 public class LevelFinishedState extends State
 {
@@ -52,7 +54,6 @@ public class LevelFinishedState extends State
         m_font = new BitmapFont(Gdx.files.internal("slackeyfont/slackey100.fnt"));
         m_fontStyle = new Label.LabelStyle(m_font, Color.WHITE);
 
-        //Implement: m_finishTime = function();
         m_headerLabel = new Label("LEVEL COMPLETE", m_fontStyle);
         m_finishTimeLabel = new Label("Time: " + Float.toString(m_finishTime), m_fontStyle);
 
@@ -69,7 +70,7 @@ public class LevelFinishedState extends State
             @Override
             public void changed(ChangeEvent event, Actor actor)
             {
-
+                m_sm.set(new RicState(m_sm, new LevelData()));
             }
         });
         m_mainMenu.addListener(new ChangeListener()

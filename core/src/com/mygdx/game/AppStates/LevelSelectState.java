@@ -48,7 +48,7 @@ public class LevelSelectState extends State
 
         super(sm);
 
-        m_cfg = Config.getInstance();
+        //m_cfg = Config.getInstance();
 
         m_sm = sm;
 
