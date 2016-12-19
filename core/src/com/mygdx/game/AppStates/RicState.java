@@ -120,7 +120,7 @@ public class RicState extends State
         {
             if(m_goal.checkCollision(m_ball))
             {
-                m_sm.set(new UserTestMenu(m_sm));
+                m_sm.push(new LevelFinishedState(m_sm));
             }
         }
     }
