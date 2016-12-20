@@ -39,13 +39,14 @@ public class StaticObstacle extends Obstacle
         float distanceY = c.m_y - y;
 
         float distanceSquared = (distanceX * distanceX) + (distanceY * distanceY);
-
+        m_ob.setCracked(new Vector2(x,y));
         return new Vector2(x,y);
     }
 
     @Override
     public void update(float dt)
     {
+        m_ob.update(dt);
     }
 
     @Override
@@ -59,5 +60,6 @@ public class StaticObstacle extends Obstacle
     public void dispose()
     {
         m_texture.dispose();
+        m_ob.dispose();
     }
 }
