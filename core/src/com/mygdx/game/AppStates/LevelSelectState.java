@@ -106,8 +106,8 @@ public class LevelSelectState extends State
         nextBtnStyle.down = m_skin.getDrawable("next");
         m_nextBtn = new ImageButton(nextBtnStyle);
 
-        m_controlTable.add(m_nextBtn).width(m_config.m_worldW/4).height(m_config.m_worldW/4).left();
-        m_controlTable.add(m_prevBtn).width(m_config.m_worldW/4).height(m_config.m_worldW/4).right();
+        m_controlTable.add(m_nextBtn).width(m_config.m_worldW/4).height(m_config.m_worldW/4).left().pad(10);
+        m_controlTable.add(m_prevBtn).width(m_config.m_worldW/4).height(m_config.m_worldW/4).right().pad(10);
     }
 
     private void setChapter()
