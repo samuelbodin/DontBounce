@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -23,7 +24,8 @@ public class MenuState extends State
 
     private BitmapFont m_font;
     private ImageButton m_playBtn, m_levelBtn, m_soundBtn;
-    private Label m_heading;
+    //private Label m_heading;
+    private Image m_logo;
     private Skin m_skin;
     private Stage m_stage;
     private StateManager m_sm;
@@ -54,8 +56,9 @@ public class MenuState extends State
 
         Label.LabelStyle ls = new Label.LabelStyle(m_font, new Color(1,0.65f,0,0.8f));
 
-        m_heading = new Label("Don't Bounce", ls);
-        m_heading.setFontScale(0.6f);
+        //m_heading = new Label("Don't Bounce", ls);
+        //m_heading.setFontScale(0.6f);
+        m_logo = new Image(m_skin.getDrawable("logo"));
 
 
         // Buttons
@@ -85,7 +88,8 @@ public class MenuState extends State
         Table controls = new Table();
         Table footer = new Table();
 
-        table.add(m_heading).expand(0, 2).bottom();
+        //table.add(m_heading).expand(0, 2).bottom();
+        table.add(m_logo).width(m_config.m_worldW*0.8f).expand(0, 2).bottom();
         table.row();
         table.add(controls).expandY();
         table.row();

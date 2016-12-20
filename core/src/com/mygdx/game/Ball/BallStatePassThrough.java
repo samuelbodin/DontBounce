@@ -18,6 +18,7 @@ public class BallStatePassThrough extends BallState
 
     float m_timer;
     Sound m_sound[] = null;
+    float m_soundPlayed = 0f;
 
     public BallStatePassThrough()
     {
@@ -45,10 +46,10 @@ public class BallStatePassThrough extends BallState
 
     private void setupSprite()
     {
-        m_texture = new Texture("flatball.png");
+        m_texture = new Texture("flatballgrey.png");
         m_sprite = new Sprite(m_texture);
-        m_sprite.setColor(0.9f,0.1f,0.9f,1);
         m_sprite.setOriginCenter();
+        m_sprite.setColor(0.2f,0.8f,0.45f,1);
     }
 
     @Override
@@ -68,7 +69,6 @@ public class BallStatePassThrough extends BallState
     {
         m_ball.applyGravity();
 
-        m_sprite.setColor(0.2f,0.9f,0.9f,1);
         m_timer -= dt;
 
         if(m_timer <= 0)
@@ -76,6 +76,7 @@ public class BallStatePassThrough extends BallState
             m_ball.resetState();
         }
 
+        m_soundPlayed += dt;
     }
 
     @Override
@@ -87,8 +88,9 @@ public class BallStatePassThrough extends BallState
     @Override
     protected void playBounceSound(float velY)
     {
-        if(m_sound != null)
+        if(m_sound != null && m_soundPlayed > 0.9f)
         {
+            m_soundPlayed = 0;
             Random rnd = new Random();
             m_sound[rnd.nextInt(m_sound.length)].play(1.0f * (velY/700) + 0.2f, 1f * (velY/700) + 1f, 0);
         }

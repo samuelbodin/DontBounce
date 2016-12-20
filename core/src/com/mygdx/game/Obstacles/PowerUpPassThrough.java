@@ -19,7 +19,6 @@ public class PowerUpPassThrough extends Obstacle
     Sprite m_sprite = null;
     boolean m_isActive = true;
 
-
     public PowerUpPassThrough(float x, float y, float w, float h)
     {
         super(x,y,w,h);
