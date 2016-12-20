@@ -2,6 +2,8 @@ package com.mygdx.game.AppStates;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -28,6 +30,7 @@ public class PauseState extends State
     private Table m_labelTable, m_buttonTable, m_rootTable;
     private Label m_header;
     private Label.LabelStyle m_headerSkin;
+    private Texture m_background;
 
     public PauseState(StateManager sm)
     {
@@ -39,7 +42,7 @@ public class PauseState extends State
         m_stage = new Stage(new StretchViewport(m_config.m_worldW, m_config.m_worldH));
 
         //Move this to AssetLoader in the future
-        //m_icons = new TextureAtlas("icons/levelMenuIcons/levelMenuIcons.pack");
+        m_background = new Texture("black.png");
         m_icons = new TextureAtlas("buttons/buttons.atlas");
         m_skin = new Skin(m_icons);
 
@@ -119,7 +122,11 @@ public class PauseState extends State
     @Override
     public void render(SpriteBatch sr)
     {
-        sr.setProjectionMatrix(m_cam.combined);
+        Batch temp = m_stage.getBatch();
+        temp.begin();
+        temp.setColor(0, 0, 0, 0.5f);
+        temp.draw(m_background, 0, 0);
+        temp.end();
         m_stage.draw();
     }
 
