@@ -1,5 +1,6 @@
 package com.mygdx.game.Ball;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -27,6 +28,7 @@ public class BallStatePassThrough extends BallState
     {
         super(b);
         setupSprite();
+        m_sound = setupSound();
         m_timer = 4f;
     }
 
@@ -95,7 +97,7 @@ public class BallStatePassThrough extends BallState
     @Override
     public void onCollision(Vector2 pos, int side)
     {
-
+        playBounceSound(m_ball.getVelocity().y);
     }
 
     @Override
@@ -106,6 +108,17 @@ public class BallStatePassThrough extends BallState
 
         return str;
     }
+
+    @Override
+    Sound[] setupSound()
+    {
+        Sound[] sound = new Sound[3];
+        sound[0] = Gdx.audio.newSound(Gdx.files.internal("sound/passthrough01.wav"));
+        sound[1] = Gdx.audio.newSound(Gdx.files.internal("sound/passthrough02.wav"));
+        sound[2] = Gdx.audio.newSound(Gdx.files.internal("sound/passthrough03.wav"));
+        return sound;
+    }
+
 
     @Override
     public void dispose()

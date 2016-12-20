@@ -1,6 +1,7 @@
 package com.mygdx.game.Ball;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -38,6 +39,16 @@ abstract class BallState extends Drawable
 
     protected void playBounceSound(float velY)
     {
+    }
+
+    Sound[] setupSound()
+    {
+        Sound[] sound = new Sound[4];
+        sound[0] = Gdx.audio.newSound(Gdx.files.internal("sound/bounce01.wav"));
+        sound[1] = Gdx.audio.newSound(Gdx.files.internal("sound/bounce02.wav"));
+        sound[2] = Gdx.audio.newSound(Gdx.files.internal("sound/bounce03.wav"));
+        sound[3] = Gdx.audio.newSound(Gdx.files.internal("sound/bounce04.wav"));
+        return sound;
     }
 
     @Override

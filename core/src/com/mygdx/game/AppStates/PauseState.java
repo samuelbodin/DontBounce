@@ -39,7 +39,8 @@ public class PauseState extends State
         m_stage = new Stage(new StretchViewport(m_config.m_worldW, m_config.m_worldH));
 
         //Move this to AssetLoader in the future
-        m_icons = new TextureAtlas("icons/levelMenuIcons/levelMenuIcons.pack");
+        //m_icons = new TextureAtlas("icons/levelMenuIcons/levelMenuIcons.pack");
+        m_icons = new TextureAtlas("buttons/buttons.atlas");
         m_skin = new Skin(m_icons);
 
         m_labelTable = new Table();
@@ -51,9 +52,9 @@ public class PauseState extends State
 
         m_header = new Label("PAUSED", m_headerSkin);
 
-        m_return = new ImageButton(m_skin.getDrawable("continue"));
+        m_return = new ImageButton(m_skin.getDrawable("play"));
         m_restart = new ImageButton(m_skin.getDrawable("restart"));
-        m_mainMenu = new ImageButton(m_skin.getDrawable("mainmenu"));
+        m_mainMenu = new ImageButton(m_skin.getDrawable("home"));
 
         fillStage();
         setupClickListeners();

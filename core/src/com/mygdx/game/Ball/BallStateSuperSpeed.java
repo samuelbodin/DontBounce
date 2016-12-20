@@ -26,8 +26,10 @@ public class BallStateSuperSpeed extends BallState
     {
         super(b);
         setupSprite();
+        m_sound = setupSound();
         m_ball.setMaxSpeed(-3000f);
         m_timer = 3f;
+
     }
 
     public void setBall(Ball b)

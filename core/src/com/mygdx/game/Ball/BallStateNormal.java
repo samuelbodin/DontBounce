@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g3d.attributes.FloatAttribute;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.App;
 import com.mygdx.game.Basics.InputHandler;
 
@@ -18,12 +19,13 @@ import java.util.Random;
 public class BallStateNormal extends BallState
 {
 
-    Sound sound[] = null;
+    Sound m_sound[] = null;
 
     public BallStateNormal(Ball b)
     {
         super(b);
         setupSprite();
+        m_sound = setupSound();
     }
 
     @Override
@@ -37,6 +39,7 @@ public class BallStateNormal extends BallState
         m_texture = new Texture("flatball.png");
         m_sprite = new Sprite(m_texture);
         m_sprite.setOriginCenter();
+
     }
 
     @Override
@@ -66,10 +69,10 @@ public class BallStateNormal extends BallState
     @Override
     protected void playBounceSound(float velY)
     {
-        if(sound != null)
+        if(m_sound != null)
         {
             Random rnd = new Random();
-            sound[rnd.nextInt(sound.length)].play(1.0f * (velY/700) + 0.2f, 1f * (velY/700) + 1f, 0);
+            m_sound[rnd.nextInt(m_sound.length)].play(1.0f * (velY/700) + 0.2f, 1f * (velY/700) + 1f, 0);
         }
     }
 
@@ -87,5 +90,15 @@ public class BallStateNormal extends BallState
     {
         m_texture.dispose();
     }
+
+/*    private Sound[] setupSound()
+    {
+        Sound[] sound = new Sound[4];
+        sound[0] = Gdx.audio.newSound(Gdx.files.internal("sound/bounce01.wav"));
+        sound[1] = Gdx.audio.newSound(Gdx.files.internal("sound/bounce02.wav"));
+        sound[2] = Gdx.audio.newSound(Gdx.files.internal("sound/bounce03.wav"));
+        sound[3] = Gdx.audio.newSound(Gdx.files.internal("sound/bounce04.wav"));
+        return sound;
+    }*/
 
 }

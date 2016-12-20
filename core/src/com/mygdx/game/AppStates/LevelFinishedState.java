@@ -43,12 +43,13 @@ public class LevelFinishedState extends State
         m_buttonTable = new Table();
         m_labelTable = new Table();
 
-        icons = new TextureAtlas("icons/levelMenuIcons/levelMenuIcons.pack");
+        //icons = new TextureAtlas("icons/levelMenuIcons/levelMenuIcons.pack");
+        icons = new TextureAtlas("buttons/buttons.atlas");
         buttonSkin = new Skin(icons);
 
-        m_continue = new ImageButton(buttonSkin.getDrawable("continue"));
+        m_continue = new ImageButton(buttonSkin.getDrawable("play"));
         m_restart = new ImageButton(buttonSkin.getDrawable("restart"));
-        m_mainMenu = new ImageButton(buttonSkin.getDrawable("mainmenu"));
+        m_mainMenu = new ImageButton(buttonSkin.getDrawable("home"));
 
         font = new BitmapFont(Gdx.files.internal("slackeyfont/slackey100.fnt"));
         fontStyle = new Label.LabelStyle(font, Color.WHITE);

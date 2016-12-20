@@ -166,12 +166,17 @@ public class Ball
             alignToTheLeftOfPosition(pos);
         }
 
+        collisionSound();
+
+        flipVelocityY();
+    }
+
+    void collisionSound()
+    {
         if(!isOnGround())
         {
             m_state.playBounceSound(m_velocity.y);
         }
-
-        flipVelocityY();
     }
 
     void alignAbovePosition(Vector2 pos)
@@ -208,7 +213,7 @@ public class Ball
 
     boolean isOnGround()
     {
-        return (m_velocity.y > 0 && m_velocity.y <= -m_gravity);
+        return (m_velocity.y > -30 && m_velocity.y <= -m_gravity);
     }
 
     public Vector2 getPosition()

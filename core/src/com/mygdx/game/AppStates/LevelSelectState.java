@@ -56,7 +56,7 @@ public class LevelSelectState extends State
         m_background.setSize(bg.getWidth(), bg.getHeight());
 
         // Load icons and font
-        m_icons = new TextureAtlas("icons/icons.pack");
+        m_icons = new TextureAtlas("buttons/buttons.atlas");
         m_skin = new Skin(m_icons);
         m_font = new BitmapFont(Gdx.files.internal("slackeyfont/slackey100.fnt"));
 
@@ -92,17 +92,17 @@ public class LevelSelectState extends State
         m_levelBtnSkin.down = m_skin.getDrawable("btn");
         m_levelBtnSkin.font = m_font;
 
-        // Next chapter button
-        ImageButtonStyle nextBtnStyle = new ImageButtonStyle();
-        nextBtnStyle.up = m_skin.getDrawable("next");
-        nextBtnStyle.down = m_skin.getDrawable("next");
-        m_nextBtn = new ImageButton(nextBtnStyle);
-
         // Previous chapter button
         ImageButtonStyle prevBtnStyle = new ImageButtonStyle();
         prevBtnStyle.up = m_skin.getDrawable("prev");
         prevBtnStyle.down = m_skin.getDrawable("prev");
         m_prevBtn = new ImageButton(prevBtnStyle);
+
+        // Next chapter button
+        ImageButtonStyle nextBtnStyle = new ImageButtonStyle();
+        nextBtnStyle.up = m_skin.getDrawable("next");
+        nextBtnStyle.down = m_skin.getDrawable("next");
+        m_nextBtn = new ImageButton(nextBtnStyle);
 
         m_controlTable.add(m_prevBtn).expandX();
         m_controlTable.add(m_nextBtn).expandX();
@@ -119,7 +119,7 @@ public class LevelSelectState extends State
 
             TextButton tmp = new TextButton(m_currentLevel.toString(), m_levelBtnSkin);
             tmp.setName(m_currentLevel.toString());
-            tmp.getLabel().setFontScale(0.7f);
+            tmp.getLabel().setFontScale(0.5f);
             m_levelTable.add(tmp).width(200).height(100).padRight(20).expandX();
 
             if ((i+1) % 3 == 0)

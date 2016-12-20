@@ -26,6 +26,7 @@ public class BallStateUltraRapid extends BallState
     {
         super(b);
         setupSprite();
+        m_sound = setupSound();
         m_ball.setDtModifier(0.5f);
         m_timer = 5f;
     }

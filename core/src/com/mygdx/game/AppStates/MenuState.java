@@ -44,17 +44,17 @@ public class MenuState extends State
         m_background = new Sprite(bg, 0, 0, bg.getWidth(), bg.getHeight());
         m_background.setSize(bg.getWidth(), bg.getHeight());
 
-        m_icons = new TextureAtlas("icons/icons.pack");
+        m_icons = new TextureAtlas("buttons/buttons.atlas");
         m_skin = new Skin(m_icons);
 
 
         // Heading & Font
         m_font = new BitmapFont(Gdx.files.internal("slackeyfont/slackey100.fnt"));
 
-        Label.LabelStyle ls = new Label.LabelStyle(m_font, new Color(0,0,0,0.5f));
+        Label.LabelStyle ls = new Label.LabelStyle(m_font, new Color(1,0.65f,0,0.8f));
 
         m_heading = new Label("Don't Bounce", ls);
-        m_heading.setFontScale(0.7f);
+        m_heading.setFontScale(0.6f);
 
 
         // Buttons
@@ -63,17 +63,16 @@ public class MenuState extends State
         playBtnStyle.down = m_skin.getDrawable("play");
 
         ImageButton.ImageButtonStyle levelBtnStyle = new ImageButton.ImageButtonStyle();
-        levelBtnStyle.up = m_skin.getDrawable("pics");
-        levelBtnStyle.down = m_skin.getDrawable("pics");
+        levelBtnStyle.up = m_skin.getDrawable("levelselect");
+        levelBtnStyle.down = m_skin.getDrawable("levelselect");
 
         ImageButton.ImageButtonStyle soundBtnStyle = new ImageButton.ImageButtonStyle();
-        soundBtnStyle.up = m_skin.getDrawable("sound");
-        soundBtnStyle.checked = m_skin.getDrawable("soundmute");
+        soundBtnStyle.up = m_skin.getDrawable("audioon");
+        soundBtnStyle.checked = m_skin.getDrawable("audiooff");
 
         m_playBtn = new ImageButton(playBtnStyle);
         m_levelBtn = new ImageButton(levelBtnStyle);
         m_soundBtn = new ImageButton(soundBtnStyle);
-
 
         // Add click listeners
         setupClickListeners();
