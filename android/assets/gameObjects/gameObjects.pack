@@ -1,0 +1,103 @@
+
+gameObjects.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+passthrough
+  rotate: false
+  xy: 1, 231
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+speedup
+  rotate: false
+  xy: 259, 231
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+ultrarapid
+  rotate: false
+  xy: 517, 231
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+flatball
+  rotate: false
+  xy: 1, 101
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+flatballgrey
+  rotate: false
+  xy: 775, 359
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+flatbwbody
+  rotate: false
+  xy: 1, 35
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+flatbwleft
+  rotate: false
+  xy: 131, 165
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+flatbwright
+  rotate: false
+  xy: 775, 293
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+flatobbody
+  rotate: false
+  xy: 905, 455
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+flatobleft
+  rotate: false
+  xy: 1, 1
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+flatobright
+  rotate: false
+  xy: 67, 67
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+plbody
+  rotate: false
+  xy: 131, 131
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+plend
+  rotate: false
+  xy: 197, 197
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+plstart
+  rotate: false
+  xy: 775, 259
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
