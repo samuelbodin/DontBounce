@@ -20,13 +20,13 @@ public class InputHandler
     private int m_DataInputIndex = 0;
 
     // 0: no smooth, 1-1.5: normal
-    private float smoothFactor = 1.3f;
+    private float smoothFactor = 1.5f;
     // 0: no smooth, 5-10: normal
     private int smoothSize = 8;
 
     public InputHandler()
     {
-        m_moveFactor = 1.5f;
+        m_moveFactor = 1.6f;
         setupPlatform();
         m_accData = new float[smoothSize];
     }
