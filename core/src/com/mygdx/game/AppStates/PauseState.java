@@ -44,7 +44,7 @@ public class PauseState extends State
         //Move this to AssetLoader in the future
         m_background = new Texture("black.png");
         m_icons = new TextureAtlas("buttons/buttons.atlas");
-        m_skin = new Skin(m_icons);
+        m_skin = m_assets.buttonSkin;
 
         m_labelTable = new Table();
         m_rootTable = new Table();

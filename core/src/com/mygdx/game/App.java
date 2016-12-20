@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.AppStates.StateManager;
 import com.mygdx.game.AppStates.MenuState;
+import com.mygdx.game.Basics.AssetLoader;
 import com.mygdx.game.Basics.Config;
 
 public class App extends ApplicationAdapter
@@ -13,14 +14,16 @@ public class App extends ApplicationAdapter
     private StateManager m_sm = null;
     private SpriteBatch m_sb = null;
 	private Config m_config = null;
-
+	private AssetLoader m_assets = null;
 
 	@Override
 	public void create ()
 	{
+		m_assets = new AssetLoader();
         m_config = new Config();
         m_sm = new StateManager();
         m_sm.m_config = m_config;
+		m_sm.m_assets = m_assets;
         m_sb = new SpriteBatch();
         m_sm.set(new MenuState(m_sm));
 		Gdx.gl.glClearColor(0, 0, 0, 1);

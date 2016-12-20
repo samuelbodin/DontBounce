@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.AppStates.State;
+import com.mygdx.game.Basics.AssetLoader;
 import com.mygdx.game.Basics.Config;
 
 import java.util.Stack;
@@ -12,6 +13,7 @@ public class StateManager
 {
     public Stack<State> m_states = null;
     public Config m_config = null;
+    public AssetLoader m_assets = null;
 
     public StateManager()
     {

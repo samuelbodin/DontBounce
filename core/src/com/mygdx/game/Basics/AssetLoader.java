@@ -9,22 +9,17 @@ public class AssetLoader
 {
     private TextureAtlas m_gameElements;
     private TextureAtlas m_buttonElements;
-    private Skin skin;
 
-    public static TextureRegion ball;
-    public static TextureRegion obstacleRed;
-    public static TextureRegion obstacleWood;
-    public static TextureRegion obstacleGrass;
-    public static TextureRegion obstacleCyber;
-    public static TextureRegion obstacleIce;
+    public Skin buttonSkin;
 
-    public static TextureRegion btnPlay;
+    public TextureRegion ball;
 
     public AssetLoader()
     {
-        m_buttonElements = new TextureAtlas("buttonPack/buttons.pack");
-        skin = new Skin();
-        skin.addRegions(m_buttonElements);
+        Gdx.app.log("PW", "AS constructor");
+        m_buttonElements = new TextureAtlas("buttons/buttons.atlas");
+        buttonSkin = new Skin();
+        buttonSkin.addRegions(m_buttonElements);
 
         m_gameElements = new TextureAtlas("texturePack/gameElements.pack");
         loadTextures();
@@ -33,16 +28,11 @@ public class AssetLoader
     private void loadTextures()
     {
         ball = m_gameElements.findRegion("ball1");
-        obstacleRed = m_gameElements.findRegion("obs1");
-        obstacleWood = m_gameElements.findRegion("obs2");
-        obstacleGrass = m_gameElements.findRegion("obs3");
-        obstacleCyber = m_gameElements.findRegion("obs4");
-        obstacleIce = m_gameElements.findRegion("obs5");
     }
 
-    public Skin getSkin()
+    public Skin getButtonSkin()
     {
-        return skin;
+        return buttonSkin;
     }
 
     public void dispose()
