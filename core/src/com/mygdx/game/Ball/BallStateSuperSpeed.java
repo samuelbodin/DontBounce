@@ -1,9 +1,13 @@
 package com.mygdx.game.Ball;
 
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.Basics.Particles;
 
 import java.util.Random;
 
@@ -16,6 +20,8 @@ public class BallStateSuperSpeed extends BallState
 
     float m_timer;
     Sound m_sound[] = null;
+    Color m_tint;
+    Particles m_particles;
 
     public BallStateSuperSpeed()
     {
@@ -25,11 +31,14 @@ public class BallStateSuperSpeed extends BallState
     public BallStateSuperSpeed(Ball b)
     {
         super(b);
+        m_tint = new Color(1f,0.80f,0,1);
         setupSprite();
         m_sound = setupSound();
         m_ball.setMaxSpeed(-3000f);
         m_timer = 3f;
-
+        m_particles = new Particles(m_texture, 15, 32, 32);
+        m_particles.setColor(m_tint);
+        m_particles.setFade(0.5f, 0);
     }
 
     public void setBall(Ball b)
@@ -48,7 +57,7 @@ public class BallStateSuperSpeed extends BallState
         m_texture = new Texture("flatballgrey.png");
         m_sprite = new Sprite(m_texture);
         m_sprite.setOriginCenter();
-        m_sprite.setColor(1f,0.80f,0,1);
+        m_sprite.setColor(m_tint);
     }
 
     @Override
@@ -74,12 +83,14 @@ public class BallStateSuperSpeed extends BallState
         {
             m_ball.resetState();
         }
-
+        m_particles.update(dt);
+        m_particles.setPosition( m_ball.getPosition() );
     }
 
     @Override
     public void render(SpriteBatch sb)
     {
+        m_particles.render(sb);
         m_sprite.draw(sb);
     }
 
@@ -106,6 +117,7 @@ public class BallStateSuperSpeed extends BallState
     public void dispose()
     {
         m_texture.dispose();
+        m_particles.dispose();
     }
 
 }

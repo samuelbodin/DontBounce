@@ -100,7 +100,7 @@ public class LevelGenerator
             // Randomize powerups.
             if(m_obstacleY % 10 > 5)
             {
-                m_collidables.add(new PowerUpPassThrough(m_obstacleX,(m_lastObstableY - m_obstacleY)-(m_minObstacleYSpace/4),64,64));
+                m_collidables.add(new PowerUpSuperSpeed(m_obstacleX,(m_lastObstableY - m_obstacleY)-(m_minObstacleYSpace/4),64,64));
             }
             else if(m_obstacleY % 10 <= 5)
             {
