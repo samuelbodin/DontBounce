@@ -1,6 +1,7 @@
 package com.mygdx.game.Basics;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.mygdx.game.levels.Chapter;
 import com.mygdx.game.levels.ChapterOne;
 
@@ -19,14 +20,21 @@ public class Config
     public int m_screenH = 0;
     public float m_aspectR = 0.0f;
 
+    private Preferences m_preferences;
+
     public Config()
     {
+        m_preferences = Gdx.app.getPreferences("dontbounce-preferences");
         m_chapters = new ArrayList<Chapter>();
         m_chapters.add(new ChapterOne());
 
         m_screenH = Gdx.graphics.getHeight();
         m_screenW = Gdx.graphics.getWidth();
         m_aspectR = (m_screenH/m_screenW);
+
+        m_currentChapter = m_preferences.getInteger("current_level", 0);
+        m_currentChapter = m_preferences.getInteger("current_chapter", 0);
+
     }
 
 
@@ -91,4 +99,8 @@ public class Config
         return (m_currentChapter + 1) < m_chapters.size();
     }
 
+    public boolean levelComplete(float time)
+    {
+        return true;
+    }
 }
