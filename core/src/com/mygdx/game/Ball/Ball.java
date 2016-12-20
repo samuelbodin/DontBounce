@@ -72,7 +72,8 @@ public class Ball
     {
         m_state = s;
         m_state.setSpriteSize(m_radius*2,m_radius*2);
-        m_state.updateSprite(m_position.x-m_radius, m_position.y-m_radius);
+        m_state.updateSprite(m_position.x, m_position.y);
+        //m_state.updateSprite(m_position.x-m_radius, m_position.y-m_radius);
     }
 
     public void resetState()
@@ -102,7 +103,8 @@ public class Ball
 
         handleEdges();
 
-        m_state.updateSprite(m_position.x - m_radius, m_position.y - m_radius);
+        //m_state.updateSprite(m_position.x - m_radius, m_position.y - m_radius);
+        m_state.updateSprite(m_position.x, m_position.y);
 
         m_history.addToHistory(new com.mygdx.game.Basics.Circle(m_position, m_radius, m_iterator++));
     }
@@ -181,23 +183,23 @@ public class Ball
 
     void alignAbovePosition(Vector2 pos)
     {
-        m_position.y = pos.y+m_radius;
+        m_position.y = pos.y+1;
     }
 
     void alignToTheRightOfPosition(Vector2 pos)
     {
-        m_position.x = pos.x+m_radius+1;
+        m_position.x = pos.x+1;
         m_position.y--;
     }
 
     void alignBelowPosition(Vector2 pos)
     {
-        m_position.y = pos.y-m_radius-1;
+        m_position.y = pos.y-m_radius*2-1;
     }
 
     void alignToTheLeftOfPosition(Vector2 pos)
     {
-        m_position.x = pos.x-m_radius-1;
+        m_position.x = pos.x-m_radius*2-1;
         m_position.y--;
     }
 

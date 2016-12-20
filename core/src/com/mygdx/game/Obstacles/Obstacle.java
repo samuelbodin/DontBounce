@@ -29,8 +29,10 @@ public abstract class Obstacle extends Collidable
     @Override
     protected boolean isColliding(Circle c)
     {
-        return  ! ( m_position.x > c.m_x + c.m_radius || m_position.x + m_width < c.m_x - c.m_radius
-                || m_position.y + m_height < c.m_y - c.m_radius || m_position.y > c.m_y + c.m_radius);
+        /*return  ! ( m_position.x > c.m_x + c.m_radius || m_position.x + m_width < c.m_x - c.m_radius
+                || m_position.y + m_height < c.m_y - c.m_radius || m_position.y > c.m_y + c.m_radius);*/
+        return  ! ( m_position.x > c.m_x + (c.m_radius*2) || m_position.x + m_width < c.m_x
+                || m_position.y + m_height < c.m_y || m_position.y > c.m_y + (c.m_radius*2) );
     }
 
     protected abstract Vector2 getCollisionPosition(Circle c);
