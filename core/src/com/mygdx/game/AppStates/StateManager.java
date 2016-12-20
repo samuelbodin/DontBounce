@@ -16,7 +16,6 @@ public class StateManager
     public StateManager()
     {
         m_states = new Stack();
-        m_config = new Config();
     }
 
     public void set(State s)
