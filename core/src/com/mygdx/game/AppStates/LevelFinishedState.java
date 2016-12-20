@@ -46,8 +46,7 @@ public class LevelFinishedState extends State
 
         //Move to AssetLoader
         m_background = new Texture("black.png");
-        icons = new TextureAtlas("buttons/buttons.atlas");
-        buttonSkin = new Skin(icons);
+        buttonSkin = m_assets.buttonSkin;
 
         m_stage = new Stage(new StretchViewport(viewportW, viewportH));
 

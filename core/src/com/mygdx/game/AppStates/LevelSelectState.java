@@ -58,9 +58,8 @@ public class LevelSelectState extends State
                 new Texture(Gdx.files.internal("clouds02.png"))};
         m_background = new MenuBackground(bg, m_config.m_worldW, m_config.m_worldH);
 
-        // Load icons and font
-        m_icons = new TextureAtlas("buttons/buttons.atlas");
-        m_skin = new Skin(m_icons);
+        //Icons and font
+        m_skin = m_assets.buttonSkin;
         m_font = new BitmapFont(Gdx.files.internal("slackeyfont/slackey100.fnt"));
 
         // Load chapters

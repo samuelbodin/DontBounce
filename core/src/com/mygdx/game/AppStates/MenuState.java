@@ -48,7 +48,7 @@ public class MenuState extends State
         m_background = new MenuBackground(bg, m_config.m_worldW, m_config.m_worldH);
 
         m_icons = new TextureAtlas("buttons/buttons.atlas");
-        m_skin = new Skin(m_icons);
+        m_skin = m_assets.buttonSkin;
 
 
         // Heading & Font

@@ -43,7 +43,6 @@ public class PauseState extends State
 
         //Move this to AssetLoader in the future
         m_background = new Texture("black.png");
-        m_icons = new TextureAtlas("buttons/buttons.atlas");
         m_skin = m_assets.buttonSkin;
 
         m_labelTable = new Table();
@@ -139,8 +138,6 @@ public class PauseState extends State
     @Override
     public void dispose()
     {
-        m_icons.dispose();
-        m_skin.dispose();
         m_font.dispose();
         m_stage.dispose();
     }
