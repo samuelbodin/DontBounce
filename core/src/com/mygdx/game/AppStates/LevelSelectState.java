@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.mygdx.game.Basics.MenuBackground;
 import com.mygdx.game.levels.Chapter;
 import com.mygdx.game.levels.ChapterOne;
 
@@ -31,7 +32,7 @@ public class LevelSelectState extends State
     private BitmapFont m_font;
     private ImageButton m_nextBtn, m_prevBtn;
     private Skin m_skin;
-    private Sprite m_background;
+    private MenuBackground m_background;
     private Stage m_stage;
     private StateManager m_sm;
     private Table m_table, m_controlTable, m_levelTable;
@@ -51,9 +52,10 @@ public class LevelSelectState extends State
         Gdx.input.setInputProcessor(m_stage);
 
         // Background
-        Texture bg = new Texture(Gdx.files.internal("menubg.png"));
-        m_background = new Sprite(bg, 0, 0, bg.getWidth(), bg.getHeight());
-        m_background.setSize(bg.getWidth(), bg.getHeight());
+        Texture[] bg = {new Texture(Gdx.files.internal("cloudsbg.png")),
+                new Texture(Gdx.files.internal("clouds01.png")),
+                new Texture(Gdx.files.internal("clouds02.png"))};
+        m_background = new MenuBackground(bg, m_config.m_worldW, m_config.m_worldH);
 
         // Load icons and font
         m_icons = new TextureAtlas("buttons/buttons.atlas");
@@ -180,14 +182,14 @@ public class LevelSelectState extends State
     @Override
     public void update(float dt)
     {
-
+        m_background.update(dt);
     }
 
     @Override
     public void render(SpriteBatch sr)
     {
         m_stage.getBatch().begin();
-        m_stage.getBatch().draw(m_background, 0, 0, m_config.m_worldW, m_config.m_worldH);
+        m_background.render(m_stage.getBatch());
         m_stage.getBatch().end();
 
         m_stage.draw();
@@ -202,7 +204,7 @@ public class LevelSelectState extends State
     @Override
     public void dispose()
     {
-
+        m_background.dispose();
     }
 
     @Override

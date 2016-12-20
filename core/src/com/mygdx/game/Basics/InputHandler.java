@@ -16,10 +16,19 @@ public class InputHandler
     private int m_left = 0;
     private int m_right = 0;
 
+    private float[] m_accData;
+    private int m_DataInputIndex = 0;
+
+    // 0: no smooth, 1-1.5: normal
+    private float smoothFactor = 1.3f;
+    // 0: no smooth, 5-10: normal
+    private int smoothSize = 8;
+
     public InputHandler()
     {
         m_moveFactor = 1.5f;
         setupPlatform();
+        m_accData = new float[smoothSize];
     }
 
 
@@ -53,7 +62,8 @@ public class InputHandler
 
     private float getInputAndroid()
     {
-        return -Gdx.input.getAccelerometerX();
+        //return -Gdx.input.getAccelerometerX();
+        return filteredAccelerometerData(-Gdx.input.getAccelerometerX());
     }
 
     private float getInputDesktop()
@@ -75,6 +85,29 @@ public class InputHandler
         return 0f;
     }
 
+    private float filteredAccelerometerData(float newAccData)
+    {
+        if(smoothSize == 0)
+        {
+            return newAccData;
+        }
+
+        float result = 0f;
+        int dataArrayLength = m_accData.length;
+
+        for(int i = 0; i < dataArrayLength;i++)
+        {
+            result += m_accData[i]*smoothFactor;
+        }
+
+        result += newAccData;
+        m_accData[m_DataInputIndex] = newAccData;
+        m_DataInputIndex = (m_DataInputIndex+1)%dataArrayLength;
+
+
+
+        return result/(dataArrayLength*smoothFactor+1);
+    }
 
     public void update(float dt)
     {

@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.App;
+import com.mygdx.game.Basics.MenuBackground;
 
 public class MenuState extends State
 {
@@ -24,11 +25,10 @@ public class MenuState extends State
     private ImageButton m_playBtn, m_levelBtn, m_soundBtn;
     private Label m_heading;
     private Skin m_skin;
-    private Sprite m_background;
     private Stage m_stage;
     private StateManager m_sm;
     private TextureAtlas m_icons;
-
+    private MenuBackground m_background;
 
     public MenuState(StateManager sm)
     {
@@ -40,9 +40,10 @@ public class MenuState extends State
         Gdx.input.setInputProcessor(m_stage);
 
         // Background
-        Texture bg = new Texture(Gdx.files.internal("menubg.png"));
-        m_background = new Sprite(bg, 0, 0, bg.getWidth(), bg.getHeight());
-        m_background.setSize(bg.getWidth(), bg.getHeight());
+        Texture[] bg = {new Texture(Gdx.files.internal("cloudsbg.png")),
+                        new Texture(Gdx.files.internal("clouds01.png")),
+                        new Texture(Gdx.files.internal("clouds02.png"))};
+        m_background = new MenuBackground(bg, m_config.m_worldW, m_config.m_worldH);
 
         m_icons = new TextureAtlas("buttons/buttons.atlas");
         m_skin = new Skin(m_icons);
@@ -125,7 +126,7 @@ public class MenuState extends State
     @Override
     public void update(float dt)
     {
-
+        m_background.update(dt);
     }
 
 
@@ -139,7 +140,7 @@ public class MenuState extends State
     public void render(SpriteBatch sb)
     {
         m_stage.getBatch().begin();
-        m_stage.getBatch().draw(m_background, 0, 0, m_config.m_worldW, m_config.m_worldH);
+        m_background.render(m_stage.getBatch());
         m_stage.getBatch().end();
 
         m_stage.draw();
@@ -155,7 +156,7 @@ public class MenuState extends State
     public void dispose()
     {
 
-        m_background.getTexture().dispose();
+        m_background.dispose();
     }
 
 
