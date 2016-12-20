@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.Basics.MenuBackground;
 import com.mygdx.game.levels.Chapter;
@@ -106,8 +107,8 @@ public class LevelSelectState extends State
         nextBtnStyle.down = m_skin.getDrawable("next");
         m_nextBtn = new ImageButton(nextBtnStyle);
 
-        m_controlTable.add(m_prevBtn).expandX();
-        m_controlTable.add(m_nextBtn).expandX();
+        m_controlTable.add(m_nextBtn).width(m_config.m_worldW/4).height(m_config.m_worldW/4).left();
+        m_controlTable.add(m_prevBtn).width(m_config.m_worldW/4).height(m_config.m_worldW/4).right();
     }
 
     private void setChapter()
