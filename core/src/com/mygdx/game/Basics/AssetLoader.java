@@ -21,13 +21,13 @@ public class AssetLoader
         buttonSkin = new Skin();
         buttonSkin.addRegions(m_buttonElements);
 
-        m_gameElements = new TextureAtlas("texturePack/gameElements.pack");
+        //m_gameElements = new TextureAtlas("texturePack/gameElements.pack");
         loadTextures();
     }
 
     private void loadTextures()
     {
-        ball = m_gameElements.findRegion("ball1");
+       //ball = m_gameElements.findRegion("ball1");
     }
 
     public Skin getButtonSkin()
