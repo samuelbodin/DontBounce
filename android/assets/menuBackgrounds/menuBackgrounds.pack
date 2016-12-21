@@ -5,28 +5,33 @@ filter: Nearest,Nearest
 repeat: none
 blackbg
   rotate: false
-  xy: 1, 1
+  xy: 0, 0
   size: 1024, 2048
   orig: 1024, 2048
   offset: 0, 0
   index: -1
 clouds01
   rotate: false
-  xy: 1027, 1
+  xy: 1026, 0
   size: 1024, 2048
   orig: 1024, 2048
   offset: 0, 0
   index: -1
 clouds02
   rotate: false
-  xy: 2053, 1
+  xy: 2052, 0
   size: 1024, 2048
   orig: 1024, 2048
   offset: 0, 0
   index: -1
+
+menuBackgrounds2.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
 cloudsbg
   rotate: false
-  xy: 3079, 1
+  xy: 0, 0
   size: 1024, 2048
   orig: 1024, 2048
   offset: 0, 0

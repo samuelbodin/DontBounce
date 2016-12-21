@@ -49,6 +49,7 @@ public class App extends ApplicationAdapter
 	public void dispose ()
 	{
 		super.dispose();
+		AssetLoader.dispose();
 		Gdx.app.log("RL", "App desposar");
 	}
 }
