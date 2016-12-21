@@ -45,7 +45,7 @@ public class LevelFinishedState extends State
         ImageButton.ImageButtonStyle continueButtonStyle;
 
         //Move to AssetLoader
-        m_background = new Texture("black.png");
+        m_background = m_assets.black.getTexture();
         buttonSkin = m_assets.buttonSkin;
 
         m_stage = new Stage(new StretchViewport(viewportW, viewportH));

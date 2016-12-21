@@ -1,6 +1,7 @@
 package com.mygdx.game.Basics;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -13,7 +14,7 @@ public class AssetLoader
 
     public Skin buttonSkin;
 
-    public TextureRegion ball;
+    public BitmapFont slackeyfont;
 
     //GameObjects
     public TextureRegion goal;
@@ -55,6 +56,9 @@ public class AssetLoader
 
     private void loadTextures()
     {
+        //Fonts
+        slackeyfont = new BitmapFont(Gdx.files.internal("slackeyfont/slackey100.fnt"));
+
         //GameObjects
         goal = m_gameObjects.findRegion("goal");
         passthrough = m_gameObjects.findRegion("passthrough");
