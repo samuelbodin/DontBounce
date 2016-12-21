@@ -1,6 +1,7 @@
 package com.mygdx.game.levels;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.mygdx.game.Basics.Config;
 import com.mygdx.game.Basics.LevelData;
@@ -11,7 +12,7 @@ public abstract class Chapter
 {
 
     protected ArrayList<LevelData> m_levels = null;
-    protected ArrayList<String> m_backgrounds = null;
+    protected ArrayList<TextureRegion> m_backgrounds = null;
     protected String m_foreground = null;
     protected LevelDictionary m_ld = null;
     protected Color m_tint;
@@ -22,7 +23,7 @@ public abstract class Chapter
         m_ld = LevelDictionary.getInstance();
         m_id = id;
         m_levels = m_ld.getLevelsByChapter(m_id);
-        m_backgrounds = new ArrayList<String>();
+        m_backgrounds = new ArrayList<TextureRegion>();
         m_foreground = "";
     }
 
@@ -62,7 +63,7 @@ public abstract class Chapter
     }
 
 
-    public ArrayList<String> getBackgrounds()
+    public ArrayList<TextureRegion> getBackgrounds()
     {
         return m_backgrounds;
     }

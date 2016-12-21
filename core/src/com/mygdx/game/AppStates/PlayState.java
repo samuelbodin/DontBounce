@@ -3,6 +3,7 @@ package com.mygdx.game.AppStates;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -59,7 +60,7 @@ public class PlayState extends State
     {
         // Creating new world background and add images
         m_background = new WorldBackground(m_config.m_worldW, m_config.m_worldH, m_cam, m_levelData.m_foreground);
-        for(String s : m_levelData.m_backgroundFiles)
+        for(TextureRegion s : m_levelData.m_backgroundFiles)
         {
             m_background.addBackgroundImage(s);
         }

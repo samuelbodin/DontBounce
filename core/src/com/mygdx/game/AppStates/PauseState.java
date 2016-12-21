@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -29,7 +30,7 @@ public class PauseState extends State
     private Table m_labelTable, m_buttonTable, m_rootTable;
     private Label m_header;
 
-    private Texture m_background;
+    private TextureRegion m_background;
 
     public PauseState(StateManager sm)
     {
@@ -41,7 +42,7 @@ public class PauseState extends State
 
         //Assets
         m_font = m_assets.slackeyfont;
-        m_background = m_assets.black.getTexture();
+        m_background = m_assets.black;
         m_skin = m_assets.buttonSkin;
 
         //Create stage

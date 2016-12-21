@@ -20,7 +20,7 @@ public class App extends ApplicationAdapter
 	public void create ()
 	{
 		m_assets = new AssetLoader();
-        m_config = new Config();
+        m_config = new Config(m_assets);
         m_sm = new StateManager();
         m_sm.m_config = m_config;
 		m_sm.m_assets = m_assets;

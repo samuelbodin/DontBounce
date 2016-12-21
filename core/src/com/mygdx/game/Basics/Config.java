@@ -22,13 +22,13 @@ public class Config
 
     public Preferences m_preferences = null;
 
-    public Config()
+    public Config(AssetLoader assetLoader)
     {
         m_preferences = Gdx.app.getPreferences("dontbounce-preferences");
         m_preferences.clear();
 
         m_chapters = new ArrayList<Chapter>();
-        m_chapters.add(new ChapterOne());
+        m_chapters.add(new ChapterOne(assetLoader));
 
         m_screenH = Gdx.graphics.getHeight();
         m_screenW = Gdx.graphics.getWidth();
