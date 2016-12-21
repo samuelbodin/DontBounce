@@ -1,6 +1,7 @@
 package com.mygdx.game.Basics;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -43,6 +44,8 @@ public class AssetLoader
     public static TextureRegion clouds02;
     public static TextureRegion cloudsbg;
 
+    public static AudioHandler audio;
+
     public static void Load()
     {
         Gdx.app.log("PW", "AssLoad Load");
@@ -57,6 +60,8 @@ public class AssetLoader
         m_menuBackgrounds = new TextureAtlas("menuBackgrounds/menuBackgrounds.pack");
 
         loadTextures();
+
+        audio.load();
     }
 
     private static void loadTextures()

@@ -37,7 +37,6 @@ public class PlayState extends State
     private float m_fadeTimer = 1;
     private Sprite m_blackScreen = null;
 
-
     //Ändras till att ta in en int och requesta leveldata från "config"
     public PlayState(StateManager sm, LevelData levelData)
     {
@@ -94,11 +93,12 @@ public class PlayState extends State
     void setupMusic()
     {
         //Setting up music
-        m_music = Gdx.audio.newMusic(Gdx.files.internal("sound/gamemusic.wav"));
+        /*m_music = Gdx.audio.newMusic(Gdx.files.internal("sound/gamemusic.wav"));
         m_music.setLooping(true);
         m_music.setVolume(0.5f);
-        m_music.play();
+        m_music.play();*/
 
+        //AssetLoader.audio.musicLevelNormalStart();
     }
 
     void setupTimer()

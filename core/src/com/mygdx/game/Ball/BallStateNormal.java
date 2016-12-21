@@ -27,6 +27,7 @@ public class BallStateNormal extends BallState
         super(b);
         setupSprite();
         m_sound = setupSound();
+        AssetLoader.audio.musicLevelNormalStart();
     }
 
     @Override
