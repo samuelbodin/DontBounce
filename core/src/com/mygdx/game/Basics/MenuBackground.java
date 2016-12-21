@@ -1,8 +1,10 @@
 package com.mygdx.game.Basics;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 
@@ -14,10 +16,10 @@ public class MenuBackground implements Disposable
 {
 
     Array<Sprite> m_sprites;
-    Texture[] m_texture;
+    TextureRegion[] m_texture;
     float m_worldW, m_worldH;
 
-    public MenuBackground(Texture[] texture, float worldW, float worldH)
+    public MenuBackground(TextureRegion[] texture, float worldW, float worldH)
     {
         m_worldW = worldW;
         m_worldH = worldH;
@@ -65,9 +67,11 @@ public class MenuBackground implements Disposable
     @Override
     public void dispose()
     {
-        for(Sprite s : m_sprites)
+        //Denna dispose kastar alla menuBackgrounds från assetloader :(//PW
+        /*for(Sprite s : m_sprites)
         {
             s.getTexture().dispose();
-        }
+            Gdx.app.log("PW", "MB disp");
+        }*/
     }
 }

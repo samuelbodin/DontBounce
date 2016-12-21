@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -28,7 +29,7 @@ public class LevelFinishedState extends State
     private Table m_rootTable, m_buttonTable, m_labelTable, m_footerTable;
     private ImageButton m_continue, m_restart, m_mainMenu, m_soundButton;
     private Label m_finishTimeLabel, m_headerLabel;
-    private Texture m_background;
+    private TextureRegion m_background;
 
     public LevelFinishedState(StateManager sm)
     {
@@ -37,15 +38,13 @@ public class LevelFinishedState extends State
 
         float viewportW = m_config.m_worldW;
         float viewportH = m_config.m_worldH;
-        TextureAtlas icons;
         Skin buttonSkin;
         Label.LabelStyle fontStyle;
         BitmapFont font;
         ImageButton.ImageButtonStyle soundButtonStyle;
         ImageButton.ImageButtonStyle continueButtonStyle;
 
-        //Move to AssetLoader
-        m_background = m_assets.black.getTexture();
+        m_background = m_assets.black;
         buttonSkin = m_assets.buttonSkin;
 
         m_stage = new Stage(new StretchViewport(viewportW, viewportH));

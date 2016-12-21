@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -42,17 +43,16 @@ public class MenuState extends State
         Gdx.input.setInputProcessor(m_stage);
 
         // Background
-        Texture[] bg = {new Texture(Gdx.files.internal("cloudsbg.png")),
-                        new Texture(Gdx.files.internal("clouds01.png")),
-                        new Texture(Gdx.files.internal("clouds02.png"))};
+        TextureRegion[] bg = {m_assets.cloudsbg,
+                        m_assets.clouds01,
+                        m_assets.clouds02};
         m_background = new MenuBackground(bg, m_config.m_worldW, m_config.m_worldH);
 
-        m_icons = new TextureAtlas("buttons/buttons.atlas");
         m_skin = m_assets.buttonSkin;
 
 
         // Heading & Font
-        m_font = new BitmapFont(Gdx.files.internal("slackeyfont/slackey100.fnt"));
+        m_font = m_assets.slackeyfont;
 
         Label.LabelStyle ls = new Label.LabelStyle(m_font, new Color(1,0.65f,0,0.8f));
 

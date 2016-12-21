@@ -1,6 +1,7 @@
 package com.mygdx.game.Basics;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -39,6 +40,8 @@ public class AssetLoader
     public TextureRegion clouds02;
     public TextureRegion cloudsbg;
 
+    public Texture test;
+
     public AssetLoader()
     {
         TextureAtlas m_buttonElements;
@@ -56,6 +59,8 @@ public class AssetLoader
 
     private void loadTextures()
     {
+        test = new Texture(Gdx.files.internal("cloudsbg.png"));
+        Gdx.app.log("PW", "AS construct");
         //Fonts
         slackeyfont = new BitmapFont(Gdx.files.internal("slackeyfont/slackey100.fnt"));
 
@@ -77,7 +82,7 @@ public class AssetLoader
         flatbgforeground = m_levelBackgrounds.findRegion("flatbgforeground");
 
         //menuBackgrounds
-        black = m_menuBackgrounds.findRegion("black");
+        black = m_menuBackgrounds.findRegion("blackbg");
         clouds01 = m_menuBackgrounds.findRegion("clouds01");
         clouds02 = m_menuBackgrounds.findRegion("clouds02");
         cloudsbg = m_menuBackgrounds.findRegion("cloudsbg");
@@ -89,5 +94,6 @@ public class AssetLoader
         m_gameObjects.dispose();
         m_levelBackgrounds.dispose();
         m_menuBackgrounds.dispose();
+        Gdx.app.log("PW", "AS disp");
     }
 }
