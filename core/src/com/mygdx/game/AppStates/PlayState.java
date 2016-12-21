@@ -39,7 +39,7 @@ public class PlayState extends State
         m_levelData = levelData;
 
         //Setting up ball
-        m_ball = new Ball(m_config.m_worldW/ 2, 0, m_config.m_worldW / 40, m_config.m_worldW, m_levelData);
+        m_ball = new Ball(m_config.m_worldW/ 2, 0, m_config.m_worldW / 40, m_config.m_worldW, m_levelData, m_assets);
 
         // Paranting camera to ball
         m_cam.setBall(m_ball);

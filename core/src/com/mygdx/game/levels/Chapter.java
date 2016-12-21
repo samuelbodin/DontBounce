@@ -13,7 +13,7 @@ public abstract class Chapter
 
     protected ArrayList<LevelData> m_levels = null;
     protected ArrayList<TextureRegion> m_backgrounds = null;
-    protected String m_foreground = null;
+    protected TextureRegion m_foreground = null;
     protected LevelDictionary m_ld = null;
     protected Color m_tint;
     protected int m_id = 0;
@@ -24,7 +24,7 @@ public abstract class Chapter
         m_id = id;
         m_levels = m_ld.getLevelsByChapter(m_id);
         m_backgrounds = new ArrayList<TextureRegion>();
-        m_foreground = "";
+        m_foreground = null;
     }
 
     public LevelData getLevel(int levelId)
@@ -44,7 +44,7 @@ public abstract class Chapter
         return null;
     }
 
-    public String getForeground()
+    public TextureRegion getForeground()
     {
         return m_foreground;
     }

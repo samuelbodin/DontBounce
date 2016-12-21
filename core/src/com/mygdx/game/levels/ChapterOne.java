@@ -14,7 +14,7 @@ public class ChapterOne extends Chapter
         m_backgrounds.add(assetLoader.flatbg01);
         m_backgrounds.add(assetLoader.flatbg02);
         m_backgrounds.add(assetLoader.flatbg03);
-        m_foreground  = "flatbgforeground.png";
+        m_foreground  = assetLoader.flatbgforeground;
 
         m_tint = new Color(0.25f,0.5f,0.75f,1);
     }

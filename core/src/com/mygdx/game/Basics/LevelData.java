@@ -21,7 +21,7 @@ public class LevelData {
     public float m_obstacleMinSpacingFactor;
     public boolean m_foreground;
     public List<TextureRegion> m_backgroundFiles;
-    public String m_foregroundFile;
+    public TextureRegion m_foregroundFile;
     public float m_ballGravity;
     public float m_ballMaxSpeed;
     public float m_ballSensitivity;
