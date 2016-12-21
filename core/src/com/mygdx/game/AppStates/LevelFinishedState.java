@@ -189,7 +189,7 @@ public class LevelFinishedState extends State
     @Override
     public void dispose()
     {
-
+        m_stage.dispose();
     }
 
     @Override

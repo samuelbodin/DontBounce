@@ -85,6 +85,7 @@ public class AssetLoader
 
     public void dispose()
     {
+        slackeyfont.dispose();
         m_gameObjects.dispose();
         m_levelBackgrounds.dispose();
         m_menuBackgrounds.dispose();

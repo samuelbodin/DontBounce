@@ -141,7 +141,6 @@ public class PauseState extends State
     @Override
     public void dispose()
     {
-        m_font.dispose();
         m_stage.dispose();
     }
 
