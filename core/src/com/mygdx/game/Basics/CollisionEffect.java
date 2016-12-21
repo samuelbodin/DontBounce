@@ -15,7 +15,7 @@ public class CollisionEffect extends Drawable
 {
     boolean m_isCracked = false;
     Vector2 m_Pos = null;
-    TextureAtlas m_atlas;
+    TextureAtlas m_atlas = null;
     Animation m_animation;
     Array<TextureAtlas.AtlasRegion> m_region;
     float m_elapsedTime = 0;

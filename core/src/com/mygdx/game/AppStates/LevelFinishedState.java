@@ -3,6 +3,7 @@ package com.mygdx.game.AppStates;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -16,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.Basics.AssetLoader;
 import com.mygdx.game.Basics.LevelData;
@@ -31,6 +33,12 @@ public class LevelFinishedState extends State
     private ImageButton m_continue, m_restart, m_mainMenu, m_soundButton;
     private Label m_finishTimeLabel, m_headerLabel;
     private TextureRegion m_background;
+
+
+    TextureAtlas m_atlas = null;
+    Animation m_animation;
+    Array<TextureAtlas.AtlasRegion> m_region;
+    float m_elapsedTime = 0;
 
     public LevelFinishedState(StateManager sm)
     {
@@ -89,6 +97,7 @@ public class LevelFinishedState extends State
         setupClickListeners();
 
         Gdx.input.setInputProcessor(m_stage);
+        confetti();
     }
 
     public LevelFinishedState(StateManager sm, TimeHandler th, LevelData level)
@@ -131,6 +140,7 @@ public class LevelFinishedState extends State
 
 
         }
+        confetti();
     }
 
     private void setupClickListeners()
@@ -201,6 +211,7 @@ public class LevelFinishedState extends State
     @Override
     public void update(float dt)
     {
+        m_elapsedTime += dt;
         handleInput();
     }
 
@@ -215,6 +226,13 @@ public class LevelFinishedState extends State
 
         m_finishTimeLabel.setText(m_timeHandler.getTimeString() + "s");
         m_stage.draw();
+
+        if(true) // IF NEXT LEVEL IS UNLOCKED
+        {
+            m_stage.getBatch().begin();
+            m_stage.getBatch().draw(m_animation.getKeyFrame(m_elapsedTime), (720 - 512) / 2, 0);
+            m_stage.getBatch().end();
+        }
     }
 
     @Override
@@ -266,5 +284,12 @@ public class LevelFinishedState extends State
 
         return TimeWidthErrorCorrection;
 
+    }
+
+    public void confetti()
+    {
+        m_atlas = new TextureAtlas(Gdx.files.internal("gameObjects/confetti.pack"));
+        m_region = m_atlas.findRegions("confetti");
+        m_animation = new Animation(0.07f, m_region);
     }
 }

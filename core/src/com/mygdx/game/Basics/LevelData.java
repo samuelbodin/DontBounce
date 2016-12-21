@@ -13,7 +13,7 @@ public class LevelData {
 
     public int m_levelId;
     public int m_chapterId;
-    public float m_levelHeight = 40000;
+    public float m_levelHeight = 10000;
     public Music m_music = null;
     public int m_seed;
     public float m_obstacleSizeFactor;
