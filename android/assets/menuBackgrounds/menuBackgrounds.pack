@@ -3,31 +3,31 @@ menuBackgrounds.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-blackbg
+black
   rotate: false
   xy: 1, 1
-  size: 2048, 4096
-  orig: 2048, 4096
+  size: 1024, 2048
+  orig: 1024, 2048
   offset: 0, 0
   index: -1
 clouds01
   rotate: false
-  xy: 2051, 1
-  size: 2048, 4096
-  orig: 2048, 4096
+  xy: 1027, 1
+  size: 1024, 2048
+  orig: 1024, 2048
   offset: 0, 0
   index: -1
 clouds02
   rotate: false
-  xy: 4101, 1
-  size: 2048, 4096
-  orig: 2048, 4096
+  xy: 2053, 1
+  size: 1024, 2048
+  orig: 1024, 2048
   offset: 0, 0
   index: -1
 cloudsbg
   rotate: false
-  xy: 6151, 1
-  size: 2048, 4096
-  orig: 2048, 4096
+  xy: 3079, 1
+  size: 1024, 2048
+  orig: 1024, 2048
   offset: 0, 0
   index: -1
