@@ -11,8 +11,8 @@ public class Config
 {
 
     private ArrayList<Chapter> m_chapters = null;
-    private int m_currentLevel = 0;
-    private int m_currentChapter = 0;
+    public int m_currentLevel = 0;
+    public int m_currentChapter = 0;
 
     public final int m_worldW = 720;
     public final int m_worldH = 1280;
@@ -20,11 +20,13 @@ public class Config
     public int m_screenH = 0;
     public float m_aspectR = 0.0f;
 
-    private Preferences m_preferences;
+    public Preferences m_preferences = null;
 
     public Config()
     {
         m_preferences = Gdx.app.getPreferences("dontbounce-preferences");
+        m_preferences.clear();
+
         m_chapters = new ArrayList<Chapter>();
         m_chapters.add(new ChapterOne());
 
@@ -32,9 +34,8 @@ public class Config
         m_screenW = Gdx.graphics.getWidth();
         m_aspectR = (m_screenH/m_screenW);
 
-        m_currentChapter = m_preferences.getInteger("current_level", 0);
+        m_currentLevel = m_preferences.getInteger("current_level", 0);
         m_currentChapter = m_preferences.getInteger("current_chapter", 0);
-
     }
 
 
@@ -88,7 +89,7 @@ public class Config
         }
         else
         {
-            return m_chapters.get(m_currentChapter).getLevel(m_currentLevel + 2);
+            return m_chapters.get(m_currentChapter).getLevel(m_currentLevel + 1);
         }
 
         return null;

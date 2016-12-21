@@ -113,7 +113,7 @@ public class MenuState extends State
             public void changed(ChangeEvent event, Actor actor)
             {
                 // PlayState
-               //m_sm.set(new TestState(m_sm));
+               m_sm.set(new PlayState(m_sm, m_config.getCurrentLevel()));
             }
         });
 

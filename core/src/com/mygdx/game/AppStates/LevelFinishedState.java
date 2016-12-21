@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.mygdx.game.Basics.LevelData;
 import com.mygdx.game.Basics.TimeHandler;
 
 public class LevelFinishedState extends State
@@ -90,11 +91,46 @@ public class LevelFinishedState extends State
         Gdx.input.setInputProcessor(m_stage);
     }
 
-    public LevelFinishedState(StateManager sm, TimeHandler th)
+    public LevelFinishedState(StateManager sm, TimeHandler th, LevelData level)
     {
         this(sm);
         m_timeHandler = th;
 
+        // Joel hade idé om algoritm som räknar ut om man klarat leveln.
+        if(true)
+        {
+            m_config.m_preferences.flush();
+
+            // Move to next chapter
+            if(m_config.isLastLevel() && m_config.hasNextChapter())
+            {
+                m_config.m_currentChapter++;
+                m_config.m_preferences.putInteger("current_chapter", m_config.m_currentChapter);
+
+                m_config.m_currentLevel++;
+                m_config.m_preferences.putInteger("current_level", m_config.m_currentLevel);
+
+                //Gdx.app.log("SB", "current chapter set to " + m_config.m_currentChapter);
+               // Gdx.app.log("SB", "current level set to " + m_config.m_currentLevel);
+            }
+
+            // Move to next level
+            if((level.m_levelId - 1) == m_config.m_currentLevel && !m_config.isLastLevel())
+            {
+                m_config.m_currentLevel++;
+                m_config.m_preferences.putInteger("current_level", m_config.m_currentLevel);
+
+                //Gdx.app.log("SB", "current level set to " + m_config.m_currentLevel);
+            }
+
+
+            if(m_config.isLastLevel() && !m_config.hasNextChapter())
+            {
+                //Gdx.app.log("SB", "Game completed! woop woop");
+            }
+
+
+        }
     }
 
     private void setupClickListeners()

@@ -28,27 +28,6 @@ public class LevelData {
     public Color m_tint;
     public boolean m_hasHoles = false;
 
-    /*
-    public LevelData()
-    {
-        m_backgroundFiles = new ArrayList<String>();
-        // Default values
-        m_seed = 4;
-        m_backgroundFiles.add("flatbg01.png");
-        m_backgroundFiles.add("flatbg02.png");
-        m_backgroundFiles.add("flatbg03.png");
-        m_foregroundFile = "flatbgforeground.png";
-        m_foreground = true;
-        m_obstacleSizeFactor = 8;
-        m_obstacleSeparationFactor = 25;
-        m_obstacleMinSpacingFactor = 10;
-        m_obstacleSnapMargin = 80;
-        m_ballGravity = -10f;
-        m_ballMaxSpeed = -1500f;
-        m_ballSensitivity = 2f;
-    }
-    */
-
     public LevelData(
         int levelId,
         int chapterId,

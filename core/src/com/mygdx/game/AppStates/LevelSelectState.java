@@ -28,6 +28,9 @@ public class LevelSelectState extends State
 {
 
     private int m_currentChapter = 0;
+    private int m_currentLevel = 0;
+    private int m_unlockedChapter = 0;
+    private int m_unlockedLevel = 0;
 
     private ArrayList<Chapter> m_chapters;
     private BitmapFont m_font;
@@ -38,9 +41,8 @@ public class LevelSelectState extends State
     private StateManager m_sm;
     private Table m_table, m_controlTable, m_levelTable;
     private TextureAtlas m_icons;
-    private TextButtonStyle m_levelBtnSkin;
+    private TextButtonStyle m_levelBtnSkin, m_levelBtnDisabledSkin;
     private Chapter m_chapter;
-    private Integer m_currentLevel;
 
     public LevelSelectState(StateManager sm)
     {
@@ -51,6 +53,10 @@ public class LevelSelectState extends State
 
         m_stage = new Stage(new StretchViewport(m_config.m_worldW, m_config.m_worldH));
         Gdx.input.setInputProcessor(m_stage);
+
+        // Load saved levels
+        m_unlockedLevel = m_config.m_currentLevel;
+        m_unlockedChapter = m_config.m_currentChapter;
 
         // Background
         Texture[] bg = {new Texture(Gdx.files.internal("cloudsbg.png")),
@@ -94,6 +100,12 @@ public class LevelSelectState extends State
         m_levelBtnSkin.down = m_skin.getDrawable("btn");
         m_levelBtnSkin.font = m_font;
 
+        // Disabled level button skin
+        m_levelBtnDisabledSkin = new TextButtonStyle();
+        m_levelBtnDisabledSkin.up = m_skin.getDrawable("btngrey");
+        m_levelBtnDisabledSkin.down = m_skin.getDrawable("btngrey");
+        m_levelBtnDisabledSkin.font = m_font;
+
         // Previous chapter button
         ImageButtonStyle prevBtnStyle = new ImageButtonStyle();
         prevBtnStyle.up = m_skin.getDrawable("prev");
@@ -115,12 +127,34 @@ public class LevelSelectState extends State
         m_levelTable.clear();
         m_chapter = m_chapters.get(m_currentChapter);
 
+        //Gdx.app.log("SB levelSelectState:", "current level " + m_currentLevel);
+        //Gdx.app.log("SB levelSelectState:", "current chapter " + m_currentChapter);
+
         for (int i = 0; i < m_chapter.getLevels().size(); i++)
         {
+            TextButton tmp;
             m_currentLevel = m_chapter.getLevels().get(i);
 
-            TextButton tmp = new TextButton(m_currentLevel.toString(), m_levelBtnSkin);
-            tmp.setName(m_currentLevel.toString());
+            if((m_currentLevel - 1) > m_unlockedLevel)
+            {
+                tmp = new TextButton(Integer.toString(m_currentLevel), m_levelBtnDisabledSkin);
+                //Gdx.app.log("SB", "currentLevel" + m_currentLevel);
+                //Gdx.app.log("SB", "unlockedLevel" + m_unlockedLevel);
+            }
+            else
+            {
+                tmp = new TextButton(Integer.toString(m_currentLevel), m_levelBtnSkin);
+                tmp.addListener(new ChangeListener()
+                {
+                    @Override
+                    public void changed(ChangeEvent event, Actor actor)
+                    {
+                        m_sm.set(new PlayState(m_sm, m_config.getLevel(Integer.parseInt(actor.getName()))));
+                    }
+                });
+            }
+
+            tmp.setName(Integer.toString(m_currentLevel));
             tmp.getLabel().setFontScale(0.5f);
             m_levelTable.add(tmp).width(200).height(100).padRight(20).expandX();
 
@@ -128,15 +162,6 @@ public class LevelSelectState extends State
             {
                 m_levelTable.row().padTop(20);
             }
-
-            tmp.addListener(new ChangeListener()
-            {
-                @Override
-                public void changed(ChangeEvent event, Actor actor)
-                {
-                    m_sm.set(new PlayState(m_sm, m_config.getLevel(Integer.parseInt(actor.getName()))));
-                }
-            });
 
         }
     }
