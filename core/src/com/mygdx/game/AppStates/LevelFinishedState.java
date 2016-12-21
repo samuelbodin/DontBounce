@@ -2,7 +2,6 @@ package com.mygdx.game.AppStates;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -18,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.mygdx.game.Basics.LevelData;
 import com.mygdx.game.Basics.TimeHandler;
 
 public class LevelFinishedState extends State
@@ -89,10 +89,47 @@ public class LevelFinishedState extends State
 
         Gdx.input.setInputProcessor(m_stage);
     }
-    public LevelFinishedState(StateManager sm, TimeHandler th)
+
+    public LevelFinishedState(StateManager sm, TimeHandler th, LevelData level)
     {
         this(sm);
         m_timeHandler = th;
+
+        // Joel hade idé om algoritm som räknar ut om man klarat leveln.
+        if(true)
+        {
+            m_config.m_preferences.flush();
+
+            // Move to next chapter
+            if(m_config.isLastLevel() && m_config.hasNextChapter())
+            {
+                m_config.m_currentChapter++;
+                m_config.m_preferences.putInteger("current_chapter", m_config.m_currentChapter);
+
+                m_config.m_currentLevel++;
+                m_config.m_preferences.putInteger("current_level", m_config.m_currentLevel);
+
+                //Gdx.app.log("SB", "current chapter set to " + m_config.m_currentChapter);
+               // Gdx.app.log("SB", "current level set to " + m_config.m_currentLevel);
+            }
+
+            // Move to next level
+            if((level.m_levelId - 1) == m_config.m_currentLevel && !m_config.isLastLevel())
+            {
+                m_config.m_currentLevel++;
+                m_config.m_preferences.putInteger("current_level", m_config.m_currentLevel);
+
+                //Gdx.app.log("SB", "current level set to " + m_config.m_currentLevel);
+            }
+
+
+            if(m_config.isLastLevel() && !m_config.hasNextChapter())
+            {
+                //Gdx.app.log("SB", "Game completed! woop woop");
+            }
+
+
+        }
     }
 
     private void setupClickListeners()
@@ -194,6 +231,39 @@ public class LevelFinishedState extends State
     @Override
     public void resize(int width, int height)
     {
+
+    }
+
+    private float getLevelTime()
+    {
+        // Necessary data.
+        float gravity = Math.abs(m_config.getCurrentLevel().m_ballGravity);
+        float maxSpeed = Math.abs(m_config.getCurrentLevel().m_ballMaxSpeed);
+        float levelLength = Math.abs(m_config.getCurrentLevel().m_levelHeight);
+        float fps = 60;
+
+        /* The balls acceleration is dependent on the fps.
+        * Not good but that's how the physics is designed. */
+        float acceleration = gravity*fps;
+
+        // Time to max speed.
+        float timeToMax = maxSpeed/acceleration;
+
+        // The distance traveled during acceleration.
+        float distanceAtMax = 0.5f*acceleration*timeToMax*timeToMax;
+
+        // The time from max speed to goal.
+        float timeWithMaxSpeed = (levelLength-distanceAtMax)/maxSpeed;
+
+        // Sum the two times.
+        float totalTime = timeToMax + timeWithMaxSpeed;
+
+        /* Due to "bad" design and start delay we need error correction.
+        * Add enough to be sure that the time really exceeds the minimum time.
+        * Error is 7-9% */
+        float TimeWidthErrorCorrection = totalTime * 1.1f;
+
+        return TimeWidthErrorCorrection;
 
     }
 }

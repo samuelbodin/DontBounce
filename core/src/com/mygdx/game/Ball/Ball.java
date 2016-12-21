@@ -1,11 +1,12 @@
 package com.mygdx.game.Ball;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.FloatArray;
 import com.mygdx.game.Basics.CollisionEffect;
 import com.mygdx.game.Basics.LevelData;
-import com.mygdx.game.Obstacles.ObstacleBuilder;
 
 public class Ball
 {
@@ -22,6 +23,8 @@ public class Ball
     private int m_iterator = 0;
     private float m_dtModifier = 1f;
     private CollisionEffect m_collisionEffect = null;
+
+    float timer = 0;
 
     public Ball (float x, float y, float r, float worldW, LevelData ld)
     {
@@ -113,6 +116,9 @@ public class Ball
         m_history.addToHistory(new com.mygdx.game.Basics.Circle(m_position, m_radius, m_iterator++));
 
         m_collisionEffect.update(dt);
+
+        timer += dt;
+
     }
     private void handleEdges()
     {
@@ -175,7 +181,7 @@ public class Ball
             alignToTheLeftOfPosition(pos);
         }
 
-        collisionEffect(pos, side);
+        collisionEffect(pos, side, "splash", 100);
         collisionSound();
 
         flipVelocityY();
@@ -260,10 +266,18 @@ public class Ball
         m_dtModifier = 1f;
     }
 
-    public void collisionEffect(Vector2 collisionPosition, int side)
+    public void collisionEffect(Vector2 collisionPosition, int side, String name)
     {
-        m_collisionEffect.setCracked(collisionPosition, side);
+        m_collisionEffect.setAnimation(name);
+        m_collisionEffect.startEffect(collisionPosition, side);
     }
+
+    public void collisionEffect(Vector2 collisionPosition, int side, String name, int spriteMove)
+    {
+        m_collisionEffect.setAnimation(name);
+        m_collisionEffect.startEffect(collisionPosition, side, spriteMove);
+    }
+
     @Override
     public String toString()
     {

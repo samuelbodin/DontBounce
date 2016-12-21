@@ -2,7 +2,6 @@ package com.mygdx.game.AppStates;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -122,7 +121,7 @@ public class PlayState extends State
         }
 
         // Stop camera at worlds end
-        if(m_cam.position.y > -m_levelData.m_worldHeight)
+        if(m_cam.position.y > -m_levelData.m_levelHeight)
         {
             m_cam.setToBallPos(dt);
             m_cam.update();
@@ -138,7 +137,7 @@ public class PlayState extends State
             if(m_goal.checkCollision(m_ball))
             {
                 m_time.stop();
-                m_sm.push(new LevelFinishedState(m_sm, m_time));
+                m_sm.push(new LevelFinishedState(m_sm, m_time, m_levelData));
             }
         }
 

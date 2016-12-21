@@ -38,7 +38,8 @@ public class BallStateSuperSpeed extends BallState
         m_timer = 3f;
         m_particles = new Particles(m_texture, 15, 32, 32);
         m_particles.setColor(m_tint);
-        m_particles.setFade(0.5f, 0);
+        m_particles.setFade(0.2f, 0.01f);
+        m_ball.collisionEffect(m_ball.getPosition(), 1, "powerup", 250);
     }
 
     public void setBall(Ball b)

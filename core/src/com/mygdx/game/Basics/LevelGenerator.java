@@ -34,7 +34,7 @@ public class LevelGenerator
         m_worldWidth = worldWidth;
         m_worldHeight = worldHeight;
         m_levelData = levelData;
-        m_levelHeight = m_levelData.m_worldHeight;
+        m_levelHeight = m_levelData.m_levelHeight;
 
         m_minObstacleYSpace = m_worldWidth/(m_levelData.m_obstacleMinSpacingFactor/15);
         m_obstacleYSpaceFactor = (m_worldWidth/2)/(m_levelData.m_obstacleSeparationFactor/10);
