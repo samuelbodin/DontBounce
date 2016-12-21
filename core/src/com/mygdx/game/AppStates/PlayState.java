@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Ball.Ball;
+import com.mygdx.game.Basics.AssetLoader;
 import com.mygdx.game.Basics.Collidable;
 import com.mygdx.game.Basics.InputHandler;
 import com.mygdx.game.Basics.LevelData;
@@ -164,7 +165,7 @@ public class PlayState extends State
         }
 
         // Setup black screen. Position needs camera position.
-        m_blackScreen = new Sprite(m_assets.black);
+        m_blackScreen = new Sprite(AssetLoader.black);
         m_blackScreen.setPosition(m_cam.position.x-m_config.m_worldW/2, m_cam.position.y-m_config.m_worldH/2);
     }
 
