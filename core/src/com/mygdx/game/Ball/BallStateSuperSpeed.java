@@ -37,7 +37,7 @@ public class BallStateSuperSpeed extends BallState
         m_sound = setupSound();
         m_ball.setMaxSpeed(-3000f);
         m_timer = 3f;
-        m_particles = new Particles(m_ball.getBallTexture(), 15, 32, 32);
+        m_particles = new Particles(AssetLoader.flatballgrey, 15, 32, 32);
         m_particles.setColor(m_tint);
         m_particles.setFade(0.2f, 0.01f);
         m_ball.collisionEffect(m_ball.getPosition(), 1, "powerup", 250);
@@ -56,7 +56,7 @@ public class BallStateSuperSpeed extends BallState
 
     private void setupSprite()
     {
-        m_sprite = new Sprite(m_ball.getBallTexture());
+        m_sprite = new Sprite(AssetLoader.flatballgrey);
         m_sprite.setOriginCenter();
         m_sprite.setColor(m_tint);
     }

@@ -13,7 +13,6 @@ public class StateManager
 {
     public Stack<State> m_states = null;
     public Config m_config = null;
-    public AssetLoader m_assets = null;
 
     public StateManager()
     {

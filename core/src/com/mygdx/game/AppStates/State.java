@@ -11,14 +11,12 @@ public abstract class State
     com.mygdx.game.Basics.Cam m_cam = null;
     private WorldBackground m_background;
     public Config m_config = null;
-    public AssetLoader m_assets = null;
 
     public State(StateManager sm)
     {
         m_sm = sm;
         m_cam = new com.mygdx.game.Basics.Cam();
         m_config = sm.m_config;
-        m_assets = sm.m_assets;
     }
 
 

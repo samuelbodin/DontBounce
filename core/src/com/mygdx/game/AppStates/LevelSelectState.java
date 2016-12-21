@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.mygdx.game.Basics.AssetLoader;
 import com.mygdx.game.Basics.MenuBackground;
 import com.mygdx.game.levels.Chapter;
 import com.mygdx.game.levels.ChapterOne;
@@ -60,18 +61,18 @@ public class LevelSelectState extends State
         m_unlockedChapter = m_config.m_currentChapter;
 
         // Background
-        TextureRegion[] bg = {m_assets.cloudsbg,
-                m_assets.clouds01,
-                m_assets.clouds02};
+        TextureRegion[] bg = {AssetLoader.cloudsbg,
+                AssetLoader.clouds01,
+                AssetLoader.clouds02};
         m_background = new MenuBackground(bg, m_config.m_worldW, m_config.m_worldH);
 
         //Icons and font
-        m_skin = m_assets.buttonSkin;
-        m_font = m_assets.slackeyfont;
+        m_skin = AssetLoader.buttonSkin;
+        m_font = AssetLoader.slackeyfont;
 
         // Load chapters
         m_chapters = new ArrayList<Chapter>();
-        m_chapters.add(new ChapterOne(m_assets));
+        m_chapters.add(new ChapterOne());
 
         // Setup table
         m_table = new Table();

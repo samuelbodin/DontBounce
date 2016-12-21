@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.mygdx.game.Basics.AssetLoader;
 
 
 public class PauseState extends State
@@ -41,9 +42,9 @@ public class PauseState extends State
         Label.LabelStyle m_headerSkin;
 
         //Assets
-        m_font = m_assets.slackeyfont;
-        m_background = m_assets.black;
-        m_skin = m_assets.buttonSkin;
+        m_font = AssetLoader.slackeyfont;
+        m_background = AssetLoader.black;
+        m_skin = AssetLoader.buttonSkin;
 
         //Create stage
         m_stage = new Stage(new StretchViewport(m_config.m_worldW, m_config.m_worldH));

@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.Basics.AssetLoader;
 
 import java.util.Random;
 
@@ -47,7 +48,7 @@ public class BallStatePassThrough extends BallState
 
     private void setupSprite()
     {
-        m_sprite = new Sprite(m_ball.getBallTexture());
+        m_sprite = new Sprite(AssetLoader.flatballgrey);
         m_sprite.setOriginCenter();
         m_sprite.setColor(0.2f,0.8f,0.45f,1);
     }

@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.mygdx.game.Basics.AssetLoader;
 import com.mygdx.game.Basics.LevelData;
 import com.mygdx.game.Basics.TimeHandler;
 
@@ -44,8 +45,8 @@ public class LevelFinishedState extends State
         ImageButton.ImageButtonStyle soundButtonStyle;
         ImageButton.ImageButtonStyle continueButtonStyle;
 
-        m_background = m_assets.black;
-        buttonSkin = m_assets.buttonSkin;
+        m_background = AssetLoader.black;
+        buttonSkin = AssetLoader.buttonSkin;
 
         m_stage = new Stage(new StretchViewport(viewportW, viewportH));
 

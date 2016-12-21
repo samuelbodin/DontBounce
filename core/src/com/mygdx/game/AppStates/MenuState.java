@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.App;
+import com.mygdx.game.Basics.AssetLoader;
 import com.mygdx.game.Basics.MenuBackground;
 
 public class MenuState extends State
@@ -43,16 +44,16 @@ public class MenuState extends State
         Gdx.input.setInputProcessor(m_stage);
 
         // Background
-        TextureRegion[] bg = {m_assets.cloudsbg,
-                        m_assets.clouds01,
-                        m_assets.clouds02};
+        TextureRegion[] bg = {  AssetLoader.cloudsbg,
+                                AssetLoader.clouds01,
+                                AssetLoader.clouds02};
         m_background = new MenuBackground(bg, m_config.m_worldW, m_config.m_worldH);
 
-        m_skin = m_assets.buttonSkin;
+        m_skin = AssetLoader.buttonSkin;
 
 
         // Heading & Font
-        m_font = m_assets.slackeyfont;
+        m_font = AssetLoader.slackeyfont;
 
         Label.LabelStyle ls = new Label.LabelStyle(m_font, new Color(1,0.65f,0,0.8f));
 

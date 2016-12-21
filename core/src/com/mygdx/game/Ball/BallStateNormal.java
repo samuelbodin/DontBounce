@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g3d.attributes.FloatAttribute;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.App;
+import com.mygdx.game.Basics.AssetLoader;
 import com.mygdx.game.Basics.InputHandler;
 
 import org.w3c.dom.ranges.Range;
@@ -36,7 +37,7 @@ public class BallStateNormal extends BallState
 
     private void setupSprite()
     {
-        m_sprite = new Sprite(m_ball.getBallTexture());
+        m_sprite = new Sprite(AssetLoader.flatballgrey);
         m_sprite.setOriginCenter();
         m_sprite.setColor(0.75f,0.2f,0.15f,1);
     }

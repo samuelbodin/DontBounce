@@ -4,6 +4,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.Basics.AssetLoader;
 
 import java.util.Random;
 
@@ -45,7 +46,7 @@ public class BallStateUltraRapid extends BallState
 
     private void setupSprite()
     {
-        m_sprite = new Sprite(m_ball.getBallTexture());
+        m_sprite = new Sprite(AssetLoader.flatballgrey);
         m_sprite.setOriginCenter();
         m_sprite.setColor(0.6f,0.35f,0.7f,1);
     }

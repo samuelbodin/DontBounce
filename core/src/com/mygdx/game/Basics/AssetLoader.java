@@ -9,40 +9,37 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public class AssetLoader
 {
-    private TextureAtlas m_gameObjects;
-    private TextureAtlas m_levelBackgrounds;
-    private TextureAtlas m_menuBackgrounds;
+    private static TextureAtlas m_gameObjects;
+    private static TextureAtlas m_levelBackgrounds;
+    private static TextureAtlas m_menuBackgrounds;
 
-    public Skin buttonSkin;
+    public static Skin buttonSkin;
 
-    public BitmapFont slackeyfont;
+    public static BitmapFont slackeyfont;
 
     //GameObjects
-    public TextureRegion goal;
-    public TextureRegion passthrough;
-    public TextureRegion speedup;
-    public TextureRegion ultrarapid;
-    public TextureRegion flatball;
-    public TextureRegion flatballgrey;
-    public TextureRegion flatbwbody;
-    public TextureRegion flatbwleft;
-    public TextureRegion flatbwright;
+    public static TextureRegion goal;
+    public static TextureRegion passthrough;
+    public static TextureRegion speedup;
+    public static TextureRegion ultrarapid;
+    public static TextureRegion flatballgrey;
+    public static TextureRegion flatbwbody;
+    public static TextureRegion flatbwleft;
+    public static TextureRegion flatbwright;
 
     //levelBackgrounds
-    public TextureRegion flatbg01;
-    public TextureRegion flatbg02;
-    public TextureRegion flatbg03;
-    public TextureRegion flatbgforeground;
+    public static TextureRegion flatbg01;
+    public static TextureRegion flatbg02;
+    public static TextureRegion flatbg03;
+    public static TextureRegion flatbgforeground;
 
     //MenuBackgrounds
-    public TextureRegion black;
-    public TextureRegion clouds01;
-    public TextureRegion clouds02;
-    public TextureRegion cloudsbg;
+    public static TextureRegion black;
+    public static TextureRegion clouds01;
+    public static TextureRegion clouds02;
+    public static TextureRegion cloudsbg;
 
-    public Texture test;
-
-    public AssetLoader()
+    public static void Load()
     {
         TextureAtlas m_buttonElements;
 
@@ -57,10 +54,8 @@ public class AssetLoader
         loadTextures();
     }
 
-    private void loadTextures()
+    private static void loadTextures()
     {
-        test = new Texture(Gdx.files.internal("cloudsbg.png"));
-        Gdx.app.log("PW", "AS construct");
         //Fonts
         slackeyfont = new BitmapFont(Gdx.files.internal("slackeyfont/slackey100.fnt"));
 
@@ -69,7 +64,6 @@ public class AssetLoader
         passthrough = m_gameObjects.findRegion("passthrough");
         speedup = m_gameObjects.findRegion("speedup");
         ultrarapid = m_gameObjects.findRegion("ultrarapid");
-        flatball = m_gameObjects.findRegion("flatball");
         flatballgrey = m_gameObjects.findRegion("flatballgrey");
         flatbwbody = m_gameObjects.findRegion("flatbwbody");
         flatbwleft = m_gameObjects.findRegion("flatbwleft");
@@ -88,7 +82,7 @@ public class AssetLoader
         cloudsbg = m_menuBackgrounds.findRegion("cloudsbg");
     }
 
-    public void dispose()
+    public static void dispose()
     {
         slackeyfont.dispose();
         m_gameObjects.dispose();

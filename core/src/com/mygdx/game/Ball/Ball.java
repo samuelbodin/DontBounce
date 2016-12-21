@@ -25,11 +25,10 @@ public class Ball
     private int m_iterator = 0;
     private float m_dtModifier = 1f;
     private CollisionEffect m_collisionEffect = null;
-    private AssetLoader m_assetLoader = null;
 
     float timer = 0;
 
-    public Ball (float x, float y, float r, float worldW, LevelData ld, AssetLoader assetLoader)
+    public Ball (float x, float y, float r, float worldW, LevelData ld)
     {
         m_worldW = worldW;
         m_position = new Vector2(x,y);
@@ -37,7 +36,6 @@ public class Ball
         m_radius = r;
         m_gravity = ld.m_ballGravity;
         m_maxSpeed = m_defaultMaxSpeed = ld.m_ballMaxSpeed;
-        m_assetLoader = assetLoader;
 
         m_history = new BallPositionHistory(3);
         m_history.addToHistory(new com.mygdx.game.Basics.Circle(m_position,m_radius, m_iterator++));
@@ -46,11 +44,6 @@ public class Ball
         m_state.setSpriteSize(m_radius*2,m_radius*2);
 
         m_collisionEffect = new CollisionEffect();
-    }
-
-    public TextureRegion getBallTexture()
-    {
-        return m_assetLoader.flatballgrey;
     }
 
     public void addToPositionX(float value)
