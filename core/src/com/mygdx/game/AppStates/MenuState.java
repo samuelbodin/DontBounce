@@ -59,16 +59,17 @@ public class MenuState extends State
         //m_heading = new Label("Don't Bounce", ls);
         //m_heading.setFontScale(0.6f);
         m_logo = new Image(m_skin.getDrawable("logo"));
-
+        Color m_pressTintColor = new Color(0.7f, 0.7f, 0.7f, 1f);
 
         // Buttons
         ImageButton.ImageButtonStyle playBtnStyle = new ImageButton.ImageButtonStyle();
         playBtnStyle.up = m_skin.getDrawable("play");
-        playBtnStyle.down = m_skin.getDrawable("play");
+        playBtnStyle.down = m_skin.newDrawable("play", m_pressTintColor);
 
         ImageButton.ImageButtonStyle levelBtnStyle = new ImageButton.ImageButtonStyle();
         levelBtnStyle.up = m_skin.getDrawable("levelselect");
-        levelBtnStyle.down = m_skin.getDrawable("levelselect");
+        levelBtnStyle.down = m_skin.newDrawable("levelselect", m_pressTintColor);
+
 
         ImageButton.ImageButtonStyle soundBtnStyle = new ImageButton.ImageButtonStyle();
         soundBtnStyle.up = m_skin.getDrawable("audioon");
