@@ -36,8 +36,7 @@ public class BallStateNormal extends BallState
 
     private void setupSprite()
     {
-        m_texture = new Texture("flatballgrey.png");
-        m_sprite = new Sprite(m_texture);
+        m_sprite = new Sprite(m_ball.getBallTexture());
         m_sprite.setOriginCenter();
         m_sprite.setColor(0.75f,0.2f,0.15f,1);
     }

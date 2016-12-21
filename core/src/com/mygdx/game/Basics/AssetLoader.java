@@ -70,7 +70,7 @@ public class AssetLoader
         speedup = m_gameObjects.findRegion("speedup");
         ultrarapid = m_gameObjects.findRegion("ultrarapid");
         flatball = m_gameObjects.findRegion("flatball");
-        flatballgrey = m_gameObjects.findRegion("flattballgrey");
+        flatballgrey = m_gameObjects.findRegion("flatballgrey");
         flatbwbody = m_gameObjects.findRegion("flatbwbody");
         flatbwleft = m_gameObjects.findRegion("flatbwleft");
         flatbwright = m_gameObjects.findRegion("flatbwright");

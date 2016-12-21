@@ -2,9 +2,11 @@ package com.mygdx.game.Ball;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.FloatArray;
+import com.mygdx.game.Basics.AssetLoader;
 import com.mygdx.game.Basics.CollisionEffect;
 import com.mygdx.game.Basics.LevelData;
 
@@ -23,10 +25,11 @@ public class Ball
     private int m_iterator = 0;
     private float m_dtModifier = 1f;
     private CollisionEffect m_collisionEffect = null;
+    private AssetLoader m_assetLoader = null;
 
     float timer = 0;
 
-    public Ball (float x, float y, float r, float worldW, LevelData ld)
+    public Ball (float x, float y, float r, float worldW, LevelData ld, AssetLoader assetLoader)
     {
         m_worldW = worldW;
         m_position = new Vector2(x,y);
@@ -34,6 +37,7 @@ public class Ball
         m_radius = r;
         m_gravity = ld.m_ballGravity;
         m_maxSpeed = m_defaultMaxSpeed = ld.m_ballMaxSpeed;
+        m_assetLoader = assetLoader;
 
         m_history = new BallPositionHistory(3);
         m_history.addToHistory(new com.mygdx.game.Basics.Circle(m_position,m_radius, m_iterator++));
@@ -44,7 +48,11 @@ public class Ball
         m_collisionEffect = new CollisionEffect();
     }
 
-    //adda clamp maxspeed
+    public TextureRegion getBallTexture()
+    {
+        return m_assetLoader.flatballgrey;
+    }
+
     public void addToPositionX(float value)
     {
         float min = 0.5f;

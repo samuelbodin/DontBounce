@@ -71,7 +71,7 @@ public class LevelSelectState extends State
 
         // Load chapters
         m_chapters = new ArrayList<Chapter>();
-        m_chapters.add(new ChapterOne());
+        m_chapters.add(new ChapterOne(m_assets));
 
         // Setup table
         m_table = new Table();

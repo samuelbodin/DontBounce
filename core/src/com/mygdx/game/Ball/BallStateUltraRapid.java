@@ -45,8 +45,7 @@ public class BallStateUltraRapid extends BallState
 
     private void setupSprite()
     {
-        m_texture = new Texture("flatballgrey.png");
-        m_sprite = new Sprite(m_texture);
+        m_sprite = new Sprite(m_ball.getBallTexture());
         m_sprite.setOriginCenter();
         m_sprite.setColor(0.6f,0.35f,0.7f,1);
     }

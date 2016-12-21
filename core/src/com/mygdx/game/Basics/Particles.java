@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 
@@ -23,12 +24,12 @@ public class Particles implements Disposable
     boolean tail = true;
     boolean m_firstUpdate = true;
 
-    public Particles(Texture texture, int numberOfParticles, float width, float height)
+    public Particles(TextureRegion texture, int numberOfParticles, float width, float height)
     {
         this(texture, numberOfParticles, width, height, 0, 0);
     }
 
-    public Particles(Texture texture, int numberOfParticles, float width, float height, float offsetX, float offsetY)
+    public Particles(TextureRegion texture, int numberOfParticles, float width, float height, float offsetX, float offsetY)
     {
         m_height = height;
         m_width = width;

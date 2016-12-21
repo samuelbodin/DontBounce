@@ -3,6 +3,7 @@ package com.mygdx.game.Basics;
 import com.badlogic.gdx.LifecycleListener;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.App;
 
 import java.util.ArrayList;
@@ -19,8 +20,8 @@ public class LevelData {
     public float m_obstacleSeparationFactor;
     public float m_obstacleMinSpacingFactor;
     public boolean m_foreground;
-    public List<String> m_backgroundFiles;
-    public String m_foregroundFile;
+    public List<TextureRegion> m_backgroundFiles;
+    public TextureRegion m_foregroundFile;
     public float m_ballGravity;
     public float m_ballMaxSpeed;
     public float m_ballSensitivity;

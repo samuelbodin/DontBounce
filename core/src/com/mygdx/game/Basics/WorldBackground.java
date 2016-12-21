@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Basics.Cam;
 
@@ -44,38 +45,22 @@ public class WorldBackground extends Drawable
         m_viewportWidth = viewportWidth;
         m_viewportHeight = viewportHeight;
         m_useForeground = foreground;
-/*        if(m_useForeground)
-        {
-            m_texture = new Texture("flatbgforeground.png");
-
-
-            m_foreground = new Sprite[2];
-            m_foreground[0] = new Sprite(m_texture);
-            m_foreground[1] = new Sprite(m_texture);
-            for (Sprite s : m_foreground)
-            {
-                s.setSize(m_viewportWidth * 1.2f, m_viewportWidth * 1.2f * (s.getHeight() / s.getWidth()));
-            }
-            m_foreground[0].setPosition((m_viewportWidth - m_foreground[0].getWidth()) / 2, -m_cam.position.y);
-            m_foreground[1].setPosition(m_foreground[0].getX(), m_foreground[0].getY() - m_foreground[1].getHeight());
-        }*/
     }
 
-    public void addBackgroundImage(String filename)
+    public void addBackgroundImage(TextureRegion tx)
     {
-        m_sprite.push( new Sprite(new Texture(filename)) );
+        m_sprite.push( new Sprite(tx) );
         setSize();
         setPosition();
     }
 
-    public void addForegroundImage(String filename)
+    public void addForegroundImage(TextureRegion tx)
     {
-        m_texture = new Texture(filename);
 
         m_foreground = new Sprite[3];
-        m_foreground[0] = new Sprite(m_texture);
-        m_foreground[1] = new Sprite(m_texture);
-        m_foreground[2] = new Sprite(m_texture);
+        m_foreground[0] = new Sprite(tx);
+        m_foreground[1] = new Sprite(tx);
+        m_foreground[2] = new Sprite(tx);
         for (Sprite s : m_foreground)
         {
             s.setSize(m_viewportWidth * 1.2f, m_viewportWidth * 1.2f * (s.getHeight() / s.getWidth()));

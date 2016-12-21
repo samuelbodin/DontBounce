@@ -96,7 +96,7 @@ public class LevelFinishedState extends State
         m_timeHandler = th;
 
         // Joel hade idé om algoritm som räknar ut om man klarat leveln.
-        if(true)
+        if(th.getTime() <= Math.ceil(getLevelTime()))
         {
             m_config.m_preferences.flush();
 
