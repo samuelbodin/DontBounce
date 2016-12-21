@@ -21,7 +21,7 @@ public class CollisionEffect extends Drawable
 
     public CollisionEffect()
     {
-        m_atlas = new TextureAtlas(Gdx.files.internal("gameObjects/splash.pack"));
+        m_atlas = new TextureAtlas(Gdx.files.internal("gameObjects/collisioneffects.pack"));
         Array<TextureAtlas.AtlasRegion> splashRegion = m_atlas.findRegions("splash");
         m_animation = new Animation(0.05f, splashRegion);
     }
@@ -48,7 +48,6 @@ public class CollisionEffect extends Drawable
     {
         if (m_isCracked)
         {
-            Gdx.app.log("RL", "CRACK!");
             sb.draw(m_animation.getKeyFrame(m_elapsedTime), m_Pos.x, m_Pos.y);
         }
 
