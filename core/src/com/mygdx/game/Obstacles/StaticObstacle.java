@@ -39,7 +39,7 @@ public class StaticObstacle extends Obstacle
         float distanceY = c.m_y - y;
 
         float distanceSquared = (distanceX * distanceX) + (distanceY * distanceY);
-        m_ob.setCracked(new Vector2(x,y));
+        //m_ob.setCracked(new Vector2(x,y));
         return new Vector2(x,y);
     }
 

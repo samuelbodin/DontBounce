@@ -3,7 +3,9 @@ package com.mygdx.game.Ball;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.Basics.CollisionEffect;
 import com.mygdx.game.Basics.LevelData;
+import com.mygdx.game.Obstacles.ObstacleBuilder;
 
 public class Ball
 {
@@ -19,6 +21,7 @@ public class Ball
     private float m_userInput = 0f;
     private int m_iterator = 0;
     private float m_dtModifier = 1f;
+    private CollisionEffect m_collisionEffect = null;
 
     public Ball (float x, float y, float r, float worldW, LevelData ld)
     {
@@ -29,12 +32,13 @@ public class Ball
         m_gravity = ld.m_ballGravity;
         m_maxSpeed = m_defaultMaxSpeed = ld.m_ballMaxSpeed;
 
-
         m_history = new BallPositionHistory(3);
         m_history.addToHistory(new com.mygdx.game.Basics.Circle(m_position,m_radius, m_iterator++));
 
         m_state = new BallStateNormal(this);
         m_state.setSpriteSize(m_radius*2,m_radius*2);
+
+        m_collisionEffect = new CollisionEffect();
     }
 
     public void addToPositionX(float value)
@@ -107,24 +111,27 @@ public class Ball
         m_state.updateSprite(m_position.x, m_position.y);
 
         m_history.addToHistory(new com.mygdx.game.Basics.Circle(m_position, m_radius, m_iterator++));
+
+        m_collisionEffect.update(dt);
     }
     private void handleEdges()
     {
-        if(m_position.x-m_radius < 0)
+        if(m_position.x < 0)
         {
             m_velocity.scl(0,1);
-            m_position.x = m_radius;
+            m_position.x = 0;
         }
-        else if(m_position.x+m_radius > m_worldW)
+        else if(m_position.x+m_radius*2 > m_worldW)
         {
             m_velocity.scl(0,1);
-            m_position.x = m_worldW - m_radius;
+            m_position.x = m_worldW - m_radius*2;
         }
     }
 
     public void render(SpriteBatch sb)
     {
         m_state.render(sb);
+        m_collisionEffect.render(sb);
     }
 
     public void onCollision(Vector2 pos, int side)
@@ -168,6 +175,7 @@ public class Ball
             alignToTheLeftOfPosition(pos);
         }
 
+        collisionEffect(pos, side);
         collisionSound();
 
         flipVelocityY();
@@ -252,6 +260,10 @@ public class Ball
         m_dtModifier = 1f;
     }
 
+    public void collisionEffect(Vector2 collisionPosition, int side)
+    {
+        m_collisionEffect.setCracked(collisionPosition, side);
+    }
     @Override
     public String toString()
     {
