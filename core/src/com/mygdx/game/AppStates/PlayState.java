@@ -2,6 +2,7 @@ package com.mygdx.game.AppStates;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
@@ -32,6 +33,10 @@ public class PlayState extends State
 
     private TimeHandler m_time;
 
+    private float m_fadeTimer = 1;
+    private Sprite m_blackScreen = null;
+
+
     //Ändras till att ta in en int och requesta leveldata från "config"
     public PlayState(StateManager sm, LevelData levelData)
     {
@@ -52,7 +57,6 @@ public class PlayState extends State
         setupViewPort();
         setupTimer();
         //setupMusic();
-
 
     }
 
@@ -104,6 +108,14 @@ public class PlayState extends State
     @Override
     public void update(float dt)
     {
+
+        if(m_fadeTimer > 0 && m_blackScreen != null)
+        {
+            m_fadeTimer -= dt*5;
+            m_blackScreen.setAlpha(m_fadeTimer);
+            return;
+        }
+
         handleInput();
 
         m_input.update(dt);
@@ -142,12 +154,18 @@ public class PlayState extends State
             }
         }
 
-        // Start timer
-        if(!m_time.isRunning())
-        {
-            m_time.start();
+        if(m_fadeTimer <= 0) {
+            // Start timer
+            if(!m_time.isRunning())
+            {
+                m_time.start();
+            }
+            m_time.update(dt*m_ball.getDtModifier());
         }
-        m_time.update(dt*m_ball.getDtModifier());
+
+        // Setup black screen. Position needs camera position.
+        m_blackScreen = new Sprite(m_assets.black);
+        m_blackScreen.setPosition(m_cam.position.x-m_config.m_worldW/2, m_cam.position.y-m_config.m_worldH/2);
     }
 
     @Override
@@ -169,6 +187,12 @@ public class PlayState extends State
         m_goal.render(sb);
         m_ball.render(sb);
         m_time.render(sb);
+
+        if(m_fadeTimer > 0)
+        {
+            m_blackScreen.draw(sb);
+        }
+
     }
 
     @Override

@@ -48,7 +48,12 @@ public class Ball
 
     public void addToPositionX(float value)
     {
-        m_userInput = value;
+        float min = 0.5f;
+        float max = 1f;
+        float originFactor = Math.abs(m_velocity.y/m_defaultMaxSpeed);
+        float speedFactor =  (max-min)*originFactor + min;
+
+        m_userInput = value*speedFactor;
     }
 
     void handleUserInput()
@@ -231,7 +236,7 @@ public class Ball
 
     boolean isOnGround()
     {
-        return (m_velocity.y > -30 && m_velocity.y <= -m_gravity);
+        return (m_velocity.y > 0 && m_velocity.y <= -m_gravity);
     }
 
     public Vector2 getPosition()
