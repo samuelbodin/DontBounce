@@ -120,7 +120,7 @@ public class Particles implements Disposable
         int i = 1;
         for(Sprite s : m_sprites)
         {
-            s.setAlpha(1-(factor*i));
+            s.setAlpha(start-(factor*i));
             i++;
         }
 
