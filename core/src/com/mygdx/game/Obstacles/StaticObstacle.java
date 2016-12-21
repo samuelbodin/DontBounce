@@ -59,7 +59,6 @@ public class StaticObstacle extends Obstacle
     @Override
     public void dispose()
     {
-        m_texture.dispose();
         m_ob.dispose();
     }
 }

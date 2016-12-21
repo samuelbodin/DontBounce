@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Ball.Ball;
 import com.mygdx.game.Ball.BallStateSuperSpeed;
+import com.mygdx.game.Basics.AssetLoader;
 import com.mygdx.game.Basics.Circle;
 
 /**
@@ -22,7 +23,7 @@ public class PowerUpSuperSpeed extends Obstacle
     public PowerUpSuperSpeed(float x, float y, float w, float h)
     {
         super(x,y,w,h);
-        m_texture = new Texture("speedup.png");
+        m_texture = AssetLoader.speedup;
         m_sprite = new Sprite(m_texture);
         m_sprite.setSize(w, h);
         m_sprite.setPosition(x,y);
@@ -67,6 +68,6 @@ public class PowerUpSuperSpeed extends Obstacle
     @Override
     public void dispose()
     {
-        m_texture.dispose();
+
     }
 }

@@ -6,15 +6,19 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.utils.Array;
 
 public class AssetLoader
 {
+    //Atlases
     private static TextureAtlas m_gameObjects;
     private static TextureAtlas m_levelBackgrounds;
     private static TextureAtlas m_menuBackgrounds;
 
+    //Skins
     public static Skin buttonSkin;
 
+    //Fonts
     public static BitmapFont slackeyfont;
 
     //GameObjects
@@ -88,6 +92,5 @@ public class AssetLoader
         m_gameObjects.dispose();
         m_levelBackgrounds.dispose();
         m_menuBackgrounds.dispose();
-        Gdx.app.log("PW", "AS disp");
     }
 }

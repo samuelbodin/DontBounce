@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Ball.Ball;
 import com.mygdx.game.Ball.BallStatePassThrough;
 import com.mygdx.game.Ball.BallStateSuperSpeed;
+import com.mygdx.game.Basics.AssetLoader;
 import com.mygdx.game.Basics.Circle;
 
 /**
@@ -22,7 +23,7 @@ public class PowerUpPassThrough extends Obstacle
     public PowerUpPassThrough(float x, float y, float w, float h)
     {
         super(x,y,w,h);
-        m_texture = new Texture("passthrough.png");
+        m_texture = AssetLoader.passthrough;
         m_sprite = new Sprite(m_texture);
         m_sprite.setSize(w, h);
         m_sprite.setPosition(x,y);
@@ -67,6 +68,5 @@ public class PowerUpPassThrough extends Obstacle
     @Override
     public void dispose()
     {
-        m_texture.dispose();
     }
 }

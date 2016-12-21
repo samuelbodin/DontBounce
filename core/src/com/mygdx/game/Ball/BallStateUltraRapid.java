@@ -105,7 +105,7 @@ public class BallStateUltraRapid extends BallState
     @Override
     public void dispose()
     {
-        m_texture.dispose();
+
     }
 
 }

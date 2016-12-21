@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.Basics.AssetLoader;
 import com.mygdx.game.Basics.Drawable;
 
 /**
@@ -27,9 +28,9 @@ public class ObstacleBuilder extends Drawable
         m_posX = x;
         m_posY = y;
 
-        m_start = new Sprite(new Texture("flatbwleft.png"));
-        m_body = new Sprite(new Texture("flatbwbody.png"));
-        m_end = new Sprite(new Texture("flatbwright.png"));
+        m_start = new Sprite(AssetLoader.flatbwleft);
+        m_body = new Sprite(AssetLoader.flatbwbody);
+        m_end = new Sprite(AssetLoader.flatbwright);
 
         m_start.setSize(height, height);
         m_end.setSize(height, height);

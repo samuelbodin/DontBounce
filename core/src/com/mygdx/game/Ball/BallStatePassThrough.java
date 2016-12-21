@@ -126,6 +126,6 @@ public class BallStatePassThrough extends BallState
     @Override
     public void dispose()
     {
-        m_texture.dispose();
+
     }
 }

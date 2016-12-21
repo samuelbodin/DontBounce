@@ -12,6 +12,7 @@ import com.mygdx.game.AppStates.LevelFinishedState;
 import com.mygdx.game.AppStates.StateManager;
 import com.mygdx.game.AppStates.UserTestMenu;
 import com.mygdx.game.Ball.Ball;
+import com.mygdx.game.Basics.AssetLoader;
 import com.mygdx.game.Basics.Circle;
 
 
@@ -22,7 +23,7 @@ public class LevelGoal extends Obstacle
     public LevelGoal(float x, float y, float w, float h)
     {
         super(x,y,w,h);
-        m_texture = new Texture("goal.png");
+        m_texture = AssetLoader.goal;
         m_sprite = new Sprite(m_texture);
         m_sprite.setAlpha(0.8f);
         float scale = w / m_sprite.getWidth();
@@ -65,7 +66,7 @@ public class LevelGoal extends Obstacle
     @Override
     public void dispose()
     {
-        m_texture.dispose();
+
     }
 
 }

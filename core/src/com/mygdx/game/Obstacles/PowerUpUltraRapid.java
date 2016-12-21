@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Ball.Ball;
 import com.mygdx.game.Ball.BallStateSuperSpeed;
 import com.mygdx.game.Ball.BallStateUltraRapid;
+import com.mygdx.game.Basics.AssetLoader;
 import com.mygdx.game.Basics.Circle;
 
 /**
@@ -23,7 +24,7 @@ public class PowerUpUltraRapid extends Obstacle
     public PowerUpUltraRapid(float x, float y, float w, float h)
     {
         super(x,y,w,h);
-        m_texture = new Texture("ultrarapid.png");
+        m_texture = AssetLoader.ultrarapid;
         m_sprite = new Sprite(m_texture);
         m_sprite.setSize(w, h);
         m_sprite.setPosition(x,y);
@@ -68,6 +69,6 @@ public class PowerUpUltraRapid extends Obstacle
     @Override
     public void dispose()
     {
-        m_texture.dispose();
+
     }
 }

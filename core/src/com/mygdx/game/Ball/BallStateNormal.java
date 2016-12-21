@@ -88,7 +88,7 @@ public class BallStateNormal extends BallState
     @Override
     public void dispose()
     {
-        m_texture.dispose();
+
     }
 
 /*    private Sound[] setupSound()
