@@ -72,7 +72,7 @@ public class LevelFinishedState extends State
         m_soundButton = new ImageButton(soundButtonStyle);
 
         //Fonts
-        font = new BitmapFont(Gdx.files.internal("slackeyfont/slackey100.fnt"));
+        font = AssetLoader.slackeyfont;
         fontStyle = new Label.LabelStyle(font, Color.WHITE);
 
         //Labels
