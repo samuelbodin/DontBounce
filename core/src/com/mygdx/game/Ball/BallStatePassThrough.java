@@ -32,7 +32,8 @@ public class BallStatePassThrough extends BallState
         setupSprite();
         m_sound = setupSound();
         m_timer = 4f;
-        m_ball.collisionEffect(m_ball.getPosition(), 1, "powerup", 250);
+        m_ball.collisionEffect(m_ball.getPosition(), 1, "powerup", 450);
+        AssetLoader.audio.musicLevelSpeedStart();
     }
 
     public void setBall(Ball b)
