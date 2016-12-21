@@ -45,6 +45,7 @@ public class AssetLoader
 
     public static void Load()
     {
+        Gdx.app.log("PW", "AssLoad Load");
         TextureAtlas m_buttonElements;
 
         m_buttonElements = new TextureAtlas("buttons/buttons.atlas");
