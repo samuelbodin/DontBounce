@@ -47,7 +47,7 @@ abstract class BallState extends Drawable
 
     protected void onCollision(Vector2 pos, int side)
     {
-                /*
+        /*
         0 - Ball is above obstacle
         1 - Ball is to the right of obstacle
         2 - Ball is below obstacle
@@ -83,8 +83,14 @@ abstract class BallState extends Drawable
             resetGravityModifier();
         }
 
-        m_ball.collisionEffect(pos, side, "splash", 100);
-        m_ball.collisionSound(side);
+        if(!m_ball.isOnGround() )
+        {
+            if(Math.abs(m_ball.getVelocity().y) > Math.abs(m_ball.getGravity())*20)
+            {
+                m_ball.collisionEffect(new Vector2(pos.x - m_ball.getRadius() * 2, pos.y), side, "splash", 10);
+            }
+            m_ball.collisionSound(side);
+        }
     }
 
 

@@ -150,6 +150,11 @@ public class Ball
         resetYFlipFactor();
     }
 
+    public float getRadius()
+    {
+        return m_radius;
+    }
+
     public float getGravity()
     {
         return m_gravity;
@@ -255,7 +260,10 @@ public class Ball
 
         if(!isOnGround())
         {
-            collisionEffect(new Vector2(pos.x-m_radius*2,pos.y), side, "splash", 0);
+            if(Math.abs(getVelocity().y) > Math.abs(getGravity())*20)
+            {
+                collisionEffect(new Vector2(pos.x - m_radius * 2, pos.y), side, "splash", 0);
+            }
             collisionSound(side);
         }
     }
