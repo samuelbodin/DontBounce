@@ -33,6 +33,7 @@ abstract class BallState extends Drawable
     {
     }
 
+    protected abstract boolean hasHistory();
     protected abstract boolean hasOnCollision();
     protected abstract void updateSprite(float x, float y);
     protected abstract void setSpriteSize(float width, float height);

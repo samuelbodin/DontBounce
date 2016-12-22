@@ -34,12 +34,14 @@ public class StaticObstacle extends Obstacle
     {
         float x = MathUtils.clamp(c.m_x, m_position.x, m_position.x + m_width);
         float y = MathUtils.clamp(c.m_y, m_position.y, m_position.y + m_height);
-
-        float distanceX = c.m_x - x;
-        float distanceY = c.m_y - y;
-
-        float distanceSquared = (distanceX * distanceX) + (distanceY * distanceY);
-        //m_ob.startEffect(new Vector2(x,y));
+        if(y < m_position.y+(m_height/2))
+        {
+            y = m_position.y;
+        }
+        else
+        {
+            y = m_position.y + m_height;
+        }
         return new Vector2(x,y);
     }
 

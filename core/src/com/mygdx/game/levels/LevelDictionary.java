@@ -44,11 +44,11 @@ public class LevelDictionary
     private void loadChapterOne()
     {
         m_data.add(
-            new LevelData(1, 1, 1, true, 12, 12, 10, 80, false, -10f, -1500f, 2f)
+            new LevelData(1, 1, 1, true, 13, 12, 10, 80, false, -10f, -1500f, 2f)
         );
 
         m_data.add(
-            new LevelData(2, 1, 2, true, 13, 13, 11, 80, false, -10f, -1500f, 2f)
+            new LevelData(2, 1, 2, true, 22, 13, 11, 80, false, -10f, -1500f, 2f)
         );
 
         m_data.add(

@@ -38,7 +38,11 @@ public class BallStateUltraRapid extends BallState
     {
         m_ball = b;
     }
-
+    @Override
+    protected boolean hasHistory()
+    {
+        return true;
+    }
     @Override
     protected boolean hasOnCollision()
     {

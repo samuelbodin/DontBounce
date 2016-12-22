@@ -50,6 +50,11 @@ public class BallStateSuperSpeed extends BallState
     }
 
     @Override
+    protected boolean hasHistory()
+    {
+        return true;
+    }
+    @Override
     protected boolean hasOnCollision()
     {
         return false;
