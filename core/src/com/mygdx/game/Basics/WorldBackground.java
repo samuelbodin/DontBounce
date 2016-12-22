@@ -63,7 +63,7 @@ public class WorldBackground extends Drawable
         m_foreground[2] = new Sprite(tx);
         for (Sprite s : m_foreground)
         {
-            s.setSize(m_viewportWidth * 1.2f, m_viewportWidth * 1.2f * (s.getHeight() / s.getWidth()));
+            s.setSize(m_viewportWidth * 1.1f, m_viewportWidth * 1.1f * (s.getHeight() / s.getWidth()));
         }
         m_foreground[0].setPosition((m_viewportWidth - m_foreground[0].getWidth()) / 2, -m_cam.position.y);
         m_foreground[1].setPosition(m_foreground[0].getX(), m_foreground[0].getY() - m_foreground[1].getHeight());
@@ -74,7 +74,7 @@ public class WorldBackground extends Drawable
     {
         for(Sprite s : m_sprite)
         {
-            s.setSize(m_viewportWidth*1.2f,m_viewportWidth*1.2f*(s.getHeight()/s.getWidth()));
+            s.setSize(m_viewportWidth*1.1f,m_viewportWidth*1.1f*(s.getHeight()/s.getWidth()));
         }
 
 
