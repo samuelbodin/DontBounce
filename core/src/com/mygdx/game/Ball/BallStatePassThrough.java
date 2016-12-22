@@ -17,7 +17,7 @@ import java.util.Random;
 public class BallStatePassThrough extends BallState
 {
 
-    float m_timer;
+    float m_timer = 0f;
     Sound m_sound[] = null;
     float m_soundPlayed = 0f;
 
@@ -34,6 +34,9 @@ public class BallStatePassThrough extends BallState
         m_timer = 4f;
         m_ball.collisionEffect(m_ball.getPosition(), 1, "powerup", 450);
         AssetLoader.audio.musicLevelSpeedStart();
+        m_defaultGravityModifier = 2.5f;
+        m_gravityModifier = 2.5f;
+        m_onCollisionGravityModifier = 0.75f;
     }
 
     public void setBall(Ball b)
@@ -75,7 +78,7 @@ public class BallStatePassThrough extends BallState
     @Override
     public void update(float dt)
     {
-        m_ball.applyGravity();
+        super.update(dt);
 
         m_timer -= dt;
 

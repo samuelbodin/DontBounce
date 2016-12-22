@@ -258,8 +258,6 @@ public class Ball
             collisionEffect(new Vector2(pos.x-m_radius*2,pos.y), side, "splash", 0);
             collisionSound(side);
         }
-
-        //flipVelocityY();
     }
 
     void collisionSound(int side)

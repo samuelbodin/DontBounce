@@ -32,6 +32,9 @@ public class BallStateUltraRapid extends BallState
         m_timer = 5f;
         m_ball.collisionEffect(m_ball.getPosition(), 1, "powerup", 250);
         AssetLoader.audio.musicLevelSpeedStart();
+        m_defaultGravityModifier = 1f;
+        m_gravityModifier = 1f;
+        m_onCollisionGravityModifier = 1f;
     }
 
     public void setBall(Ball b)
@@ -46,7 +49,7 @@ public class BallStateUltraRapid extends BallState
     @Override
     protected boolean hasOnCollision()
     {
-        return false;
+        return true;
     }
 
     private void setupSprite()
@@ -71,7 +74,7 @@ public class BallStateUltraRapid extends BallState
     @Override
     public void update(float dt)
     {
-        m_ball.applyGravity();
+        super.update(dt);
 
         m_timer -= dt;
 

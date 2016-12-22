@@ -28,6 +28,9 @@ public class BallStateNormal extends BallState
         setupSprite();
         m_sound = setupSound();
         AssetLoader.audio.musicLevelNormalStart();
+        m_defaultGravityModifier = 1f;
+        m_gravityModifier = 1f;
+        m_onCollisionGravityModifier = 1f;
     }
 
     @Override
@@ -39,7 +42,7 @@ public class BallStateNormal extends BallState
     @Override
     protected boolean hasOnCollision()
     {
-        return false;
+        return true;
     }
 
     private void setupSprite()
@@ -64,7 +67,7 @@ public class BallStateNormal extends BallState
     @Override
     public void update(float dt)
     {
-        m_ball.applyGravity();
+        super.update(dt);
     }
 
     @Override
