@@ -22,7 +22,6 @@ public class ObstacleBuilder extends Drawable
     Sprite m_start, m_body, m_end;
     float m_posX, m_posY;
 
-
     public ObstacleBuilder(float x, float y, float width, float height, Color tint)
     {
         m_posX = x;
@@ -44,6 +43,8 @@ public class ObstacleBuilder extends Drawable
         m_start.setColor(tint);
         m_body.setColor(tint);
         m_end.setColor(tint);
+
+
 
     }
 

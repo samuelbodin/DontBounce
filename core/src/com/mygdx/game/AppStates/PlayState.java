@@ -130,8 +130,7 @@ public class PlayState extends State
             if(m_cam.isOnScreen(c.getPosition()))
             {
                 c.update(dt);
-
-                    c.checkCollision(m_ball);
+                c.checkCollision(m_ball);
             }
         }
 

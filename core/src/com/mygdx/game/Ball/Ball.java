@@ -1,5 +1,6 @@
 package com.mygdx.game.Ball;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
@@ -284,7 +285,6 @@ public class Ball
     void alignToTheRightOfPosition(Vector2 pos)
     {
         m_position.x = pos.x+1;
-        //m_position.y--;
     }
 
     void alignBelowPosition(Vector2 pos)
@@ -295,7 +295,6 @@ public class Ball
     void alignToTheLeftOfPosition(Vector2 pos)
     {
         m_position.x = pos.x-m_radius*2-1;
-        //m_position.y--;
     }
 
     void flipVelocityY()

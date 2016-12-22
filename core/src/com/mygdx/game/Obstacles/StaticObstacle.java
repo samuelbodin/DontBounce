@@ -42,6 +42,7 @@ public class StaticObstacle extends Obstacle
         {
             y = m_position.y + m_height;
         }
+
         return new Vector2(x,y);
     }
 
@@ -55,7 +56,6 @@ public class StaticObstacle extends Obstacle
     public void render(SpriteBatch sb)
     {
         m_ob.render(sb);
-        //sb.draw(m_texture,m_position.x,m_position.y,m_width,m_height);
     }
 
     @Override
