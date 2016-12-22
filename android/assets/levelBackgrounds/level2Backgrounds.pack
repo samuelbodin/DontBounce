@@ -1,0 +1,38 @@
+
+level2Backgrounds.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+spacebg01
+  rotate: false
+  xy: 0, 0
+  size: 1024, 2048
+  orig: 1024, 2048
+  offset: 0, 0
+  index: -1
+spacebg02
+  rotate: false
+  xy: 1024, 0
+  size: 1024, 2048
+  orig: 1024, 2048
+  offset: 0, 0
+  index: -1
+
+level2Backgrounds2.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+spacebg03
+  rotate: false
+  xy: 0, 0
+  size: 1024, 2048
+  orig: 1024, 2048
+  offset: 0, 0
+  index: -1
+spacebgforeground
+  rotate: false
+  xy: 1024, 0
+  size: 1024, 2048
+  orig: 1024, 2048
+  offset: 0, 0
+  index: -1
