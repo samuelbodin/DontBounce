@@ -14,6 +14,7 @@ public class AssetLoader
     //Atlases
     private static TextureAtlas m_gameObjects;
     private static TextureAtlas m_levelBackgrounds;
+    private static TextureAtlas m_level2Backgrounds;
     private static TextureAtlas m_menuBackgrounds;
 
     //Skins
@@ -38,6 +39,11 @@ public class AssetLoader
     public static TextureRegion flatbg03;
     public static TextureRegion flatbgforeground;
 
+    public static TextureRegion spacebg01;
+    public static TextureRegion spacebg02;
+    public static TextureRegion spacebg03;
+    public static TextureRegion spacebgforeground;
+
     //MenuBackgrounds
     public static TextureRegion black;
     public static TextureRegion clouds01;
@@ -57,6 +63,7 @@ public class AssetLoader
 
         m_gameObjects = new TextureAtlas("gameObjects/gameObjects.pack");
         m_levelBackgrounds = new TextureAtlas("levelBackgrounds/levelBackgrounds.pack");
+        m_level2Backgrounds = new TextureAtlas("levelBackgrounds/level2Backgrounds.pack");
         m_menuBackgrounds = new TextureAtlas("menuBackgrounds/menuBackgrounds.pack");
 
         loadTextures();
@@ -84,6 +91,11 @@ public class AssetLoader
         flatbg02 = m_levelBackgrounds.findRegion("flatbg02");
         flatbg03 = m_levelBackgrounds.findRegion("flatbg03");
         flatbgforeground = m_levelBackgrounds.findRegion("flatbgforeground");
+
+        spacebg01 = m_level2Backgrounds.findRegion("spacebg01");
+        spacebg02 = m_level2Backgrounds.findRegion("spacebg02");
+        spacebg03 = m_level2Backgrounds.findRegion("spacebg03");
+        spacebgforeground = m_level2Backgrounds.findRegion("spacebgforeground");
 
         //menuBackgrounds
         black = m_menuBackgrounds.findRegion("blackbg");
