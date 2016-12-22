@@ -1,5 +1,6 @@
 package com.mygdx.game.Obstacles;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Basics.Circle;
 import com.badlogic.gdx.math.Vector2;
@@ -29,10 +30,8 @@ public abstract class Obstacle extends Collidable
     @Override
     protected boolean isColliding(Circle c)
     {
-        /*return  ! ( m_position.x > c.m_x + c.m_radius || m_position.x + m_width < c.m_x - c.m_radius
-                || m_position.y + m_height < c.m_y - c.m_radius || m_position.y > c.m_y + c.m_radius);*/
-        return  ! ( m_position.x > c.m_x + (c.m_radius*2) || m_position.x + m_width < c.m_x
-                || m_position.y + m_height < c.m_y || m_position.y > c.m_y + (c.m_radius*2) );
+        return  ! ( m_position.x > c.m_x + c.m_radius || m_position.x + m_width < c.m_x - c.m_radius
+                || m_position.y + m_height < c.m_y - c.m_radius || m_position.y > c.m_y + c.m_radius);
     }
 
     protected abstract Vector2 getCollisionPosition(Circle c);
@@ -42,6 +41,15 @@ public abstract class Obstacle extends Collidable
         int side1 = -1;
         int side2 = -1;
         int lastIndex = arr.size-1;
+
+        if(isColliding(arr.get(lastIndex)) && arr.size == 1)
+        {
+            return lastIndex;
+        }
+        else if(arr.size == 1)
+        {
+            return -1;
+        }
 
         if(isColliding(arr.get(lastIndex)))
         {
@@ -117,6 +125,11 @@ public abstract class Obstacle extends Collidable
     public boolean checkCollision(Ball b)
     {
         Array<Circle> arr = b.getCircles();
+
+        if(arr == null)
+        {
+            arr = b.getCircle();
+        }
 
         int index = getPossibleCollisionIndex(arr);
 

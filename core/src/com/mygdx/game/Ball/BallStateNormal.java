@@ -31,6 +31,12 @@ public class BallStateNormal extends BallState
     }
 
     @Override
+    protected boolean hasHistory()
+    {
+        return true;
+    }
+
+    @Override
     protected boolean hasOnCollision()
     {
         return false;
@@ -85,6 +91,8 @@ public class BallStateNormal extends BallState
 
         return str;
     }
+
+
 
     @Override
     public void dispose()

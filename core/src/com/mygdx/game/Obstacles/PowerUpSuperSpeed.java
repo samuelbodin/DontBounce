@@ -39,7 +39,10 @@ public class PowerUpSuperSpeed extends Obstacle
     public boolean checkCollision(Ball b)
     {
         Array<Circle> arr = b.getCircles();
-
+        if(arr == null)
+        {
+            arr = b.getCircle();
+        }
         int index = getPossibleCollisionIndex(arr);
 
         if(index != -1 && m_isActive)

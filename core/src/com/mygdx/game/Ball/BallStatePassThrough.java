@@ -42,6 +42,12 @@ public class BallStatePassThrough extends BallState
     }
 
     @Override
+    protected boolean hasHistory()
+    {
+        return false;
+    }
+
+    @Override
     protected boolean hasOnCollision()
     {
         return true;

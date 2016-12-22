@@ -4,8 +4,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.FloatArray;
+import com.mygdx.game.Basics.AssetLoader;
+import com.mygdx.game.Basics.Circle;
 import com.mygdx.game.Basics.CollisionEffect;
 import com.mygdx.game.Basics.LevelData;
+
+import java.util.ArrayList;
 
 public class Ball
 {
@@ -36,12 +41,9 @@ public class Ball
         m_gravity = ld.m_ballGravity;
         m_maxSpeed = m_defaultMaxSpeed = ld.m_ballMaxSpeed;
 
-        m_history = new BallPositionHistory(3);
-        m_history.addToHistory(new com.mygdx.game.Basics.Circle(m_position,m_radius, m_iterator++));
-
         m_state = new BallStateNormal(this);
         m_state.setSpriteSize(m_radius*2,m_radius*2);
-
+        handleHistory();
         m_collisionEffect = new CollisionEffect();
     }
 
@@ -175,8 +177,9 @@ public class Ball
 
         m_state.updateSprite(m_position.x, m_position.y);
 
-        m_history.addToHistory(new com.mygdx.game.Basics.Circle(m_position, m_radius, m_iterator++));
-
+        //m_history.addToHistory(new com.mygdx.game.Basics.Circle(m_position, m_radius, m_iterator++));
+        //m_history.addToHistory(new com.mygdx.game.Basics.Circle(new Vector2(m_position.x+m_radius,m_position.y+m_radius), m_radius, m_iterator++));
+        handleHistory();
         m_collisionEffect.update(dt);
 
         timer += dt;
@@ -212,6 +215,8 @@ public class Ball
         {
             handleCollision(pos, side);
         }
+
+        m_state.updateSprite(m_position.x, m_position.y);
     }
 
     private void handleCollision(Vector2 pos, int side)
@@ -243,8 +248,11 @@ public class Ball
             alignToTheLeftOfPosition(pos);
         }
 
-        collisionEffect(pos, side, "splash", 100);
-        collisionSound();
+        if(!isOnGround())
+        {
+            collisionEffect(pos, side, "splash", 100);
+            collisionSound();
+        }
 
         flipVelocityY();
     }
@@ -259,7 +267,7 @@ public class Ball
 
     void alignAbovePosition(Vector2 pos)
     {
-        m_position.y = pos.y+1;
+        m_position.y = pos.y;
     }
 
     void alignToTheRightOfPosition(Vector2 pos)
@@ -291,7 +299,7 @@ public class Ball
 
     boolean isOnGround()
     {
-        return (m_velocity.y > 0 && m_velocity.y <= -m_gravity);
+        return (m_velocity.y > m_gravity*3 && m_velocity.y <= -m_gravity);
     }
 
     public Vector2 getPosition()
@@ -305,6 +313,10 @@ public class Ball
 
     public Array<com.mygdx.game.Basics.Circle> getCircles()
     {
+        if(m_history == null)
+        {
+            return null;
+        }
         return m_history.m_circles;
     }
 
@@ -338,6 +350,39 @@ public class Ball
     {
         m_collisionEffect.setAnimation(name);
         m_collisionEffect.startEffect(collisionPosition, side, spriteMove);
+    }
+
+
+    private void handleHistory()
+    {
+        if(!m_state.hasHistory() && m_history != null)
+        {
+            m_history = null;
+            return;
+        }
+        else if(m_state.hasHistory() && m_history == null)
+        {
+            m_history = new BallPositionHistory(3);
+        }
+
+        if(m_history != null)
+        {
+            m_history.addToHistory(new com.mygdx.game.Basics.Circle(new Vector2(m_position.x + m_radius, m_position.y + m_radius), m_radius, m_iterator++));
+        }
+
+    }
+
+    public boolean hasHistory()
+    {
+        return m_state.hasHistory();
+    }
+
+    public Array<com.mygdx.game.Basics.Circle> getCircle()
+    {
+        Array<Circle> arr = new Array<Circle>();
+        arr.add(new com.mygdx.game.Basics.Circle(new Vector2(m_position.x + m_radius, m_position.y + m_radius), m_radius, m_iterator++));
+
+        return arr;
     }
 
     @Override

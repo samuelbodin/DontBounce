@@ -49,6 +49,11 @@ public class LevelGoal extends Obstacle
     {
         Array<Circle> arr = b.getCircles();
 
+        if(arr == null)
+        {
+            arr = b.getCircle();
+        }
+
         int index = getPossibleCollisionIndex(arr);
 
         if(index != -1)
