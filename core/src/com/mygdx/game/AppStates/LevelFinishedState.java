@@ -106,7 +106,7 @@ public class LevelFinishedState extends State
         m_timeHandler = th;
 
         // Joel hade idé om algoritm som räknar ut om man klarat leveln.
-        if(th.getTime() <= Math.ceil(getLevelTime()))
+        if(th.getTime() <= Math.ceil(m_config.getCurrentLevel().getLevelTime()))
         {
             m_config.m_preferences.flush();
 
@@ -253,38 +253,7 @@ public class LevelFinishedState extends State
 
     }
 
-    private float getLevelTime()
-    {
-        // Necessary data.
-        float gravity = Math.abs(m_config.getCurrentLevel().m_ballGravity);
-        float maxSpeed = Math.abs(m_config.getCurrentLevel().m_ballMaxSpeed);
-        float levelLength = Math.abs(m_config.getCurrentLevel().m_levelHeight);
-        float fps = 60;
 
-        /* The balls acceleration is dependent on the fps.
-        * Not good but that's how the physics is designed. */
-        float acceleration = gravity*fps;
-
-        // Time to max speed.
-        float timeToMax = maxSpeed/acceleration;
-
-        // The distance traveled during acceleration.
-        float distanceAtMax = 0.5f*acceleration*timeToMax*timeToMax;
-
-        // The time from max speed to goal.
-        float timeWithMaxSpeed = (levelLength-distanceAtMax)/maxSpeed;
-
-        // Sum the two times.
-        float totalTime = timeToMax + timeWithMaxSpeed;
-
-        /* Due to "bad" design and start delay we need error correction.
-        * Add enough to be sure that the time really exceeds the minimum time.
-        * Error is 7-9% */
-        float TimeWidthErrorCorrection = totalTime * 1.1f;
-
-        return TimeWidthErrorCorrection;
-
-    }
 
     public void confetti()
     {
