@@ -23,6 +23,9 @@ public class BallStateSuperSpeed extends BallState
     Sound m_sound[] = null;
     Color m_tint;
     Particles m_particles;
+    float m_defaultGravityModifier = 2.5f;
+    float m_gravityModifier = 2.5f;
+    float m_onCollisionGravityModifier = 0.75f;
 
     public BallStateSuperSpeed()
     {
@@ -35,13 +38,18 @@ public class BallStateSuperSpeed extends BallState
         m_tint = new Color(1f,0.80f,0,1);
         setupSprite();
         m_sound = setupSound();
-        m_ball.setMaxSpeed(-3000f);
+        m_ball.scaleMaxSpeed(1.5f);
         m_timer = 3f;
         m_particles = new Particles(AssetLoader.flatballgrey, 15, 32, 32);
         m_particles.setColor(m_tint);
         m_particles.setFade(0.2f, 0.01f);
         m_ball.collisionEffect(m_ball.getPosition(), 1, "powerup", 450);
         AssetLoader.audio.musicLevelSpeedStart();
+    }
+
+    void resetGravityModifier()
+    {
+        m_gravityModifier = m_defaultGravityModifier;
     }
 
     public void setBall(Ball b)
@@ -52,7 +60,50 @@ public class BallStateSuperSpeed extends BallState
     @Override
     protected boolean hasOnCollision()
     {
-        return false;
+        return true;
+    }
+
+    @Override
+    protected void onCollision(Vector2 pos, int side)
+    {
+        /*
+        0 - Ball is above obstacle
+        1 - Ball is to the right of obstacle
+        2 - Ball is below obstacle
+        3 - Ball is to the left of obstacle
+        */
+        if(side == 0)
+        {
+            m_ball.alignAbovePosition(pos);
+            if(m_ball.isOnGround())
+            {
+                m_ball.resetVelocityY();
+            }
+            else
+            {
+                m_gravityModifier = m_onCollisionGravityModifier;
+            }
+        }
+        else if(side == 1)
+        {
+            m_ball.alignToTheRightOfPosition(pos);
+            resetGravityModifier();
+        }
+        else if(side == 2)
+        {
+            m_ball.alignBelowPosition(pos);
+            resetGravityModifier();
+        }
+        else if(side == 3)
+        {
+            m_ball.alignToTheLeftOfPosition(pos);
+            resetGravityModifier();
+        }
+
+        m_ball.collisionEffect(pos, side, "splash", 100);
+        m_ball.collisionSound();
+
+        m_ball.flipVelocityY();
     }
 
     private void setupSprite()
@@ -77,7 +128,15 @@ public class BallStateSuperSpeed extends BallState
     @Override
     public void update(float dt)
     {
-        m_ball.applyGravity();
+        float gravity = m_ball.getGravity();
+        float velY = m_ball.getVelocity().y;
+
+        if(velY >= gravity && velY <= -gravity)
+        {
+            resetGravityModifier();
+        }
+
+        m_ball.applyGravity(m_gravityModifier);
 
         m_timer -= dt;
 
