@@ -69,7 +69,7 @@ public class TimeHandler
     public void render(SpriteBatch sb)
     {
         m_background.draw(sb);
-        if(m_timer < 10)
+        if(m_timer < 100)
         {
             m_font.draw(sb, String.format("%.2f", m_timer), m_drawPosition.x, m_drawPosition.y);
         }
