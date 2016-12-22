@@ -66,8 +66,8 @@ public class WorldBackground extends Drawable
             s.setSize(m_viewportWidth * 1.1f, m_viewportWidth * 1.1f * (s.getHeight() / s.getWidth()));
         }
         m_foreground[0].setPosition((m_viewportWidth - m_foreground[0].getWidth()) / 2, -m_cam.position.y);
-        m_foreground[1].setPosition(m_foreground[0].getX(), m_foreground[0].getY() - m_foreground[1].getHeight());
-        m_foreground[2].setPosition(m_foreground[0].getX(), m_foreground[1].getY() - m_foreground[2].getHeight());
+        m_foreground[1].setPosition(m_foreground[0].getX(), m_foreground[0].getY() - m_foreground[0].getHeight());
+        m_foreground[2].setPosition(m_foreground[0].getX(), m_foreground[1].getY() - m_foreground[1].getHeight());
     }
 
     private void setSize()
@@ -113,7 +113,7 @@ public class WorldBackground extends Drawable
 
                 if (m_foreground[i].getY()-m_foreground[i].getHeight() >= m_cam.position.y + (m_cam.viewportHeight) - (m_cam.viewportHeight / 4))
                 {
-                    m_foreground[i].setPosition(m_foreground[i].getX(), m_foreground[(i + 1) % m_foreground.length].getY() - (m_foreground[i].getHeight()*2));
+                    m_foreground[i].setPosition(m_foreground[i].getX(), m_foreground[(i + 1) % m_foreground.length].getY() - (m_foreground[i].getHeight()*2)+2);
                 }
 
             }

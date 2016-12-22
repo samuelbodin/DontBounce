@@ -18,6 +18,6 @@ public class ChapterTwo extends Chapter
         m_backgrounds.add(AssetLoader.spacebg03);
         m_foreground  = AssetLoader.spacebgforeground;
 
-        m_tint = new Color(0.75f,0.5f,0.25f,1);
+        m_tint = new Color(0.25f,0.95f,0.25f,1);
     }
 }

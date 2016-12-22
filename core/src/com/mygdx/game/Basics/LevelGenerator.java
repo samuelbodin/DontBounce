@@ -54,14 +54,8 @@ public class LevelGenerator
         m_collidables = new Array<Collidable>();
         m_noise = new SimplexNoise(m_levelData.m_seed);
 
-        if(m_levelData.m_hasHoles)
-        {
-            generateInverted();
-        }
-        else
-        {
-            generate();
-        }
+        generate();
+
     }
 
     private void generate()
@@ -72,7 +66,22 @@ public class LevelGenerator
             renewParameters(i);
 
             // Add obstacle
-            m_collidables.add(new StaticObstacle(m_obstacleX, m_lastObstableY - m_obstacleY, m_obstacleWidth, 32, m_tint));
+            if(m_levelData.m_hasHoles)
+            {
+                if((int)Math.abs(m_lastObstableY)%6==0)
+                {
+                    addPlatform(m_obstacleWidth/2);
+                }
+                else
+                {
+                    addHole();
+                }
+
+            }
+            else
+            {
+                addPlatform();
+            }
 
             // Randomize powerups.
             addPowerUp();
@@ -93,16 +102,7 @@ public class LevelGenerator
         {
             renewParameters(i);
 
-            if( m_worldWidth-(m_obstacleX+m_obstacleWidth) < 64)
-            {
-                m_obstacleX -= 64;
-            }
-            if(m_obstacleX < 64)
-            {
-                m_obstacleX = 64;
-            }
-            m_collidables.add(new StaticObstacle(0, m_lastObstableY - m_obstacleY, m_obstacleX, 32, m_tint));
-            m_collidables.add(new StaticObstacle(m_obstacleX+m_obstacleWidth, m_lastObstableY - m_obstacleY, m_worldWidth-(m_obstacleX+m_obstacleWidth), 32, m_tint));
+            addHole();
 
             // Add powerups.
             addPowerUp();
@@ -201,6 +201,31 @@ public class LevelGenerator
 
         // Calculate Y posistion
         m_obstacleY = (m_obstacleY * m_obstacleYSpaceFactor) + m_minObstacleYSpace;
+    }
+
+    private void addPlatform()
+    {
+        addPlatform(m_obstacleWidth);
+    }
+
+    private void addPlatform(float width)
+    {
+        // Add obstacle
+        m_collidables.add(new StaticObstacle(m_obstacleX, m_lastObstableY - m_obstacleY, width, 32, m_tint));
+    }
+
+    private void addHole()
+    {
+        if( m_worldWidth-(m_obstacleX+m_obstacleWidth) < 64)
+        {
+            m_obstacleX -= 64;
+        }
+        if(m_obstacleX < 64)
+        {
+            m_obstacleX = 64;
+        }
+        m_collidables.add(new StaticObstacle(0, m_lastObstableY - m_obstacleY, m_obstacleX, 32, m_tint));
+        m_collidables.add(new StaticObstacle(m_obstacleX+m_obstacleWidth, m_lastObstableY - m_obstacleY, m_worldWidth-(m_obstacleX+m_obstacleWidth), 32, m_tint));
     }
 
     public Array<Collidable> getCollidables()
