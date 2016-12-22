@@ -30,6 +30,7 @@ public class LevelData {
     public float m_obstacleSnapMargin;
     public Color m_tint;
     public boolean m_hasHoles = false;
+    public int[] m_numOfPowerUp;
 
     public LevelData(
         int levelId,
@@ -58,6 +59,49 @@ public class LevelData {
         m_ballGravity = ballGravity;
         m_ballMaxSpeed = ballMaxSpeed;
         m_ballSensitivity = ballSensitivity;
+
+        m_numOfPowerUp = new int[4];
+        m_numOfPowerUp[0] = 2;
+        m_numOfPowerUp[1] = 2;
+        m_numOfPowerUp[2] = 2;
+        m_numOfPowerUp[3] = 2;
+
+
+    }
+
+    public LevelData(
+            int levelId,
+            int chapterId,
+            int seed,
+            boolean foreground,
+            int obstacleSizeFactor,
+            int obstacleSeparationFactor,
+            float obstacleMinSpacingFactor,
+            float obstacleSnapMargin,
+            boolean hasHoles,
+            float ballGravity,
+            float ballMaxSpeed,
+            float ballSensitivity,
+            int[] numOfPowerUp
+    )
+    {
+        this(
+         levelId,
+         chapterId,
+         seed,
+         foreground,
+         obstacleSizeFactor,
+         obstacleSeparationFactor,
+         obstacleMinSpacingFactor,
+         obstacleSnapMargin,
+         hasHoles,
+         ballGravity,
+         ballMaxSpeed,
+         ballSensitivity
+        );
+
+
+        m_numOfPowerUp = numOfPowerUp;
 
     }
 
