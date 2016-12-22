@@ -4,6 +4,8 @@ import com.badlogic.gdx.LifecycleListener;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.game.App;
 
 import java.util.ArrayList;
@@ -56,6 +58,42 @@ public class LevelData {
         m_ballGravity = ballGravity;
         m_ballMaxSpeed = ballMaxSpeed;
         m_ballSensitivity = ballSensitivity;
+
+    }
+
+    public float getLevelTime()
+    {
+        // Necessary data.
+        float gravity = Math.abs(m_ballGravity);
+        float maxSpeed = Math.abs(m_ballMaxSpeed);
+        float levelLength = Math.abs(m_levelHeight);
+        float fps = 60;
+
+        /* The balls acceleration is dependent on the fps.
+        * Not good but that's how the physics is designed. */
+        float acceleration = gravity*fps;
+
+        // Time to max speed.
+        float timeToMax = maxSpeed/acceleration;
+
+        // The distance traveled during acceleration.
+        float distanceAtMax = 0.5f*acceleration*timeToMax*timeToMax;
+
+        // The time from max speed to goal.
+        float timeWithMaxSpeed = (levelLength-distanceAtMax)/maxSpeed;
+
+        // Sum the two times.
+        float totalTime = timeToMax + timeWithMaxSpeed;
+
+        /* Due to "bad" design and start delay we need error correction.
+        * Add enough to be sure that the time really exceeds the minimum time.
+        * Error is 7-9% */
+        float TimeWidthErrorCorrection = totalTime * 1.1f;
+
+        Interpolation i = Interpolation.exp5Out;
+        TimeWidthErrorCorrection += 10 * i.apply(Math.min(1f, (m_levelId*(Math.abs(m_ballGravity)/10)/20)));
+
+        return TimeWidthErrorCorrection;
 
     }
 

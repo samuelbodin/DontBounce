@@ -169,6 +169,9 @@ public class PlayState extends State
         // Setup black screen. Position needs camera position.
         m_blackScreen = new Sprite(AssetLoader.black);
         m_blackScreen.setPosition(m_cam.position.x-m_config.m_worldW/2, m_cam.position.y-m_config.m_worldH/2);
+
+        Gdx.app.log("RL", Float.toString(m_config.getCurrentLevel().getLevelTime()));
+
     }
 
     @Override

@@ -60,6 +60,10 @@ public class LevelSelectState extends State
         m_unlockedLevel = m_config.m_currentLevel;
         m_unlockedChapter = m_config.m_currentChapter;
 
+        // DEV!
+        m_unlockedLevel = 9;
+        m_unlockedChapter = m_config.m_currentChapter;
+
         // Background
         TextureRegion[] bg = {AssetLoader.cloudsbg,
                 AssetLoader.clouds01,
