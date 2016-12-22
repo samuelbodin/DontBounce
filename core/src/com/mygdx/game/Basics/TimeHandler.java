@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
@@ -14,6 +15,9 @@ public class TimeHandler
     private boolean m_running;
     private Vector2 m_drawPosition;
     private BitmapFont m_font;
+    private Texture m_bgTexture;
+    private Sprite m_background;
+    private Vector2 m_bgOffset;
 
     public TimeHandler(float x, float y)
     {
@@ -26,6 +30,15 @@ public class TimeHandler
         m_drawPosition = new Vector2(x,y);
         m_timer = 0f;
         m_running = false;
+
+        m_bgOffset = new Vector2(-200,-90);
+        m_bgTexture = new Texture("gameObjects/timebg.png");
+        m_background = new Sprite(m_bgTexture);
+        m_background.setAlpha(0.3f);
+        m_background.setPosition(x+m_bgOffset.x,y+m_bgOffset.y);
+        m_background.setOriginCenter();
+        m_background.setScale(0.6f);
+
     }
 
     public void start()
@@ -55,7 +68,15 @@ public class TimeHandler
 
     public void render(SpriteBatch sb)
     {
-        m_font.draw(sb, String.format("%.2f", m_timer), m_drawPosition.x, m_drawPosition.y);
+        m_background.draw(sb);
+        if(m_timer < 10)
+        {
+            m_font.draw(sb, String.format("%.2f", m_timer), m_drawPosition.x, m_drawPosition.y);
+        }
+        else
+        {
+            m_font.draw(sb, String.format("%.1f", m_timer), m_drawPosition.x, m_drawPosition.y);
+        }
     }
 
     public void updatePosition(Vector2 deltaMove)
@@ -69,6 +90,8 @@ public class TimeHandler
         {
             m_timer += dt;
         }
+
+        m_background.setPosition(m_drawPosition.x+m_bgOffset.x, m_drawPosition.y+m_bgOffset.y);
     }
 
     public void dispose()
