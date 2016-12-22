@@ -90,8 +90,8 @@ public class Ball
         float min2 = 0.6f;
         float max2 = 1f;
 
-        float min3 = 0f;
-        float max3 = 1.85f;
+        float min3 = 0.5f;
+        float max3 = 1f;
 
         float speedFactor = map(Math.abs(m_velocity.y), 0, Math.abs(m_maxSpeed), min1, max1);
         speedFactor = limit(speedFactor, min2, max2);
@@ -234,6 +234,10 @@ public class Ball
             {
                 resetVelocityY();
             }
+            else
+            {
+                flipVelocityY();
+            }
         }
         else if(side == 1)
         {
@@ -242,6 +246,7 @@ public class Ball
         else if(side == 2)
         {
             alignBelowPosition(pos);
+            flipVelocityY();
         }
         else if(side == 3)
         {
@@ -250,16 +255,16 @@ public class Ball
 
         if(!isOnGround())
         {
-            collisionEffect(pos, side, "splash", 100);
-            collisionSound();
+            collisionEffect(new Vector2(pos.x-m_radius*2,pos.y), side, "splash", 0);
+            collisionSound(side);
         }
 
-        flipVelocityY();
+        //flipVelocityY();
     }
 
-    void collisionSound()
+    void collisionSound(int side)
     {
-        if(!isOnGround())
+        if(!isOnGround() && side%2 == 0)
         {
             m_state.playBounceSound(m_velocity.y);
         }
@@ -273,7 +278,7 @@ public class Ball
     void alignToTheRightOfPosition(Vector2 pos)
     {
         m_position.x = pos.x+1;
-        m_position.y--;
+        //m_position.y--;
     }
 
     void alignBelowPosition(Vector2 pos)
@@ -284,7 +289,7 @@ public class Ball
     void alignToTheLeftOfPosition(Vector2 pos)
     {
         m_position.x = pos.x-m_radius*2-1;
-        m_position.y--;
+        //m_position.y--;
     }
 
     void flipVelocityY()

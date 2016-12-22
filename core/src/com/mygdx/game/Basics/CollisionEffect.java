@@ -63,9 +63,12 @@ public class CollisionEffect extends Drawable
 
     public void startEffect(Vector2 pos, int side, int spriteMove)
     {
-        m_Pos = new Vector2(pos);
-        m_spriteMove = spriteMove;
-        m_isCracked = true;
+        if(side%2 == 0)
+        {
+            m_Pos = new Vector2(pos);
+            m_spriteMove = spriteMove;
+            m_isCracked = true;
+        }
     }
 
     public void setAnimation(String name)

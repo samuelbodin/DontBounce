@@ -87,6 +87,7 @@ public class BallStateSuperSpeed extends BallState
             else
             {
                 m_gravityModifier = m_onCollisionGravityModifier;
+                m_ball.flipVelocityY();
             }
         }
         else if(side == 1)
@@ -98,6 +99,7 @@ public class BallStateSuperSpeed extends BallState
         {
             m_ball.alignBelowPosition(pos);
             resetGravityModifier();
+            m_ball.flipVelocityY();
         }
         else if(side == 3)
         {
@@ -106,9 +108,9 @@ public class BallStateSuperSpeed extends BallState
         }
 
         m_ball.collisionEffect(pos, side, "splash", 100);
-        m_ball.collisionSound();
+        m_ball.collisionSound(side);
 
-        m_ball.flipVelocityY();
+        //m_ball.flipVelocityY();
     }
 
     private void setupSprite()
