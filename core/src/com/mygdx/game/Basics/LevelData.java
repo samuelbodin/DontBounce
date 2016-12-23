@@ -141,4 +141,9 @@ public class LevelData {
 
     }
 
+    public boolean isLevelComplete(float time)
+    {
+        return time < getLevelTime();
+    }
+
 }
