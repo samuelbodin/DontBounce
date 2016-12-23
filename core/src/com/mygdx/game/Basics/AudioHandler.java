@@ -23,8 +23,7 @@ public class AudioHandler
     {
         m_isMuted = isMuted;
         m_music = AssetLoader.m_musicMenu;
-        m_music.setLooping(true);
-        m_music.setVolume(0.5f);
+        setupMusic();
 
         m_bounceSounds = AssetLoader.m_bounceSounds;
         m_powerUpSound = AssetLoader.m_powerUp;
