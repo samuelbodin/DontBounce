@@ -18,7 +18,7 @@ public class AudioHandler
     private Sound m_powerUpSound = null;
     private Sound[] m_bounceSounds = null;
     private boolean m_isMuted = false;
-
+    private float m_defaultVolume = 0.5f;
     public AudioHandler(boolean isMuted)
     {
         m_isMuted = isMuted;
@@ -32,6 +32,7 @@ public class AudioHandler
 
     public void playMenuMusic()
     {
+        stopMusic();
         m_music = AssetLoader.m_musicMenu;
         setupMusic();
         m_music.play();
@@ -40,11 +41,28 @@ public class AudioHandler
     private void setupMusic()
     {
         m_music.setLooping(true);
-        m_music.setVolume(0.5f);
+
+        if(m_isMuted)
+        {
+            m_music.setVolume(0f);
+        }
+        else
+        {
+            m_music.setVolume(0.5f);
+        }
+    }
+
+    private void stopMusic()
+    {
+        if(m_music.isPlaying())
+        {
+            m_music.stop();
+        }
     }
 
     public void playPlayStateMusic(int chapter)
     {
+        stopMusic();
         if(chapter == 1)
         {
             m_music = AssetLoader.m_musicChapterOne;
