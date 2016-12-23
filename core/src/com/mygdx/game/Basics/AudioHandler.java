@@ -19,14 +19,43 @@ public class AudioHandler
     private Sound[] m_bounceSounds = null;
     private boolean m_isMuted = false;
 
-    public AudioHandler()
+    public AudioHandler(boolean isMuted)
     {
-        m_music = AssetLoader.m_mainTheme;
+        m_isMuted = isMuted;
+        m_music = AssetLoader.m_musicMenu;
         m_music.setLooping(true);
         m_music.setVolume(0.5f);
 
         m_bounceSounds = AssetLoader.m_bounceSounds;
         m_powerUpSound = AssetLoader.m_powerUp;
+    }
+
+    public void playMenuMusic()
+    {
+        m_music = AssetLoader.m_musicMenu;
+        setupMusic();
+        m_music.play();
+    }
+
+    private void setupMusic()
+    {
+        m_music.setLooping(true);
+        m_music.setVolume(0.5f);
+    }
+
+    public void playPlayStateMusic(int chapter)
+    {
+        if(chapter == 1)
+        {
+            m_music = AssetLoader.m_musicChapterOne;
+
+        }
+        else if(chapter == 2)
+        {
+            m_music = AssetLoader.m_musicChapterTwo;
+        }
+        setupMusic();
+        m_music.play();
     }
 
     public void playBounceSound(float velY)

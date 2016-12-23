@@ -30,7 +30,12 @@ public class Config
         m_aspectR = (m_screenH/m_screenW);
 
         m_lm = new LevelManager();
-        m_ah = new AudioHandler();
+        m_ah = new AudioHandler(checkMutePreferences());
+    }
+
+    private boolean checkMutePreferences()
+    {
+        return false;
     }
 
     public AudioHandler getAudioHandler()
@@ -46,10 +51,8 @@ public class Config
         }
     }
 
-
     public LevelManager getLevelManager()
     {
         return m_lm;
     }
-
 }

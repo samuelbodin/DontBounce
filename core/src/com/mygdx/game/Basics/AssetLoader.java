@@ -58,7 +58,10 @@ public class AssetLoader
     public static TextureRegion cloudsbg = null;
 
     //Music
-    public static Music m_mainTheme = null;
+    public static Music m_musicMenu = null;
+    public static Music m_musicChapterOne = null;
+    public static Music m_musicChapterTwo = null;
+
 
     //Sounds
     public static Sound[] m_bounceSounds =
@@ -84,7 +87,10 @@ public class AssetLoader
         m_level2Backgrounds = new TextureAtlas("levelBackgrounds/level2Backgrounds.pack");
         m_menuBackgrounds = new TextureAtlas("menuBackgrounds/menuBackgrounds.pack");
 
-        m_mainTheme = Gdx.audio.newMusic(Gdx.files.internal("sound/dbNormal.wav"));
+        m_musicMenu = Gdx.audio.newMusic(Gdx.files.internal("sound/gamemusic.wav"));
+        m_musicChapterOne = Gdx.audio.newMusic(Gdx.files.internal("sound/gamemusic.wav"));
+        m_musicChapterTwo = Gdx.audio.newMusic(Gdx.files.internal("sound/gamemusic.wav"));
+
 
         white = new Color(1, 1, 1, 0.8f);
 
