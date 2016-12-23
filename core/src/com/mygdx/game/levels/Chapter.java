@@ -50,7 +50,7 @@ public abstract class Chapter
     }
 
 
-    public ArrayList<Integer> getLevels()
+    public ArrayList<Integer> getLevelIds()
     {
         ArrayList<Integer> tmp = new ArrayList<Integer>();
 
