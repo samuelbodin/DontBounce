@@ -27,8 +27,8 @@ public class LevelManager
         m_chapters.add(new ChapterOne());
         m_chapters.add(new ChapterTwo());
 
-        m_unlockedLevel = m_preferences.getInteger("unlocked_level", 10);
-        m_unlockedChapter = m_preferences.getInteger("unlocked_chapter", 2);
+        m_unlockedLevel = m_preferences.getInteger("unlocked_level", 1);
+        m_unlockedChapter = m_preferences.getInteger("unlocked_chapter", 1);
     }
 
     public LevelData getLevel(int level)
@@ -177,4 +177,5 @@ public class LevelManager
         return true;
         //return (th.getTime() <= Math.ceil(level.getLevelTime()));
     }
+
 }
