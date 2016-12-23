@@ -6,122 +6,61 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 
+import java.util.Random;
+
 /**
  * Created by Rickard on 2016-12-21.
  */
 
-public class AudioHandler implements Disposable
+public class AudioHandler
 {
-    public static Music musicLevelNormal = null;
-    public static Music musicLevelSpeed = null;
+    private Music m_music = null;
+    private Sound m_powerUpSound = null;
+    private Sound[] m_bounceSounds = null;
+    private boolean m_isMuted = false;
 
-    public static Sound powerUp = null;
-    private static Array<Music> m_allMusic;
-
-    public static void load()
+    public AudioHandler()
     {
-        m_allMusic = new Array<Music>();
+        m_music = AssetLoader.m_mainTheme;
+        m_music.setLooping(true);
+        m_music.setVolume(0.5f);
 
-        musicLevelNormal = Gdx.audio.newMusic(Gdx.files.internal("sound/dbNormal.wav"));
-        musicLevelNormal.setLooping(true);
-        musicLevelNormal.setVolume(0.5f);
-        m_allMusic.add(musicLevelNormal);
-
-        musicLevelSpeed = Gdx.audio.newMusic(Gdx.files.internal("sound/dbSpeed.wav"));
-        musicLevelSpeed.setLooping(true);
-        musicLevelSpeed.setVolume(0.5f);
-        m_allMusic.add(musicLevelSpeed);
-
-
-        powerUp = Gdx.audio.newSound(Gdx.files.internal("sound/powerup.wav"));
+        m_bounceSounds = AssetLoader.m_bounceSounds;
+        m_powerUpSound = AssetLoader.m_powerUp;
     }
 
-    public static void musicLevelNormalStart()
+    public void playBounceSound(float velY)
     {
-        if(nowPlaying() != musicLevelNormal)
+        if(m_isMuted)
         {
-            if(nowPlaying() != null)
-            {
-                nowPlaying().stop();
-            }
+            return;
+        }
+        Random rnd = new Random();
 
-            //musicLevelNormal.play();
+        m_bounceSounds[rnd.nextInt(m_bounceSounds.length)].play(1.0f * (velY/700) + 0.2f, 1f * (velY/700) + 1f, 0);
+    }
+
+    public void playPowerUpSound()
+    {
+        if(m_isMuted)
+        {
+            return;
+        }
+        m_powerUpSound.play(0.1f);
+    }
+
+    public void toggleMute()
+    {
+        m_isMuted = ! m_isMuted;
+
+        if(m_isMuted)
+        {
+            m_music.setVolume(0);
         }
     }
 
-    public static void musicLevelNormalStart( float position)
+    public boolean isMuted()
     {
-        if(nowPlaying() != musicLevelNormal)
-        {
-            if(nowPlaying() != null)
-            {
-                nowPlaying().stop();
-            }
-            musicLevelNormal.setPosition(position/1.5f);
-            //musicLevelNormal.play();
-        }
+        return m_isMuted;
     }
-
-    public static void musicLevelSpeedStart()
-    {
-        if(nowPlaying() != musicLevelSpeed)
-        {
-            if(nowPlaying() != null)
-            {
-                nowPlaying().stop();
-            }
-            //musicLevelSpeed.play();
-        }
-    }
-
-    public static void musicLevelSpeedStart( float position)
-    {
-        if(nowPlaying() != musicLevelSpeed)
-        {
-            if(nowPlaying() != null)
-            {
-                nowPlaying().stop();
-            }
-            musicLevelSpeed.setPosition(position/1.5f);
-            //musicLevelSpeed.play();
-        }
-
-    }
-
-    public static Music nowPlaying()
-    {
-        for(Music m : m_allMusic)
-        {
-            if(m.isPlaying())
-            {
-                return m;
-            }
-        }
-
-        return null;
-    }
-
-    public static void musicStop()
-    {
-        for(Music m : m_allMusic)
-        {
-            m.stop();
-        }
-    }
-
-    public static void powerUp()
-    {
-        powerUp.play(0.1f);
-    }
-
-    public void dispose()
-    {
-        for(Music m : m_allMusic)
-        {
-            m.dispose();
-        }
-        powerUp.dispose();
-    }
-
-
 }

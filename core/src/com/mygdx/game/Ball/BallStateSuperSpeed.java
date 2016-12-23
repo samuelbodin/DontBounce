@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Basics.AssetLoader;
+import com.mygdx.game.Basics.AudioHandler;
 import com.mygdx.game.Basics.Particles;
 
 import java.util.Random;
@@ -20,14 +21,12 @@ public class BallStateSuperSpeed extends BallState
 {
 
     float m_timer = 0f;
-    Sound m_sound[] = null;
     Color m_tint = null;
     Particles m_particles = null;
 
 
     public BallStateSuperSpeed()
     {
-
     }
 
     public BallStateSuperSpeed(Ball b)
@@ -35,14 +34,12 @@ public class BallStateSuperSpeed extends BallState
         super(b);
         m_tint = new Color(1f,0.80f,0,1);
         setupSprite();
-        m_sound = setupSound();
         m_ball.scaleMaxSpeed(1.5f);
         m_timer = 3f;
         m_particles = new Particles(AssetLoader.flatballgrey, 15, 32, 32);
         m_particles.setColor(m_tint);
         m_particles.setFade(0.2f, 0.01f);
         m_ball.collisionEffect(m_ball.getPosition(), 1, "powerup", 450);
-        AssetLoader.audio.musicLevelSpeedStart();
         m_defaultGravityModifier = 2.5f;
         m_gravityModifier = 2.5f;
         m_onCollisionGravityModifier = 0.75f;
@@ -98,16 +95,6 @@ public class BallStateSuperSpeed extends BallState
     {
         m_particles.render(sb);
         m_sprite.draw(sb);
-    }
-
-    @Override
-    protected void playBounceSound(float velY)
-    {
-        if(m_sound != null)
-        {
-            Random rnd = new Random();
-            m_sound[rnd.nextInt(m_sound.length)].play(1.0f * (velY/700) + 0.2f, 1f * (velY/700) + 1f, 0);
-        }
     }
 
     @Override

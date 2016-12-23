@@ -12,23 +12,38 @@ import java.util.ArrayList;
 public class Config
 {
     private LevelManager m_lm = null;
+    private AudioHandler m_ah = null;
 
     public final int m_worldW = 720;
     public final int m_worldH = 1280;
     public int m_screenW = 0;
     public int m_screenH = 0;
     public float m_aspectR = 0.0f;
+    private int m_returnCount = 0;
 
     public Preferences m_preferences = null;
 
     public Config()
     {
-
         m_screenH = Gdx.graphics.getHeight();
         m_screenW = Gdx.graphics.getWidth();
         m_aspectR = (m_screenH/m_screenW);
 
         m_lm = new LevelManager();
+        m_ah = new AudioHandler();
+    }
+
+    public AudioHandler getAudioHandler()
+    {
+        if(m_returnCount == 0)
+        {
+            m_returnCount ++;
+            return m_ah;
+        }
+        else
+        {
+            return null;
+        }
     }
 
 

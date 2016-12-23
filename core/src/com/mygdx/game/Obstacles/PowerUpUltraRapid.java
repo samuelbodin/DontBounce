@@ -50,7 +50,6 @@ public class PowerUpUltraRapid extends Obstacle
         {
             b.setState(new BallStateUltraRapid(b));
             m_isActive = false;
-            AssetLoader.audio.powerUp();
             return true;
         }
         return false;

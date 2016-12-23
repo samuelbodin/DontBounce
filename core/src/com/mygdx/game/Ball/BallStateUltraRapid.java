@@ -14,9 +14,7 @@ import java.util.Random;
 
 public class BallStateUltraRapid extends BallState
 {
-
     float m_timer;
-    Sound m_sound[] = null;
 
     public BallStateUltraRapid()
     {
@@ -27,11 +25,9 @@ public class BallStateUltraRapid extends BallState
     {
         super(b);
         setupSprite();
-        m_sound = setupSound();
         m_ball.setDtModifier(0.5f);
         m_timer = 10f;
         m_ball.collisionEffect(m_ball.getPosition(), 1, "powerup", 250);
-        AssetLoader.audio.musicLevelSpeedStart();
         m_defaultGravityModifier = 1f;
         m_gravityModifier = 1f;
         m_onCollisionGravityModifier = 1f;
@@ -94,11 +90,6 @@ public class BallStateUltraRapid extends BallState
     @Override
     protected void playBounceSound(float velY)
     {
-        if(m_sound != null)
-        {
-            Random rnd = new Random();
-            m_sound[rnd.nextInt(m_sound.length)].play(1.0f * (velY/700) + 0.2f, 1f * (velY/700) + 1f, 0);
-        }
     }
 
     @Override

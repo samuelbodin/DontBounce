@@ -2,6 +2,7 @@ package com.mygdx.game.Basics;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -10,51 +11,64 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
 
+import static com.badlogic.gdx.Gdx.audio;
+
 public class AssetLoader
 {
     //Atlases
-    private static TextureAtlas m_gameObjects;
-    private static TextureAtlas m_levelBackgrounds;
-    private static TextureAtlas m_level2Backgrounds;
-    private static TextureAtlas m_menuBackgrounds;
+    private static TextureAtlas m_gameObjects = null;
+    private static TextureAtlas m_levelBackgrounds = null;
+    private static TextureAtlas m_level2Backgrounds = null;
+    private static TextureAtlas m_menuBackgrounds = null;
 
     //Skins
-    public static Skin buttonSkin;
+    public static Skin buttonSkin = null;
 
     //Fonts
-    public static BitmapFont slackeyfont;
+    public static BitmapFont slackeyfont = null;
 
     // Colors
-    public static Color white;
+    public static Color white = null;
 
     //GameObjects
-    public static TextureRegion goal;
-    public static TextureRegion passthrough;
-    public static TextureRegion speedup;
-    public static TextureRegion ultrarapid;
-    public static TextureRegion flatballgrey;
-    public static TextureRegion flatbwbody;
-    public static TextureRegion flatbwleft;
-    public static TextureRegion flatbwright;
+    public static TextureRegion goal = null;
+    public static TextureRegion passthrough = null;
+    public static TextureRegion speedup = null;
+    public static TextureRegion ultrarapid = null;
+    public static TextureRegion flatballgrey = null;
+    public static TextureRegion flatbwbody = null;
+    public static TextureRegion flatbwleft = null;
+    public static TextureRegion flatbwright = null;
 
     //levelBackgrounds
-    public static TextureRegion flatbg01;
-    public static TextureRegion flatbg02;
-    public static TextureRegion flatbg03;
-    public static TextureRegion flatbgforeground;
+    public static TextureRegion flatbg01 = null;
+    public static TextureRegion flatbg02 = null;
+    public static TextureRegion flatbg03 = null;
+    public static TextureRegion flatbgforeground = null;
 
-    public static TextureRegion spacebg01;
-    public static TextureRegion spacebg02;
-    public static TextureRegion spacebg03;
-    public static TextureRegion spacebgforeground;
+    public static TextureRegion spacebg01 = null;
+    public static TextureRegion spacebg02 = null;
+    public static TextureRegion spacebg03 = null;
+    public static TextureRegion spacebgforeground = null;
 
     //MenuBackgrounds
-    public static TextureRegion black;
-    public static TextureRegion clouds01;
-    public static TextureRegion clouds02;
-    public static TextureRegion cloudsbg;
+    public static TextureRegion black = null;
+    public static TextureRegion clouds01 = null;
+    public static TextureRegion clouds02 = null;
+    public static TextureRegion cloudsbg = null;
 
-    public static AudioHandler audio;
+    //Music
+    public static Music m_mainTheme = null;
+
+    //Sounds
+    public static Sound[] m_bounceSounds =
+        {
+            Gdx.audio.newSound(Gdx.files.internal("sound/bounce01.wav")),
+            Gdx.audio.newSound(Gdx.files.internal("sound/bounce02.wav")),
+            Gdx.audio.newSound(Gdx.files.internal("sound/bounce03.wav")),
+            Gdx.audio.newSound(Gdx.files.internal("sound/bounce04.wav"))
+        };
+    public static Sound m_powerUp = Gdx.audio.newSound(Gdx.files.internal("sound/powerup.wav"));
 
     public static void Load()
     {
@@ -70,11 +84,12 @@ public class AssetLoader
         m_level2Backgrounds = new TextureAtlas("levelBackgrounds/level2Backgrounds.pack");
         m_menuBackgrounds = new TextureAtlas("menuBackgrounds/menuBackgrounds.pack");
 
+        m_mainTheme = Gdx.audio.newMusic(Gdx.files.internal("sound/dbNormal.wav"));
+
         white = new Color(1, 1, 1, 0.8f);
 
-        loadTextures();
 
-        audio.load();
+        loadTextures();
     }
 
     private static void loadTextures()

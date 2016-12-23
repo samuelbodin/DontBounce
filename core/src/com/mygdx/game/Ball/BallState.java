@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.Basics.AudioHandler;
 import com.mygdx.game.Basics.Drawable;
 import com.mygdx.game.Basics.InputHandler;
 import com.mygdx.game.Obstacles.Obstacle;
@@ -16,6 +17,7 @@ abstract class BallState extends Drawable
     float m_defaultGravityModifier = 1f;
     float m_gravityModifier = 1f;
     float m_onCollisionGravityModifier = 1f;
+    AudioHandler m_ah = null;
 
     BallState()
     {
@@ -25,6 +27,11 @@ abstract class BallState extends Drawable
     {
         m_ball = b;
         m_ball.resetVariables();
+    }
+
+    void setAudioHandler(AudioHandler ah)
+    {
+        m_ah = ah;
     }
 
     public void setBall(Ball b)
@@ -106,16 +113,13 @@ abstract class BallState extends Drawable
 
     protected void playBounceSound(float velY)
     {
-    }
+        if(m_ah == null)
+        {
+            Gdx.app.log("JS", "null");
+        }
 
-    Sound[] setupSound()
-    {
-        Sound[] sound = new Sound[4];
-        sound[0] = Gdx.audio.newSound(Gdx.files.internal("sound/bounce01.wav"));
-        sound[1] = Gdx.audio.newSound(Gdx.files.internal("sound/bounce02.wav"));
-        sound[2] = Gdx.audio.newSound(Gdx.files.internal("sound/bounce03.wav"));
-        sound[3] = Gdx.audio.newSound(Gdx.files.internal("sound/bounce04.wav"));
-        return sound;
+
+        m_ah.playBounceSound(velY);
     }
 
     @Override

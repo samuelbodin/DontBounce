@@ -1,10 +1,7 @@
 package com.mygdx.game.AppStates;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.mygdx.game.AppStates.State;
-import com.mygdx.game.Basics.AssetLoader;
+import com.mygdx.game.Basics.AudioHandler;
 import com.mygdx.game.Basics.Config;
 
 import java.util.Stack;
@@ -13,9 +10,12 @@ public class StateManager
 {
     public Stack<State> m_states = null;
     public Config m_config = null;
+    public AudioHandler m_ah = null;
 
-    public StateManager()
+    public StateManager(Config config)
     {
+        m_config = config;
+        m_ah = m_config.getAudioHandler();
         m_states = new Stack();
     }
 

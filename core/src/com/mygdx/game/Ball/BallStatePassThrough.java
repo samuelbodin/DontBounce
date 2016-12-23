@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Basics.AssetLoader;
+import com.mygdx.game.Basics.AudioHandler;
 
 import java.util.Random;
 
@@ -18,22 +19,18 @@ public class BallStatePassThrough extends BallState
 {
 
     float m_timer = 0f;
-    Sound m_sound[] = null;
     float m_soundPlayed = 0f;
 
     public BallStatePassThrough()
     {
-
     }
 
     public BallStatePassThrough(Ball b)
     {
         super(b);
         setupSprite();
-        m_sound = setupSound();
         m_timer = 4f;
         m_ball.collisionEffect(m_ball.getPosition(), 1, "powerup", 450);
-        AssetLoader.audio.musicLevelSpeedStart();
         m_defaultGravityModifier = 1f;
         m_gravityModifier = 1f;
         m_onCollisionGravityModifier = 1f;
@@ -99,12 +96,6 @@ public class BallStatePassThrough extends BallState
     @Override
     protected void playBounceSound(float velY)
     {
-        if(m_sound != null && m_soundPlayed > 0.9f)
-        {
-            m_soundPlayed = 0;
-            Random rnd = new Random();
-            m_sound[rnd.nextInt(m_sound.length)].play(1.0f * (velY/700) + 0.2f, 1f * (velY/700) + 1f, 0);
-        }
     }
 
     @Override
@@ -121,17 +112,6 @@ public class BallStatePassThrough extends BallState
 
         return str;
     }
-
-    @Override
-    Sound[] setupSound()
-    {
-        Sound[] sound = new Sound[3];
-        sound[0] = Gdx.audio.newSound(Gdx.files.internal("sound/passthrough01.wav"));
-        sound[1] = Gdx.audio.newSound(Gdx.files.internal("sound/passthrough02.wav"));
-        sound[2] = Gdx.audio.newSound(Gdx.files.internal("sound/passthrough03.wav"));
-        return sound;
-    }
-
 
     @Override
     public void dispose()

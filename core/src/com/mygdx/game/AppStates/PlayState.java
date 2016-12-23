@@ -1,7 +1,6 @@
 package com.mygdx.game.AppStates;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -10,6 +9,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Ball.Ball;
 import com.mygdx.game.Basics.AssetLoader;
+import com.mygdx.game.Basics.AudioHandler;
 import com.mygdx.game.Basics.Collidable;
 import com.mygdx.game.Basics.InputHandler;
 import com.mygdx.game.Basics.LevelData;
@@ -17,6 +17,7 @@ import com.mygdx.game.Basics.LevelGenerator;
 import com.mygdx.game.Basics.TimeHandler;
 import com.mygdx.game.Basics.WorldBackground;
 import com.mygdx.game.Obstacles.LevelGoal;
+import com.mygdx.game.Obstacles.Obstacle;
 import com.mygdx.game.Obstacles.PowerUpSuperSpeed;
 
 public class PlayState extends State
@@ -24,27 +25,28 @@ public class PlayState extends State
     private Ball m_ball = null;
     private Array<Collidable> m_collidables = null;
     private WorldBackground m_background = null;
-    private LevelGenerator m_level = null;
+    private LevelGenerator m_levelGenerator = null;
     private LevelGoal m_goal = null;
-    private Array<PowerUpSuperSpeed> m_powerUps = null;
+    private Array<Obstacle> m_powerUps = null;
     private Viewport m_viewport = null;
-    private Music m_music = null;
     private LevelData m_levelData = null;
     private InputHandler m_input = null;
+    private AudioHandler m_ah = null;
 
-    private TimeHandler m_time;
+    private TimeHandler m_timeHandler;
 
     private float m_fadeTimer = 1;
     private Sprite m_blackScreen = null;
 
-    //Ändras till att ta in en int och requesta leveldata från "config"
     public PlayState(StateManager sm, LevelData levelData)
     {
         super(sm);
         m_levelData = levelData;
 
+        m_ah = m_sm.m_ah;
+
         //Setting up ball
-        m_ball = new Ball(m_config.m_worldW/ 2, 0, m_config.m_worldW / 40, m_config.m_worldW, m_levelData);
+        m_ball = new Ball(m_config.m_worldW/ 2, 0, m_config.m_worldW / 40, m_config.m_worldW, m_levelData, m_ah);
 
         // Paranting camera to ball
         m_cam.setBall(m_ball);
@@ -56,8 +58,6 @@ public class PlayState extends State
         setupLevel();
         setupViewPort();
         setupTimer();
-        //setupMusic();
-
     }
 
     void setupBackground()
@@ -74,11 +74,11 @@ public class PlayState extends State
     void setupLevel()
     {
         //Creating a new level and filling list of collidables
-        m_level = new LevelGenerator(m_levelData, m_config.m_worldW, m_config.m_worldH);
+        m_levelGenerator = new LevelGenerator(m_levelData, m_config.m_worldW, m_config.m_worldH);
 
-        m_goal = m_level.getGoal();
+        m_goal = m_levelGenerator.getGoal();
         m_collidables = new Array<Collidable>();
-        m_collidables = m_level.getCollidables();
+        m_collidables = m_levelGenerator.getCollidables();
 
     }
 
@@ -103,7 +103,7 @@ public class PlayState extends State
 
     void setupTimer()
     {
-        m_time = new TimeHandler(30, m_cam.getY() + (m_config.m_worldH / 2) - 20);
+        m_timeHandler = new TimeHandler(30, m_cam.getY() + (m_config.m_worldH / 2) - 20);
     }
 
     @Override
@@ -142,7 +142,7 @@ public class PlayState extends State
             m_background.update(dt);
             m_background.setPosition(m_cam.getDeltaPosition());
             // Set timer position after camera is updated.
-            m_time.updatePosition(m_cam.getDeltaPosition());
+            m_timeHandler.updatePosition(m_cam.getDeltaPosition());
         }
 
         // Check collision with goal when goal is on screen
@@ -150,18 +150,18 @@ public class PlayState extends State
         {
             if(m_goal.checkCollision(m_ball))
             {
-                m_time.stop();
-                m_sm.push(new LevelFinishedState(m_sm, m_time, m_levelData));
+                m_timeHandler.stop();
+                m_sm.push(new LevelFinishedState(m_sm, m_timeHandler, m_levelData));
             }
         }
 
         if(m_fadeTimer <= 0) {
             // Start timer
-            if(!m_time.isRunning())
+            if(!m_timeHandler.isRunning())
             {
-                m_time.start();
+                m_timeHandler.start();
             }
-            m_time.update(dt*m_ball.getDtModifier());
+            m_timeHandler.update(dt*m_ball.getDtModifier());
         }
 
         // Setup black screen. Position needs camera position.
@@ -188,7 +188,7 @@ public class PlayState extends State
 
         m_goal.render(sb);
         m_ball.render(sb);
-        m_time.render(sb);
+        m_timeHandler.render(sb);
 
         if(m_fadeTimer > 0)
         {
@@ -202,10 +202,6 @@ public class PlayState extends State
     {
         if (Gdx.input.justTouched())
         {
-            if(m_music != null)
-            {
-                m_music.stop();
-            }
             m_sm.push(new PauseState(m_sm));
         }
     }
@@ -213,18 +209,11 @@ public class PlayState extends State
     @Override
     public void dispose()
     {
-        if(m_music != null)
-        {
-            m_music.stop();
-            m_music.dispose();
-        }
-
         m_background.dispose();
         m_goal.dispose();
         m_ball.dispose();
 
         Gdx.app.log("RL", "PlayState disposar");
-
     }
 
     @Override

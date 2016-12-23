@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.FloatArray;
 import com.mygdx.game.Basics.AssetLoader;
+import com.mygdx.game.Basics.AudioHandler;
 import com.mygdx.game.Basics.Circle;
 import com.mygdx.game.Basics.CollisionEffect;
 import com.mygdx.game.Basics.LevelData;
@@ -30,11 +31,13 @@ public class Ball
     private float m_defaultYFlipFactor = 0.5f;
     private float m_yFlipFactor = 0.5f;
     private CollisionEffect m_collisionEffect = null;
+    private AudioHandler m_ah = null;
 
     float timer = 0;
 
-    public Ball (float x, float y, float r, float worldW, LevelData ld)
+    public Ball (float x, float y, float r, float worldW, LevelData ld, AudioHandler ah)
     {
+        m_ah = ah;
         m_worldW = worldW;
         m_position = new Vector2(x,y);
         m_velocity = new Vector2(0,0);
@@ -42,7 +45,14 @@ public class Ball
         m_gravity = ld.m_ballGravity;
         m_maxSpeed = m_defaultMaxSpeed = ld.m_ballMaxSpeed;
 
+        if(m_ah == null)
+        {
+            Gdx.app.log("JS", "hej");
+        }
+
+
         m_state = new BallStateNormal(this);
+        m_state.setAudioHandler(m_ah);
         m_state.setSpriteSize(m_radius*2,m_radius*2);
         handleHistory();
         m_collisionEffect = new CollisionEffect();
@@ -132,7 +142,9 @@ public class Ball
 
     public void setState(BallState s)
     {
+        m_ah.playPowerUpSound();
         m_state = s;
+        m_state.setAudioHandler(m_ah);
         m_state.setSpriteSize(m_radius*2,m_radius*2);
         m_state.updateSprite(m_position.x, m_position.y);
         //m_state.updateSprite(m_position.x-m_radius, m_position.y-m_radius);
@@ -141,6 +153,7 @@ public class Ball
     public void resetState()
     {
         m_state = new BallStateNormal(this);
+        m_state.setAudioHandler(m_ah);
         m_state.setSpriteSize(m_radius*2,m_radius*2);
     }
 
