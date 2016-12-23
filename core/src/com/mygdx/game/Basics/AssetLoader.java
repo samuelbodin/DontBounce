@@ -2,6 +2,7 @@ package com.mygdx.game.Basics;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -22,6 +23,9 @@ public class AssetLoader
 
     //Fonts
     public static BitmapFont slackeyfont;
+
+    // Colors
+    public static Color white;
 
     //GameObjects
     public static TextureRegion goal;
@@ -65,6 +69,8 @@ public class AssetLoader
         m_levelBackgrounds = new TextureAtlas("levelBackgrounds/levelBackgrounds.pack");
         m_level2Backgrounds = new TextureAtlas("levelBackgrounds/level2Backgrounds.pack");
         m_menuBackgrounds = new TextureAtlas("menuBackgrounds/menuBackgrounds.pack");
+
+        white = new Color(1, 1, 1, 0.8f);
 
         loadTextures();
 
