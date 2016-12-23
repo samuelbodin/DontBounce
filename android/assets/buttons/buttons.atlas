@@ -52,14 +52,14 @@ levelselect
   orig: 256, 256
   offset: 0, 0
   index: -1
-next
+prev
   rotate: false
   xy: 1545, 637
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
-nextgrey
+prevgrey
   rotate: false
   xy: 1029, 379
   size: 256, 256
@@ -80,14 +80,14 @@ playgrey
   orig: 256, 256
   offset: 0, 0
   index: -1
-prev
+next
   rotate: false
   xy: 517, 1
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
-prevgrey
+nextgrey
   rotate: false
   xy: 775, 121
   size: 256, 256
