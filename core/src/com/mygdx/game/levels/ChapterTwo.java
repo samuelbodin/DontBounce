@@ -11,7 +11,7 @@ public class ChapterTwo extends Chapter
 {
     public ChapterTwo()
     {
-        super(1);
+        super(2);
 
         m_backgrounds.add(AssetLoader.spacebg01);
         m_backgrounds.add(AssetLoader.spacebg02);
