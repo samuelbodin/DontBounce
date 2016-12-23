@@ -103,7 +103,7 @@ public class PlayState extends State
 
     void setupTimer()
     {
-        m_time = new TimeHandler(30, m_cam.getY() + (m_config.m_worldH / 2) - 20);
+        m_time = new TimeHandler(30, m_cam.getY() + (m_config.m_worldH / 2) - 20, (float)Math.ceil(m_levelData.getLevelTime()) );
     }
 
     @Override

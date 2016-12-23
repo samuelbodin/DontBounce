@@ -1,7 +1,6 @@
 package com.mygdx.game.Basics;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -18,6 +17,8 @@ public class TimeHandler
     private Texture m_bgTexture;
     private Sprite m_background;
     private Vector2 m_bgOffset;
+    private int m_countDir = +1;
+    private boolean m_visible = true;
 
     public TimeHandler(float x, float y)
     {
@@ -39,6 +40,13 @@ public class TimeHandler
         m_background.setOriginCenter();
         m_background.setScale(0.6f);
 
+    }
+
+    public TimeHandler(float x, float y, float startTime)
+    {
+        this(x, y);
+        m_timer = startTime;
+        m_countDir = -1;
     }
 
     public void start()
@@ -68,14 +76,16 @@ public class TimeHandler
 
     public void render(SpriteBatch sb)
     {
-        m_background.draw(sb);
-        if(m_timer < 100)
+        if(m_visible)
         {
-            m_font.draw(sb, String.format("%.2f", m_timer), m_drawPosition.x, m_drawPosition.y);
-        }
-        else
-        {
-            m_font.draw(sb, String.format("%.1f", m_timer), m_drawPosition.x, m_drawPosition.y);
+            m_background.draw(sb);
+            if (m_timer < 100)
+            {
+                m_font.draw(sb, String.format("%.2f", m_timer), m_drawPosition.x, m_drawPosition.y);
+            } else
+            {
+                m_font.draw(sb, String.format("%.1f", m_timer), m_drawPosition.x, m_drawPosition.y);
+            }
         }
     }
 
@@ -88,10 +98,19 @@ public class TimeHandler
     {
         if(m_running)
         {
-            m_timer += dt;
+            m_timer += dt* m_countDir;
+            if(m_timer<0)
+            {
+                m_timer = 0;
+            }
         }
 
         m_background.setPosition(m_drawPosition.x+m_bgOffset.x, m_drawPosition.y+m_bgOffset.y);
+    }
+
+    public void setVisible(boolean visible)
+    {
+        m_visible = visible;
     }
 
     public void dispose()

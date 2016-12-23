@@ -208,10 +208,20 @@ public class LevelFinishedState extends State
         temp.draw(m_background, 0, 0);
         temp.end();
 
-        m_finishTimeLabel.setText(m_timeHandler.getTimeString() + "s");
+        if(m_timeHandler.getTime() <= 0f) // IF NEXT LEVEL IS UNLOCKED
+        {
+            m_headerLabel.setText("LEVEL FAILED");
+            m_finishTimeLabel.setText("");
+        }
+        else
+        {
+            m_finishTimeLabel.setText(m_timeHandler.getTimeString() + "s");
+        }
+
+        //m_finishTimeLabel.setText(m_timeHandler.getTimeString() + "s");
         m_stage.draw();
 
-        if(true) // IF NEXT LEVEL IS UNLOCKED
+        if(m_timeHandler.getTime() > 0f) // IF NEXT LEVEL IS UNLOCKED
         {
             m_stage.getBatch().begin();
             m_stage.getBatch().draw(m_animation.getKeyFrame(m_elapsedTime), (720 - 512) / 2, 0);
