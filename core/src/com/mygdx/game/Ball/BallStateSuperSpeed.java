@@ -39,7 +39,6 @@ public class BallStateSuperSpeed extends BallState
         m_particles = new Particles(AssetLoader.flatballgrey, 15, 32, 32);
         m_particles.setColor(m_tint);
         m_particles.setFade(0.2f, 0.01f);
-        m_ball.collisionEffect(m_ball.getPosition(), 1, "powerup", 450);
         m_defaultGravityModifier = 2.5f;
         m_gravityModifier = 2.5f;
         m_onCollisionGravityModifier = 0.75f;

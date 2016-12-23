@@ -151,6 +151,7 @@ public class PlayState extends State
             if(m_goal.checkCollision(m_ball))
             {
                 m_timeHandler.stop();
+                m_timeHandler.setVisible(false);
                 m_sm.push(new LevelFinishedState(m_sm, m_timeHandler, m_levelData));
             }
         }

@@ -27,7 +27,6 @@ public class BallStateUltraRapid extends BallState
         setupSprite();
         m_ball.setDtModifier(0.5f);
         m_timer = 10f;
-        m_ball.collisionEffect(m_ball.getPosition(), 1, "powerup", 250);
         m_defaultGravityModifier = 1f;
         m_gravityModifier = 1f;
         m_onCollisionGravityModifier = 1f;

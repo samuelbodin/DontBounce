@@ -147,6 +147,7 @@ public class Ball
         m_state.setAudioHandler(m_ah);
         m_state.setSpriteSize(m_radius*2,m_radius*2);
         m_state.updateSprite(m_position.x, m_position.y);
+        collisionEffect(getPosition(), 0, "powerup", 450);
         //m_state.updateSprite(m_position.x-m_radius, m_position.y-m_radius);
     }
 
@@ -371,6 +372,7 @@ public class Ball
 
     public void collisionEffect(Vector2 collisionPosition, int side, String name, int spriteMove)
     {
+        Gdx.app.log("RL", "Ball doing effect");
         m_collisionEffect.setAnimation(name);
         m_collisionEffect.startEffect(collisionPosition, side, spriteMove);
     }
