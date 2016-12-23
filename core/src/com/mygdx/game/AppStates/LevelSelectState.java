@@ -77,7 +77,6 @@ public class LevelSelectState extends State
         m_levelTableInner = new Table();
         m_controlTable = new Table();
 
-        m_levelTable.debug();
         setupBtns();
         setChapter(m_lm.getCurrentChapter());
 
