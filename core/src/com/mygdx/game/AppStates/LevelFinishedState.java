@@ -70,8 +70,8 @@ public class LevelFinishedState extends State
         soundButtonStyle.checked = buttonSkin.getDrawable("audiooff");
 
         continueButtonStyle = new ImageButton.ImageButtonStyle();
-        continueButtonStyle.up = buttonSkin.getDrawable("prev");
-        continueButtonStyle.disabled = buttonSkin.getDrawable("playgrey");
+        continueButtonStyle.up = buttonSkin.getDrawable("next");
+        continueButtonStyle.disabled = buttonSkin.getDrawable("nextgrey");
 
         //Buttons
         m_continue = new ImageButton(continueButtonStyle);
