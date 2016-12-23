@@ -35,6 +35,7 @@ public class LevelFinishedState extends State
     private Label m_finishTimeLabel, m_headerLabel;
     private TextureRegion m_background;
     private LevelManager m_lm = null;
+    private LevelData m_level = null;
 
 
     TextureAtlas m_atlas = null;
@@ -108,10 +109,15 @@ public class LevelFinishedState extends State
     {
         this(sm);
         m_timeHandler = th;
+        m_level = level;
 
         // ATM returns true for dev.
         if(m_lm.levelWasCompleted(th, level))
         {
+            // Level was completed
+            m_continue.setDisabled(false);
+
+
             if(!m_lm.unlockNextLevel(level))
             {
                 // Game completed
@@ -128,7 +134,7 @@ public class LevelFinishedState extends State
             @Override
             public void changed(ChangeEvent event, Actor actor)
             {
-                m_sm.set(new PlayState(m_sm, m_lm.getNextLevel()));
+                m_sm.set(new PlayState(m_sm, m_level));
             }
         });
         m_mainMenu.addListener(new ChangeListener()
@@ -144,7 +150,7 @@ public class LevelFinishedState extends State
             @Override
             public void changed(ChangeEvent event, Actor actor)
             {
-                m_sm.set(new PlayState(m_sm, m_lm.getLastUnlockedLevel()));
+                m_sm.set(new PlayState(m_sm, m_lm.getLevel(m_level.m_levelId)));
             }
         });
         m_soundButton.addListener(new ChangeListener()
