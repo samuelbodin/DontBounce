@@ -19,7 +19,7 @@ public class WorldBackground extends Drawable
     private Stack<Sprite> m_sprite = null;
     private float m_viewportWidth;
     private float m_viewportHeight;
-    private float m_lagFactor = 0.99f;
+    private float m_lagFactor = 0.002f;
 
     private Sprite[] m_foreground;
     private Cam m_cam;
@@ -85,7 +85,7 @@ public class WorldBackground extends Drawable
         int i = 0;
         for(Sprite s : m_sprite)
         {
-            s.setPosition((m_viewportWidth-s.getWidth())/2,(m_viewportHeight-s.getHeight())-i*150);
+            s.setPosition((m_viewportWidth-s.getWidth())/2,(m_viewportHeight-s.getHeight())-i*i*50);
             i++;
         }
     }
@@ -97,7 +97,7 @@ public class WorldBackground extends Drawable
         int i = 0;
         for(Sprite s : m_sprite)
         {
-            s.setPosition(s.getX(), s.getY() + pos.y*m_lagFactor );
+            s.setPosition(s.getX(), s.getY() + pos.y -(pos.y*i*m_lagFactor) );
             i++;
         }
     }
@@ -113,7 +113,7 @@ public class WorldBackground extends Drawable
 
                 if (m_foreground[i].getY()-m_foreground[i].getHeight() >= m_cam.position.y + (m_cam.viewportHeight) - (m_cam.viewportHeight / 4))
                 {
-                    m_foreground[i].setPosition(m_foreground[i].getX(), m_foreground[(i + 1) % m_foreground.length].getY() - (m_foreground[i].getHeight()*2)+2);
+                    m_foreground[i].setPosition(m_foreground[i].getX(), m_foreground[(i + 1) % m_foreground.length].getY() - (m_foreground[i].getHeight()*2)+5);
                 }
 
             }
