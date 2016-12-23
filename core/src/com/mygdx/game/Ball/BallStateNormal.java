@@ -83,7 +83,7 @@ public class BallStateNormal extends BallState
         if(m_sound != null)
         {
             Random rnd = new Random();
-            m_sound[rnd.nextInt(m_sound.length)].play(1.0f * (velY/700) + 0.2f, (float)MathUtils.clamp(velY, -0.5f, 1) + 1f, 0);
+            m_sound[rnd.nextInt(m_sound.length)].play(1.0f * (velY/700) + 0.2f, 1f * (velY/700) + 1f, 0);
         }
 
     }

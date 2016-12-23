@@ -29,7 +29,7 @@ public class BallStateUltraRapid extends BallState
         setupSprite();
         m_sound = setupSound();
         m_ball.setDtModifier(0.5f);
-        m_timer = 5f;
+        m_timer = 10f;
         m_ball.collisionEffect(m_ball.getPosition(), 1, "powerup", 250);
         AssetLoader.audio.musicLevelSpeedStart();
         m_defaultGravityModifier = 1f;

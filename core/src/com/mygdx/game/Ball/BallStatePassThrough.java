@@ -34,9 +34,9 @@ public class BallStatePassThrough extends BallState
         m_timer = 4f;
         m_ball.collisionEffect(m_ball.getPosition(), 1, "powerup", 450);
         AssetLoader.audio.musicLevelSpeedStart();
-        m_defaultGravityModifier = 2.5f;
-        m_gravityModifier = 2.5f;
-        m_onCollisionGravityModifier = 0.75f;
+        m_defaultGravityModifier = 1f;
+        m_gravityModifier = 1f;
+        m_onCollisionGravityModifier = 1f;
     }
 
     public void setBall(Ball b)
