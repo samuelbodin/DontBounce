@@ -20,19 +20,21 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.App;
 import com.mygdx.game.Basics.AssetLoader;
 import com.mygdx.game.Basics.MenuBackground;
+import com.mygdx.game.levels.LevelManager;
 
 public class MenuState extends State
 {
 
-    private BitmapFont m_font;
-    private ImageButton m_playBtn, m_levelBtn, m_soundBtn;
-    //private Label m_heading;
-    private Image m_logo;
-    private Skin m_skin;
-    private Stage m_stage;
-    private StateManager m_sm;
-    private TextureAtlas m_icons;
-    private MenuBackground m_background;
+    private BitmapFont m_font = null;
+    private ImageButton m_playBtn = null;
+    private ImageButton m_levelBtn = null;
+    private ImageButton m_soundBtn = null;
+    private Image m_logo = null;
+    private Skin m_skin = null;
+    private Stage m_stage = null;
+    private StateManager m_sm = null;
+    private MenuBackground m_background = null;
+    private LevelManager m_lm = null;
 
     public MenuState(StateManager sm)
     {
@@ -43,6 +45,8 @@ public class MenuState extends State
         m_stage = new Stage(new StretchViewport(m_config.m_worldW, m_config.m_worldH));
         Gdx.input.setInputProcessor(m_stage);
 
+        m_lm = m_config.getLevelManager();
+
         // Background
         TextureRegion[] bg = {  AssetLoader.cloudsbg,
                                 AssetLoader.clouds01,
@@ -51,14 +55,11 @@ public class MenuState extends State
 
         m_skin = AssetLoader.buttonSkin;
 
-
         // Heading & Font
         m_font = AssetLoader.slackeyfont;
 
         Label.LabelStyle ls = new Label.LabelStyle(m_font, new Color(1,0.65f,0,0.8f));
 
-        //m_heading = new Label("Don't Bounce", ls);
-        //m_heading.setFontScale(0.6f);
         m_logo = new Image(m_skin.getDrawable("logo"));
         Color m_pressTintColor = new Color(0.7f, 0.7f, 0.7f, 1f);
 
@@ -114,7 +115,7 @@ public class MenuState extends State
             public void changed(ChangeEvent event, Actor actor)
             {
                 // PlayState
-               m_sm.set(new PlayState(m_sm, m_config.getCurrentLevel()));
+               m_sm.set(new PlayState(m_sm, m_lm.getLastUnlockedLevel()));
             }
         });
 

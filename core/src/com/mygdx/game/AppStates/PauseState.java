@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.Basics.AssetLoader;
+import com.mygdx.game.levels.LevelManager;
 
 
 public class PauseState extends State
@@ -30,6 +31,7 @@ public class PauseState extends State
     private ImageButton m_return, m_restart, m_mainMenu;
     private Table m_labelTable, m_buttonTable, m_rootTable;
     private Label m_header;
+    private LevelManager m_lm = null;
 
     private TextureRegion m_background;
 
@@ -37,6 +39,8 @@ public class PauseState extends State
     {
         super(sm);
         m_sm = sm;
+
+        m_lm = m_config.getLevelManager();
 
         Skin m_skin;
         Label.LabelStyle m_headerSkin;
@@ -112,7 +116,7 @@ public class PauseState extends State
             @Override
             public void changed(ChangeEvent event, Actor actor)
             {
-                m_sm.set(new PlayState(m_sm, m_config.getCurrentLevel()));
+                m_sm.set(new PlayState(m_sm, m_lm.getLastUnlockedLevel()));
             }
         });
     }

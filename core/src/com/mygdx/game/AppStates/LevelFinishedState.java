@@ -22,6 +22,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.Basics.AssetLoader;
 import com.mygdx.game.Basics.LevelData;
 import com.mygdx.game.Basics.TimeHandler;
+import com.mygdx.game.levels.LevelManager;
 
 public class LevelFinishedState extends State
 {
@@ -33,6 +34,7 @@ public class LevelFinishedState extends State
     private ImageButton m_continue, m_restart, m_mainMenu, m_soundButton;
     private Label m_finishTimeLabel, m_headerLabel;
     private TextureRegion m_background;
+    private LevelManager m_lm = null;
 
 
     TextureAtlas m_atlas = null;
@@ -44,6 +46,8 @@ public class LevelFinishedState extends State
     {
         super(sm);
         m_sm = sm;
+
+        m_lm = m_config.getLevelManager();
 
         float viewportW = m_config.m_worldW;
         float viewportH = m_config.m_worldH;
@@ -88,7 +92,7 @@ public class LevelFinishedState extends State
         m_finishTimeLabel = new Label("", fontStyle);
 
         //Add more conditions: "Didn't finish level", "!Already finished level"
-        if (m_config.getNextLevel() == null)
+        if (m_lm.getNextLevel() == null)
         {
             m_continue.setDisabled(true);
         }
@@ -105,41 +109,15 @@ public class LevelFinishedState extends State
         this(sm);
         m_timeHandler = th;
 
-        // Joel hade idé om algoritm som räknar ut om man klarat leveln.
-        if(th.getTime() <= Math.ceil(m_config.getCurrentLevel().getLevelTime()))
+        // ATM returns true for dev.
+        if(m_lm.levelWasCompleted(th, level))
         {
-            m_config.m_preferences.flush();
-
-            // Move to next chapter
-            if(m_config.isLastLevel() && m_config.hasNextChapter())
+            if(!m_lm.unlockNextLevel(level))
             {
-                m_config.m_currentChapter++;
-                m_config.m_preferences.putInteger("current_chapter", m_config.m_currentChapter);
-
-                m_config.m_currentLevel++;
-                m_config.m_preferences.putInteger("current_level", m_config.m_currentLevel);
-
-                //Gdx.app.log("SB", "current chapter set to " + m_config.m_currentChapter);
-               // Gdx.app.log("SB", "current level set to " + m_config.m_currentLevel);
+                // Game completed
             }
-
-            // Move to next level
-            if((level.m_levelId - 1) == m_config.m_currentLevel && !m_config.isLastLevel())
-            {
-                m_config.m_currentLevel++;
-                m_config.m_preferences.putInteger("current_level", m_config.m_currentLevel);
-
-                //Gdx.app.log("SB", "current level set to " + m_config.m_currentLevel);
-            }
-
-
-            if(m_config.isLastLevel() && !m_config.hasNextChapter())
-            {
-                //Gdx.app.log("SB", "Game completed! woop woop");
-            }
-
-
         }
+
         confetti();
     }
 
@@ -150,7 +128,7 @@ public class LevelFinishedState extends State
             @Override
             public void changed(ChangeEvent event, Actor actor)
             {
-                m_sm.set(new PlayState(m_sm, m_config.getNextLevel()));
+                m_sm.set(new PlayState(m_sm, m_lm.getNextLevel()));
             }
         });
         m_mainMenu.addListener(new ChangeListener()
@@ -166,7 +144,7 @@ public class LevelFinishedState extends State
             @Override
             public void changed(ChangeEvent event, Actor actor)
             {
-                m_sm.set(new PlayState(m_sm, m_config.getCurrentLevel()));
+                m_sm.set(new PlayState(m_sm, m_lm.getLastUnlockedLevel()));
             }
         });
         m_soundButton.addListener(new ChangeListener()

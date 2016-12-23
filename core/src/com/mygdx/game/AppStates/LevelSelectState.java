@@ -1,6 +1,7 @@
 package com.mygdx.game.AppStates;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -11,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -22,29 +24,23 @@ import com.mygdx.game.Basics.AssetLoader;
 import com.mygdx.game.Basics.MenuBackground;
 import com.mygdx.game.levels.Chapter;
 import com.mygdx.game.levels.ChapterOne;
+import com.mygdx.game.levels.LevelManager;
 
 import java.util.ArrayList;
 
 
 public class LevelSelectState extends State
 {
-
-    private int m_currentChapter = 0;
-    private int m_currentLevel = 0;
-    private int m_unlockedChapter = 0;
-    private int m_unlockedLevel = 0;
-
-    private ArrayList<Chapter> m_chapters;
     private BitmapFont m_font;
-    private ImageButton m_nextBtn, m_prevBtn;
+
+    private ImageButton m_nextBtn, m_prevBtn, m_homeBtn;
     private Skin m_skin;
     private MenuBackground m_background;
     private Stage m_stage;
     private StateManager m_sm;
-    private Table m_table, m_controlTable, m_levelTable;
-    private TextureAtlas m_icons;
+    private Table m_table, m_headerTable, m_controlTable, m_levelTable, m_levelTableInner;
     private TextButtonStyle m_levelBtnSkin, m_levelBtnDisabledSkin;
-    private Chapter m_chapter;
+    private LevelManager m_lm = null;
 
     public LevelSelectState(StateManager sm)
     {
@@ -56,42 +52,41 @@ public class LevelSelectState extends State
         m_stage = new Stage(new StretchViewport(m_config.m_worldW, m_config.m_worldH));
         Gdx.input.setInputProcessor(m_stage);
 
-        // Load saved levels
-        m_unlockedLevel = m_config.m_currentLevel;
-        m_unlockedChapter = m_config.m_currentChapter;
-
-        // DEV!
-        m_unlockedLevel = 9;
-        m_unlockedChapter = m_config.m_currentChapter;
+        m_lm = m_config.getLevelManager();
 
         // Background
-        TextureRegion[] bg = {AssetLoader.cloudsbg,
-                AssetLoader.clouds01,
-                AssetLoader.clouds02};
+        TextureRegion[] bg = {
+            AssetLoader.cloudsbg,
+            AssetLoader.clouds01,
+            AssetLoader.clouds02
+        };
+
         m_background = new MenuBackground(bg, m_config.m_worldW, m_config.m_worldH);
 
         //Icons and font
         m_skin = AssetLoader.buttonSkin;
         m_font = AssetLoader.slackeyfont;
 
-        // Load chapters
-        m_chapters = new ArrayList<Chapter>();
-        m_chapters.add(new ChapterOne());
-
         // Setup table
         m_table = new Table();
         m_table.center();
         m_table.setFillParent(true);
 
+        m_headerTable = new Table();
         m_levelTable = new Table();
+        m_levelTableInner = new Table();
         m_controlTable = new Table();
 
+        m_levelTable.debug();
         setupBtns();
-        setChapter();
+        setChapter(m_lm.getCurrentChapter());
 
-        m_table.add(m_levelTable);
+        m_table.add(m_headerTable).expandY().bottom();
         m_table.row();
-        m_table.add(m_controlTable).padTop(40);
+
+        m_table.add(m_levelTable).expandY().center();
+        m_table.row();
+        m_table.add(m_controlTable).expandY().top();
 
         m_stage.addActor(m_table);
 
@@ -124,76 +119,81 @@ public class LevelSelectState extends State
         nextBtnStyle.down = m_skin.getDrawable("next");
         m_nextBtn = new ImageButton(nextBtnStyle);
 
-        m_controlTable.add(m_nextBtn).width(m_config.m_worldW/4).height(m_config.m_worldW/4).left().pad(10);
-        m_controlTable.add(m_prevBtn).width(m_config.m_worldW/4).height(m_config.m_worldW/4).right().pad(10);
+        // Home button
+        ImageButtonStyle homeBtnStyle = new ImageButtonStyle();
+        homeBtnStyle.up = m_skin.getDrawable("home");
+        homeBtnStyle.down = m_skin.getDrawable("home");
+        m_homeBtn = new ImageButton(homeBtnStyle);
+
+        m_controlTable.add(m_prevBtn).width(100).height(100).right().padRight(30);
+        m_controlTable.add(m_homeBtn).width(100).height(100).right();
+        m_controlTable.add(m_nextBtn).width(100).height(100).left().padLeft(30);
     }
 
-    private void setChapter()
+    private void setChapter(Chapter chapter)
     {
+        setChapterTitle();
+
         m_levelTable.clear();
-        m_chapter = m_chapters.get(m_currentChapter);
+        m_levelTableInner.clear();
+        ArrayList<Integer> levelIds = chapter.getLevelIds();
 
-        //Gdx.app.log("SB levelSelectState:", "current level " + m_currentLevel);
-        //Gdx.app.log("SB levelSelectState:", "current chapter " + m_currentChapter);
 
-        for (int i = 0; i < m_chapter.getLevels().size(); i++)
+        for (int i = 0; i < levelIds.size(); i++)
         {
             TextButton tmp;
-            m_currentLevel = m_chapter.getLevels().get(i);
+            int levelId = levelIds.get(i);
 
-            if((m_currentLevel - 1) > m_unlockedLevel)
+            if(levelId > m_lm.getIdOfLastUnlockedLevel())
             {
-                tmp = new TextButton(Integer.toString(m_currentLevel), m_levelBtnDisabledSkin);
-                //Gdx.app.log("SB", "currentLevel" + m_currentLevel);
-                //Gdx.app.log("SB", "unlockedLevel" + m_unlockedLevel);
+                tmp = new TextButton(Integer.toString(levelId), m_levelBtnDisabledSkin);
             }
             else
             {
-                tmp = new TextButton(Integer.toString(m_currentLevel), m_levelBtnSkin);
+                tmp = new TextButton(Integer.toString(levelId), m_levelBtnSkin);
                 tmp.addListener(new ChangeListener()
                 {
                     @Override
                     public void changed(ChangeEvent event, Actor actor)
                     {
-                        m_sm.set(new PlayState(m_sm, m_config.getLevel(Integer.parseInt(actor.getName()))));
+                        m_sm.set(new PlayState(m_sm, m_lm.getLevel(Integer.parseInt(actor.getName()))));
                     }
                 });
             }
 
-            tmp.setName(Integer.toString(m_currentLevel));
+            tmp.setName(Integer.toString(levelId));
             tmp.getLabel().setFontScale(0.5f);
-            m_levelTable.add(tmp).width(200).height(100).padRight(20).expandX();
+            m_levelTableInner.add(tmp).width(200).height(100).padRight(20);
 
             if ((i+1) % 3 == 0)
             {
-                m_levelTable.row().padTop(20);
+                m_levelTableInner.row().padTop(20);
             }
 
         }
+
+        m_levelTableInner.padRight(-20);
+        m_levelTable.add(m_levelTableInner);
     }
 
     private void setupClickListeners()
     {
-        /*
-        m_returnBtn.addListener(new ChangeListener()
+
+        m_homeBtn.addListener(new ChangeListener()
         {
             @Override
             public void changed(ChangeEvent event, Actor actor)
             {
-                m_sm.set(new MenuState(m_sm));
+            m_sm.set(new MenuState(m_sm));
             }
         });
-        */
+
         m_nextBtn.addListener(new ChangeListener()
         {
             @Override
             public void changed(ChangeEvent event, Actor actor)
             {
-                if (m_chapters.size()-1 != m_currentChapter)
-                {
-                    m_currentChapter++;
-                    setChapter();
-                }
+            setChapter(m_lm.getNextChapter());
             }
         });
         m_prevBtn.addListener(new ChangeListener()
@@ -201,13 +201,19 @@ public class LevelSelectState extends State
             @Override
             public void changed(ChangeEvent event, Actor actor)
             {
-                if (m_currentChapter != 0)
-                {
-                    m_currentChapter--;
-                    setChapter();
-                }
+            setChapter(m_lm.getPreviousChapter());
             }
         });
+    }
+
+    private void setChapterTitle()
+    {
+        m_headerTable.clear();
+
+        Label.LabelStyle ls = new Label.LabelStyle(m_font, AssetLoader.white);
+        Label label = new Label("Chapter " + m_lm.getCurrentChapterId(), ls);
+
+        m_headerTable.add(label);
     }
 
     @Override
@@ -217,7 +223,7 @@ public class LevelSelectState extends State
     }
 
     @Override
-    public void render(SpriteBatch sr)
+    public void render(SpriteBatch sb)
     {
         m_stage.getBatch().begin();
         m_background.render(m_stage.getBatch());
