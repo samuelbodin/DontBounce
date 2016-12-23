@@ -70,7 +70,7 @@ public class LevelFinishedState extends State
         soundButtonStyle.checked = buttonSkin.getDrawable("audiooff");
 
         continueButtonStyle = new ImageButton.ImageButtonStyle();
-        continueButtonStyle.up = buttonSkin.getDrawable("play");
+        continueButtonStyle.up = buttonSkin.getDrawable("prev");
         continueButtonStyle.disabled = buttonSkin.getDrawable("playgrey");
 
         //Buttons
@@ -195,8 +195,8 @@ public class LevelFinishedState extends State
         m_labelTable.add(m_finishTimeLabel);
 
         m_buttonTable.add(m_restart).size(btnSize).pad(btnPad);
-        m_buttonTable.add(m_continue).size(btnSize).pad(btnPad);
         m_buttonTable.add(m_mainMenu).size(btnSize).pad(btnPad);
+        m_buttonTable.add(m_continue).size(btnSize).pad(btnPad);
 
         m_footerTable.add(m_soundButton).size(100f);
 
@@ -252,8 +252,6 @@ public class LevelFinishedState extends State
     {
 
     }
-
-
 
     public void confetti()
     {
