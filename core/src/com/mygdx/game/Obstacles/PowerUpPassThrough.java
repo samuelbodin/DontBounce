@@ -49,7 +49,6 @@ public class PowerUpPassThrough extends Obstacle
         {
             b.setState(new BallStatePassThrough(b));
             m_isActive = false;
-            AssetLoader.audio.powerUp();
             return true;
         }
         return false;

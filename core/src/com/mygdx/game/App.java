@@ -20,8 +20,7 @@ public class App extends ApplicationAdapter
 	{
 		AssetLoader.Load();
         m_config = new Config();
-        m_sm = new StateManager();
-        m_sm.m_config = m_config;
+        m_sm = new StateManager(m_config);
         m_sb = new SpriteBatch();
         m_sm.set(new MenuState(m_sm));
 		Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -50,6 +49,6 @@ public class App extends ApplicationAdapter
 	{
 		super.dispose();
 		AssetLoader.dispose();
-		Gdx.app.log("RL", "App desposar");
+		Gdx.app.log("RL", "App disposar");
 	}
 }
