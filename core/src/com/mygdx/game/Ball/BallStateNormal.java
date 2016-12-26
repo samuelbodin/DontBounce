@@ -1,27 +1,12 @@
 package com.mygdx.game.Ball;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g3d.attributes.FloatAttribute;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Array;
-import com.mygdx.game.App;
 import com.mygdx.game.Basics.AssetLoader;
-import com.mygdx.game.Basics.AudioHandler;
-import com.mygdx.game.Basics.InputHandler;
 
-import org.w3c.dom.ranges.Range;
-
-import java.util.Random;
-
-
-public class BallStateNormal extends BallState
+class BallStateNormal extends BallState
 {
-    public BallStateNormal(Ball b)
+    BallStateNormal(Ball b)
     {
         super(b);
         setupSprite();
@@ -71,15 +56,6 @@ public class BallStateNormal extends BallState
     public void render(SpriteBatch sb)
     {
         m_sprite.draw(sb);
-    }
-
-    @Override
-    public String toString()
-    {
-        String str = super.toString();
-
-
-        return str;
     }
 
     @Override
