@@ -1,16 +1,10 @@
 package com.mygdx.game.Ball;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Basics.AssetLoader;
 import com.mygdx.game.Basics.AudioHandler;
 import com.mygdx.game.Basics.Drawable;
-import com.mygdx.game.Basics.InputHandler;
-import com.mygdx.game.Obstacles.Obstacle;
 
 abstract class BallState extends Drawable
 {
@@ -18,7 +12,7 @@ abstract class BallState extends Drawable
     float m_defaultGravityModifier = 1f;
     float m_gravityModifier = 1f;
     float m_onCollisionGravityModifier = 1f;
-    AudioHandler m_ah = null;
+    private AudioHandler m_ah = null;
 
     BallState()
     {
@@ -102,7 +96,7 @@ abstract class BallState extends Drawable
     }
 
 
-    void resetGravityModifier()
+    private void resetGravityModifier()
     {
         m_gravityModifier = m_defaultGravityModifier;
     }
@@ -121,12 +115,5 @@ abstract class BallState extends Drawable
 
 
         m_ah.playBounceSound(velY);
-    }
-
-    @Override
-    public String toString()
-    {
-        String str = "m_ball: " + m_ball.toString() + "\n";
-        return str;
     }
 }
