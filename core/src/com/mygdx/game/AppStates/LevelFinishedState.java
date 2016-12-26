@@ -34,6 +34,11 @@ public class LevelFinishedState extends State
     private TextureRegion m_background;
     private LevelManager m_lm = null;
     private LevelData m_level = null;
+    private Skin buttonSkin;
+    private Label.LabelStyle fontStyle;
+    private BitmapFont font;
+    private ImageButton.ImageButtonStyle continueButtonStyle;
+
 
     private Animation m_animation;
     private float m_elapsedTime = 0;
@@ -45,23 +50,32 @@ public class LevelFinishedState extends State
 
         m_lm = m_config.getLevelManager();
 
-        float viewportW = m_config.m_worldW;
-        float viewportH = m_config.m_worldH;
-        Skin buttonSkin;
-        Label.LabelStyle fontStyle;
-        BitmapFont font;
-        ImageButton.ImageButtonStyle continueButtonStyle;
+        m_stage = new Stage(new StretchViewport(m_config.m_worldW, m_config.m_worldH));
 
-        m_background = AssetLoader.black;
-        buttonSkin = AssetLoader.buttonSkin;
+        loadAssets();
+        setupTables();
+        setupButtons();
+        setupLabels();
+        confetti();
 
-        m_stage = new Stage(new StretchViewport(viewportW, viewportH));
+        fillStage();
+        setupClickListeners();
 
-        //Tables
-        m_rootTable = new Table();
-        m_buttonTable = new Table();
-        m_labelTable = new Table();
+        Gdx.input.setInputProcessor(m_stage);
 
+    }
+
+    private void setupLabels()
+    {
+        //Styles
+        fontStyle = new Label.LabelStyle(font, Color.WHITE);
+        //Labels
+        m_headerLabel = new Label("LEVEL COMPLETE", fontStyle);
+        m_finishTimeLabel = new Label("", fontStyle);
+    }
+
+    private void setupButtons()
+    {
         //Styles
         continueButtonStyle = new ImageButton.ImageButtonStyle();
         continueButtonStyle.up = buttonSkin.getDrawable("next");
@@ -71,20 +85,20 @@ public class LevelFinishedState extends State
         m_continue = new ImageButton(continueButtonStyle);
         m_restart = new ImageButton(buttonSkin.getDrawable("restart"));
         m_mainMenu = new ImageButton(buttonSkin.getDrawable("home"));
+    }
 
-        //Fonts
+    private void setupTables()
+    {
+        m_rootTable = new Table();
+        m_buttonTable = new Table();
+        m_labelTable = new Table();
+    }
+
+    private void loadAssets()
+    {
         font = AssetLoader.slackeyfont;
-        fontStyle = new Label.LabelStyle(font, Color.WHITE);
-
-        //Labels
-        m_headerLabel = new Label("LEVEL COMPLETE", fontStyle);
-        m_finishTimeLabel = new Label("", fontStyle);
-        
-        fillStage();
-        setupClickListeners();
-
-        Gdx.input.setInputProcessor(m_stage);
-        confetti();
+        m_background = AssetLoader.black;
+        buttonSkin = AssetLoader.buttonSkin;
     }
 
     LevelFinishedState(StateManager sm, TimeHandler th, LevelData level)
