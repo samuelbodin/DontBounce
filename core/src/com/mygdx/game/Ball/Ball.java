@@ -6,14 +6,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.FloatArray;
 import com.mygdx.game.Basics.AssetLoader;
 import com.mygdx.game.Basics.AudioHandler;
 import com.mygdx.game.Basics.Circle;
 import com.mygdx.game.Basics.CollisionEffect;
 import com.mygdx.game.Basics.LevelData;
-
-import java.util.ArrayList;
 
 public class Ball
 {
@@ -29,12 +26,9 @@ public class Ball
     private float m_userInput = 0f;
     private int m_iterator = 0;
     private float m_dtModifier = 1f;
-    private float m_defaultYFlipFactor = 0.5f;
     private float m_yFlipFactor = 0.5f;
     private CollisionEffect m_collisionEffect = null;
     private AudioHandler m_ah = null;
-
-    float timer = 0;
 
     public Ball (float x, float y, float r, float worldW, LevelData ld, AudioHandler ah)
     {
@@ -64,18 +58,18 @@ public class Ball
         m_maxSpeed *= maxSpeedModifier;
     }
 
-    float map(float val, float inMin, float inMax, float outMin, float outMax)
+    private float map(float val, float inMin, float inMax, float outMin, float outMax)
     {
         return outMin + (outMax - outMin) * (val - inMin) / (inMax - inMin);
     }
 
-    float interpolate(float val)
+    private float interpolate(float val)
     {
         Interpolation i = Interpolation.circleIn;
         return i.apply(val);
     }
 
-    float limit(float val, float min, float max)
+    private float limit(float val, float min, float max)
     {
 
         if(val < min)
@@ -94,7 +88,7 @@ public class Ball
         m_userInput = value;
     }
 
-    void handleUserInput(float dt)
+    private void handleUserInput()
     {
         float min1 = 0;
         float max1 = 1.5f;
@@ -116,29 +110,19 @@ public class Ball
         m_userInput = 0f;
     }
 
-    void applyGravity()
-    {
-        applyGravity(1);
-    }
-
     void applyGravity(float modifier)
     {
         m_velocity.y += modifier * m_gravity;
     }
 
-    void resetMaxSpeed()
+    private void resetMaxSpeed()
     {
         m_maxSpeed = m_defaultMaxSpeed;
     }
 
-    void resetYFlipFactor()
+    private void resetYFlipFactor()
     {
-        m_yFlipFactor = m_defaultYFlipFactor;
-    }
-
-    void setMaxSpeed(float maxSpeed)
-    {
-        m_maxSpeed = maxSpeed;
+        m_yFlipFactor = 0.5f;
     }
 
     public void setState(BallState s)
@@ -149,36 +133,30 @@ public class Ball
         m_state.setSpriteSize(m_radius*2,m_radius*2);
         m_state.updateSprite(m_position.x, m_position.y);
         collisionEffect(getPosition(), 0, AssetLoader.m_powerUpAnimation, 450);
-        //m_state.updateSprite(m_position.x-m_radius, m_position.y-m_radius);
     }
 
-    public void resetState()
+    void resetState()
     {
         m_state = new BallStateNormal(this);
         m_state.setAudioHandler(m_ah);
         m_state.setSpriteSize(m_radius*2,m_radius*2);
     }
 
-    public void resetVariables()
+    void resetVariables()
     {
         resetDtModifier();
         resetMaxSpeed();
         resetYFlipFactor();
     }
 
-    public float getRadius()
+    float getRadius()
     {
         return m_radius;
     }
 
-    public float getGravity()
+    float getGravity()
     {
         return m_gravity;
-    }
-
-    public void setYFlipFactor(float yResetFactor)
-    {
-        m_yFlipFactor = yResetFactor;
     }
 
     public void update(float dt)
@@ -192,19 +170,14 @@ public class Ball
 
         m_position.add(m_velocity.x*dt,m_velocity.y*dt*m_dtModifier );
 
-        handleUserInput(dt);
+        handleUserInput();
 
         handleEdges();
 
         m_state.updateSprite(m_position.x, m_position.y);
 
-        //m_history.addToHistory(new com.mygdx.game.Basics.Circle(m_position, m_radius, m_iterator++));
-        //m_history.addToHistory(new com.mygdx.game.Basics.Circle(new Vector2(m_position.x+m_radius,m_position.y+m_radius), m_radius, m_iterator++));
         handleHistory();
         m_collisionEffect.update(dt);
-
-        timer += dt;
-
     }
     private void handleEdges()
     {
@@ -350,7 +323,7 @@ public class Ball
         m_state.dispose();
     }
 
-    public void setDtModifier(float dtm)
+    void setDtModifier(float dtm)
     {
         m_dtModifier = dtm;
     }
@@ -360,18 +333,12 @@ public class Ball
         return m_dtModifier;
     }
 
-    public void resetDtModifier()
+    private void resetDtModifier()
     {
         m_dtModifier = 1f;
     }
 
-    public void collisionEffect(Vector2 collisionPosition, int side, Animation name)
-    {
-        m_collisionEffect.setAnimation(name);
-        m_collisionEffect.startEffect(collisionPosition, side);
-    }
-
-    public void collisionEffect(Vector2 collisionPosition, int side, Animation name, int spriteMove)
+    void collisionEffect(Vector2 collisionPosition, int side, Animation name, int spriteMove)
     {
         m_collisionEffect.setAnimation(name);
         m_collisionEffect.startEffect(collisionPosition, side, spriteMove);
@@ -397,28 +364,11 @@ public class Ball
 
     }
 
-    public boolean hasHistory()
-    {
-        return m_state.hasHistory();
-    }
-
     public Array<com.mygdx.game.Basics.Circle> getCircle()
     {
         Array<Circle> arr = new Array<Circle>();
         arr.add(new com.mygdx.game.Basics.Circle(new Vector2(m_position.x + m_radius, m_position.y + m_radius), m_radius, m_iterator++));
 
         return arr;
-    }
-
-    @Override
-    public String toString()
-    {
-        String str = super.toString();
-        str += "m_position: " + m_position.toString() + "\n";
-        str += "m_radius: " + m_radius + "\n";
-        str += "m_velocity: " + m_velocity.toString() + "\n";
-        str += "m_state: " + m_state.toString() + "\n";
-
-        return str;
     }
 }
