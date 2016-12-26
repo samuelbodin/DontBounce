@@ -102,8 +102,9 @@ public class AudioHandler
     public void toggleMute()
     {
         m_isMuted = ! m_isMuted;
-        
+
         m_preferences.putBoolean("isMuted", m_isMuted);
+        m_preferences.flush();
 
         if(m_isMuted)
         {
