@@ -1,33 +1,17 @@
 package com.mygdx.game.Ball;
 
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Basics.AssetLoader;
-import com.mygdx.game.Basics.AudioHandler;
 import com.mygdx.game.Basics.Particles;
-
-import java.util.Random;
-
-/**
- * Created by Rickard on 2016-12-19.
- */
 
 public class BallStateSuperSpeed extends BallState
 {
 
-    float m_timer = 0f;
-    Color m_tint = null;
-    Particles m_particles = null;
-
-
-    public BallStateSuperSpeed()
-    {
-    }
+    private float m_timer = 0f;
+    private Color m_tint = null;
+    private Particles m_particles = null;
 
     public BallStateSuperSpeed(Ball b)
     {
@@ -94,15 +78,6 @@ public class BallStateSuperSpeed extends BallState
     {
         m_particles.render(sb);
         m_sprite.draw(sb);
-    }
-
-    @Override
-    public String toString()
-    {
-        String str = super.toString();
-
-
-        return str;
     }
 
     @Override
