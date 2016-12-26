@@ -36,6 +36,8 @@ public class MenuState extends State
     private StateManager m_sm = null;
     private MenuBackground m_background = null;
     private LevelManager m_lm = null;
+    private Table m_table = null;
+    private int m_iterator = 0;
 
     public MenuState(StateManager sm)
     {
@@ -87,21 +89,20 @@ public class MenuState extends State
         m_soundBtn = new ImageButton(soundBtnStyle);
 
         // Add click listeners
-        setupClickListeners();
 
         // Table
-        Table table = new Table();
-        table.setFillParent(true);
-        table.center();
+        m_table = new Table();
+        m_table.setFillParent(true);
+        m_table.center();
         Table controls = new Table();
         Table footer = new Table();
 
         //table.add(m_heading).expand(0, 2).bottom();
-        table.add(m_logo).width(m_config.m_worldW*0.8f).expand(0, 2).bottom();
-        table.row();
-        table.add(controls).expandY();
-        table.row();
-        table.add(footer).expandY().bottom().right();
+        m_table.add(m_logo).width(m_config.m_worldW*0.8f).expand(0, 2).bottom();
+        m_table.row();
+        m_table.add(controls).expandY();
+        m_table.row();
+        m_table.add(footer).expandY().bottom().right();
 
         controls.add(m_playBtn).width(200).height(200).expandX().padRight(50);
         controls.add(m_levelBtn).width(200).height(200).expandX();
@@ -117,7 +118,7 @@ public class MenuState extends State
         footer.add(m_soundBtn).width(100).height(100).padBottom(20);
 
 
-        m_stage.addActor(table);
+        m_stage.addActor(m_table);
     }
 
     private void setupClickListeners()
@@ -164,6 +165,19 @@ public class MenuState extends State
     public void update(float dt)
     {
         m_background.update(dt);
+
+        if(m_iterator == 1)
+        {
+            setupClickListeners();
+            m_iterator ++;
+        }
+        else if(m_iterator < 1)
+        {
+            m_iterator ++;
+        }
+
+
+
     }
 
 

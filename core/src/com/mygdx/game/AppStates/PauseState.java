@@ -166,6 +166,7 @@ public class PauseState extends State
     private void resetInput()
     {
         m_input = -1;
+        m_stage.unfocusAll();
     }
 
     @Override
