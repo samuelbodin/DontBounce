@@ -166,18 +166,11 @@ public class MenuState extends State
     {
         m_background.update(dt);
 
-        if(m_iterator == 1)
+        if(m_iterator == 0)
         {
             setupClickListeners();
             m_iterator ++;
         }
-        else if(m_iterator < 1)
-        {
-            m_iterator ++;
-        }
-
-
-
     }
 
 
