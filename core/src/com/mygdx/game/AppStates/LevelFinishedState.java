@@ -95,7 +95,6 @@ public class LevelFinishedState extends State
         //Add more conditions: "Didn't finish level", "!Already finished level"
         if (m_lm.getNextLevel() == null)
         {
-            m_continue.setDisabled(true);
         }
 
         fillStage();
@@ -212,6 +211,7 @@ public class LevelFinishedState extends State
         {
             m_headerLabel.setText("LEVEL FAILED");
             m_finishTimeLabel.setText("");
+            m_continue.setDisabled(true);
         }
         else
         {
