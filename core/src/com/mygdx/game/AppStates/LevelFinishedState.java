@@ -2,7 +2,6 @@ package com.mygdx.game.AppStates;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -16,7 +15,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.Basics.AssetLoader;
@@ -37,13 +35,10 @@ public class LevelFinishedState extends State
     private LevelManager m_lm = null;
     private LevelData m_level = null;
 
+    private Animation m_animation;
+    private float m_elapsedTime = 0;
 
-    TextureAtlas m_atlas = null;
-    Animation m_animation;
-    Array<TextureAtlas.AtlasRegion> m_region;
-    float m_elapsedTime = 0;
-
-    public LevelFinishedState(StateManager sm)
+    private LevelFinishedState(StateManager sm)
     {
         super(sm);
         m_sm = sm;
@@ -55,7 +50,6 @@ public class LevelFinishedState extends State
         Skin buttonSkin;
         Label.LabelStyle fontStyle;
         BitmapFont font;
-        ImageButton.ImageButtonStyle soundButtonStyle;
         ImageButton.ImageButtonStyle continueButtonStyle;
 
         m_background = AssetLoader.black;
@@ -93,7 +87,7 @@ public class LevelFinishedState extends State
         confetti();
     }
 
-    public LevelFinishedState(StateManager sm, TimeHandler th, LevelData level)
+    LevelFinishedState(StateManager sm, TimeHandler th, LevelData level)
     {
         this(sm);
         m_timeHandler = th;
@@ -108,12 +102,9 @@ public class LevelFinishedState extends State
 
             if(!m_lm.unlockNextLevel(level))
             {
-                // Game completed
+                Gdx.app.log("JS", "Game Complete! Now go buy DLC");
             }
-        }
 
-        if(m_level.isLevelComplete(th.getTime()))
-        {
             confetti();
         }
     }
@@ -226,10 +217,10 @@ public class LevelFinishedState extends State
 
     }
 
-    public void confetti()
+    private void confetti()
     {
-        m_atlas = new TextureAtlas(Gdx.files.internal("gameObjects/confetti.pack"));
-        m_region = m_atlas.findRegions("confetti");
-        m_animation = new Animation(0.05f, m_region);
+        TextureAtlas atlas = AssetLoader.m_confetti;
+        Array<TextureAtlas.AtlasRegion> region = atlas.findRegions("confetti");
+        m_animation = new Animation(0.05f, region);
     }
 }

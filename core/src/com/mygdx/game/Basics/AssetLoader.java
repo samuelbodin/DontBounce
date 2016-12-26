@@ -22,6 +22,7 @@ public class AssetLoader
     private static TextureAtlas m_level2Backgrounds = null;
     private static TextureAtlas m_menuBackgrounds = null;
     private static TextureAtlas m_AnimationAtlas = null;
+    public static TextureAtlas m_confetti = null;
 
     //Skins
     public static Skin buttonSkin = null;
@@ -120,6 +121,8 @@ public class AssetLoader
         flatbwbody = m_gameObjects.findRegion("flatbwbody");
         flatbwleft = m_gameObjects.findRegion("flatbwleft");
         flatbwright = m_gameObjects.findRegion("flatbwright");
+
+        m_confetti = new TextureAtlas(Gdx.files.internal("gameObjects/confetti.pack"));
 
         m_AnimationAtlas = new TextureAtlas(Gdx.files.internal("gameObjects/collisioneffects.pack"));
         m_splashRegion = m_AnimationAtlas.findRegions("splash");
