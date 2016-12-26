@@ -29,7 +29,6 @@ public class PauseState extends State
 {
     private StateManager m_sm;
     private Stage m_stage;
-    private TextureAtlas m_icons;
     private Skin m_skin;
     private BitmapFont m_font;
     private ImageButton m_return, m_restart, m_mainMenu, m_soundButton;
@@ -37,6 +36,7 @@ public class PauseState extends State
     private Table m_labelTable, m_buttonTable, m_rootTable, m_footerTable;
     private Label m_header;
     private LevelManager m_lm = null;
+    private Label.LabelStyle m_headerSkin;
 
     private TextureRegion m_background;
 
@@ -46,28 +46,20 @@ public class PauseState extends State
         m_sm = sm;
 
         m_lm = m_config.getLevelManager();
-
-        Skin m_skin;
-        Label.LabelStyle m_headerSkin;
-
-        //Assets
-        m_font = AssetLoader.slackeyfont;
-        m_background = AssetLoader.black;
-        m_skin = buttonSkin;
-
-        //Create stage
         m_stage = new Stage(new StretchViewport(m_config.m_worldW, m_config.m_worldH));
 
-        //Tables
-        m_labelTable = new Table();
-        m_rootTable = new Table();
-        m_buttonTable = new Table();
-        m_footerTable = new Table();
+        loadAssets();
+        setupTables();
+        setupLabels();
+        setupButtons();
 
-        //Labels
-        m_headerSkin = new Label.LabelStyle(m_font, Color.WHITE);
-        m_header = new Label("PAUSED", m_headerSkin);
+        fillStage();
+        setupClickListeners();
+        Gdx.input.setInputProcessor(m_stage);
+    }
 
+    private void setupButtons()
+    {
         //Styles
         soundButtonStyle = new ImageButton.ImageButtonStyle();
         soundButtonStyle.up = buttonSkin.getDrawable("audioon");
@@ -78,10 +70,28 @@ public class PauseState extends State
         m_restart = new ImageButton(m_skin.getDrawable("restart"));
         m_mainMenu = new ImageButton(m_skin.getDrawable("home"));
         m_soundButton = new ImageButton(soundButtonStyle);
+    }
 
-        fillStage();
-        setupClickListeners();
-        Gdx.input.setInputProcessor(m_stage);
+    private void setupLabels()
+    {
+        //Styles
+        m_headerSkin = new Label.LabelStyle(m_font, Color.WHITE);
+        //Labels
+        m_header = new Label("PAUSED", m_headerSkin);
+    }
+    private void setupTables()
+    {
+        m_labelTable = new Table();
+        m_rootTable = new Table();
+        m_buttonTable = new Table();
+        m_footerTable = new Table();
+    }
+
+    private void loadAssets()
+    {
+        m_font = AssetLoader.slackeyfont;
+        m_background = AssetLoader.black;
+        m_skin = buttonSkin;
     }
 
     private void fillStage()
