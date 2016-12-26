@@ -123,7 +123,10 @@ public class LevelFinishedState extends State
             }
         }
 
-        confetti();
+        if(m_level.isLevelComplete(th.getTime()))
+        {
+            confetti();
+        }
     }
 
     private void setupClickListeners()
@@ -251,6 +254,6 @@ public class LevelFinishedState extends State
     {
         m_atlas = new TextureAtlas(Gdx.files.internal("gameObjects/confetti.pack"));
         m_region = m_atlas.findRegions("confetti");
-        m_animation = new Animation(0.07f, m_region);
+        m_animation = new Animation(0.05f, m_region);
     }
 }
