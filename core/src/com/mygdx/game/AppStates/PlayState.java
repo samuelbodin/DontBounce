@@ -44,6 +44,7 @@ public class PlayState extends State
         m_levelData = levelData;
 
         m_ah = m_sm.m_ah;
+        m_ah.playPlayStateMusic(m_levelData.m_chapterId);
 
         //Setting up ball
         m_ball = new Ball(m_config.m_worldW/ 2, 0, m_config.m_worldW / 40, m_config.m_worldW, m_levelData, m_ah);

@@ -103,6 +103,10 @@ public class PauseState extends State
         {
             m_soundButton.setChecked(true);
         }
+        else
+        {
+            m_ah.playMenuMusic();
+        }
 
         m_footerTable.add(m_soundButton).size(100f);
 

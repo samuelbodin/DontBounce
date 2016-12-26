@@ -103,6 +103,10 @@ public class AudioHandler
         {
             m_music.setVolume(0);
         }
+        else
+        {
+            m_music.setVolume(m_defaultVolume);
+        }
     }
 
     public boolean isMuted()
