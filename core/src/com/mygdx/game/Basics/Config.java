@@ -1,11 +1,13 @@
 package com.mygdx.game.Basics;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.mygdx.game.levels.LevelManager;
 
 
 public class Config
 {
+    Preferences m_preferences = Gdx.app.getPreferences("dontbounce-preferences");
     private LevelManager m_lm = null;
     private AudioHandler m_ah = null;
 
@@ -26,7 +28,7 @@ public class Config
 
     private boolean checkMutePreferences()
     {
-        return false;
+        return m_preferences.getBoolean("isMuted", false);
     }
 
     public AudioHandler getAudioHandler()

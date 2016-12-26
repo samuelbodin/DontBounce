@@ -98,10 +98,9 @@ public class LevelManager
         }
         else if(level.m_levelId == m_unlockedLevel && wasCompleted)
         {
-            m_preferences.flush();
-
             m_unlockedLevel++;
             m_preferences.putInteger("unlocked_level", m_unlockedLevel);
+            m_preferences.flush();
 
             return true;
         }

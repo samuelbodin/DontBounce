@@ -1,6 +1,7 @@
 package com.mygdx.game.Basics;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.utils.Array;
@@ -14,6 +15,7 @@ import java.util.Random;
 
 public class AudioHandler
 {
+    Preferences m_preferences = Gdx.app.getPreferences("dontbounce-preferences");
     private Music m_music = null;
     private Sound m_powerUpSound = null;
     private Sound[] m_bounceSounds = null;
@@ -100,6 +102,8 @@ public class AudioHandler
     public void toggleMute()
     {
         m_isMuted = ! m_isMuted;
+        
+        m_preferences.putBoolean("isMuted", m_isMuted);
 
         if(m_isMuted)
         {
