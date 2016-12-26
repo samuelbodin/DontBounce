@@ -13,8 +13,6 @@ public class LevelManager
     private Preferences m_preferences = null;
     private ArrayList<Chapter> m_chapters = null;
     private int m_unlockedLevel = 1;
-    private int m_unlockedChapter = 1;
-
     private int m_currentChapter = 1;
 
 
@@ -28,7 +26,8 @@ public class LevelManager
         m_chapters.add(new ChapterTwo());
 
         m_unlockedLevel = m_preferences.getInteger("unlocked_level", 1);
-        m_unlockedChapter = m_preferences.getInteger("unlocked_chapter", 1);
+        m_currentChapter = getIdOfLastUnlockedChapter();
+
     }
 
     public LevelData getLevel(int level)
@@ -49,6 +48,27 @@ public class LevelManager
         return null;
     }
 
+    private int getIdOfLastLevel()
+    {
+        return m_chapters.get( m_chapters.size() - 1 ).getIdOfLastLevelInChapter();
+    }
+
+    private int getIdOfLastUnlockedChapter()
+    {
+        int id = 1;
+
+        for(Chapter c : m_chapters)
+        {
+            if(c.hasLevel(m_unlockedLevel))
+            {
+                id = c.getChapterId();
+                break;
+            }
+        }
+
+        return id;
+    }
+
 
     public LevelData getLastUnlockedLevel()
     {
@@ -57,64 +77,35 @@ public class LevelManager
 
     public int getIdOfLastUnlockedLevel()
     {
-        return getLevel(m_unlockedLevel).m_levelId;
+        return m_unlockedLevel;
     }
 
-    public boolean isLastLevel()
+    public LevelData getNextLevel(LevelData ld)
     {
-        ArrayList<Integer> levels = m_chapters.get(m_unlockedChapter - 1).getLevelIds();
-
-        return (m_unlockedLevel) == levels.get(levels.size() - 1);
+        return getLevel(ld.m_levelId + 1);
     }
 
-    public LevelData getNextLevel()
+    public boolean isLastLevel(LevelData ld)
     {
-        if(isLastLevel())
+        return ld.m_levelId == getIdOfLastLevel();
+    }
+
+    public boolean unlockNextLevel(LevelData level, boolean wasCompleted)
+    {
+        if(level.m_levelId < m_unlockedLevel)
         {
-            if(hasNextChapter())
-            {
-                Chapter c = m_chapters.get(m_unlockedChapter);
-
-                return c.getLevel(c.getLevelIds().get(0));
-            }
+            return true;
         }
-        else
+        else if(level.m_levelId == m_unlockedLevel && wasCompleted)
         {
-            return m_chapters.get(m_unlockedChapter).getLevel(m_unlockedLevel);
-        }
-
-        return null;
-    }
-
-    public boolean unlockNextLevel(LevelData level)
-    {
-        m_preferences.flush();
-
-        // Move to next chapter
-        if(isLastLevel() && hasNextChapter())
-        {
-            m_unlockedChapter++;
-            m_preferences.putInteger("unlocked_chapter", m_unlockedChapter);
+            m_preferences.flush();
 
             m_unlockedLevel++;
             m_preferences.putInteger("unlocked_level", m_unlockedLevel);
 
             return true;
         }
-        else if((level.m_levelId == m_unlockedLevel) && !isLastLevel())
-        {
-            // Move to next level
-            m_unlockedLevel++;
-            m_preferences.putInteger("unlocked_level", m_unlockedLevel);
-
-            return true;
-        }
-        else if(isLastLevel() && !hasNextChapter())
-        {
-            return false;
-        }
-
-        return true;
+        return false;
     }
 
     public Chapter getNextChapter()
@@ -160,17 +151,6 @@ public class LevelManager
     {
         return m_currentChapter;
     }
-
-    public boolean hasNextChapter()
-    {
-        return (m_unlockedChapter) < m_chapters.size();
-    }
-
-    public ArrayList<Chapter> getChapters()
-    {
-        return m_chapters;
-    }
-
 
     public boolean levelWasCompleted(TimeHandler th, LevelData level)
     {

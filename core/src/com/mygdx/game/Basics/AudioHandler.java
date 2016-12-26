@@ -47,7 +47,7 @@ public class AudioHandler
         }
         else
         {
-            m_music.setVolume(0.5f);
+            m_music.setVolume(m_defaultVolume);
         }
     }
 

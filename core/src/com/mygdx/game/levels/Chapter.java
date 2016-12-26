@@ -62,6 +62,28 @@ public abstract class Chapter
         return tmp;
     }
 
+    boolean hasLevel(int levelId)
+    {
+        for(LevelData l : m_levels)
+        {
+            if(l.m_levelId == levelId)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    int getChapterId()
+    {
+        return m_id;
+    }
+
+    int getIdOfLastLevelInChapter()
+    {
+        return m_levels.get(m_levels.size() - 1).m_levelId;
+    }
+
 
     public ArrayList<TextureRegion> getBackgrounds()
     {

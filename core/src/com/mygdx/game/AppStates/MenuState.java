@@ -110,10 +110,8 @@ public class MenuState extends State
         {
             m_soundBtn.setChecked(true);
         }
-        else
-        {
-            m_ah.playMenuMusic();
-        }
+
+        m_ah.playMenuMusic();
 
         footer.add(m_helpBtn).width(100).height(100).padBottom(20).padRight(40);
         footer.add(m_soundBtn).width(100).height(100).padBottom(20);

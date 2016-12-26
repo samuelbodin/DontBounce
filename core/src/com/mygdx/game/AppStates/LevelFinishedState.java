@@ -94,17 +94,20 @@ public class LevelFinishedState extends State
         m_level = level;
 
         // ATM returns true for dev.
-        if(m_lm.levelWasCompleted(th, level))
+        boolean wasCompleted = m_lm.levelWasCompleted(th, level);
+
+
+        if(m_lm.unlockNextLevel(level, wasCompleted) && !m_lm.isLastLevel(level))
         {
-            // Level was completed
             m_continue.setDisabled(false);
+        }
+        else if(m_lm.isLastLevel(level))
+        {
+            Gdx.app.log("JS", "Game Complete! Now go buy DLC");
+        }
 
-
-            if(!m_lm.unlockNextLevel(level))
-            {
-                Gdx.app.log("JS", "Game Complete! Now go buy DLC");
-            }
-
+        if(wasCompleted)
+        {
             confetti();
         }
     }
@@ -132,7 +135,17 @@ public class LevelFinishedState extends State
             @Override
             public void changed(ChangeEvent event, Actor actor)
             {
-                m_sm.set(new PlayState(m_sm, m_lm.getLevel(m_level.m_levelId)));
+                LevelData ld = m_lm.getNextLevel(m_level);
+
+                if(ld != null)
+                {
+                    m_sm.set(new PlayState(m_sm, ld));
+                }
+                else
+                {
+                    Gdx.app.log("JS", "Game was completed, so I (the button) shouldn't even exist, at least not visually.");
+                }
+
             }
         });
     }
