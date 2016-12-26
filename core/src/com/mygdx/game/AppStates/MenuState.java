@@ -28,6 +28,7 @@ public class MenuState extends State
     private BitmapFont m_font = null;
     private ImageButton m_playBtn = null;
     private ImageButton m_levelBtn = null;
+    private ImageButton m_helpBtn = null;
     private ImageButton m_soundBtn = null;
     private Image m_logo = null;
     private Skin m_skin = null;
@@ -72,6 +73,9 @@ public class MenuState extends State
         levelBtnStyle.up = m_skin.getDrawable("levelselect");
         levelBtnStyle.down = m_skin.newDrawable("levelselect", m_pressTintColor);
 
+        ImageButton.ImageButtonStyle helpBtnStyle = new ImageButton.ImageButtonStyle();
+        helpBtnStyle.up = m_skin.getDrawable("help");
+        helpBtnStyle.down = m_skin.newDrawable("help", m_pressTintColor);
 
         ImageButton.ImageButtonStyle soundBtnStyle = new ImageButton.ImageButtonStyle();
         soundBtnStyle.up = m_skin.getDrawable("audioon");
@@ -79,6 +83,7 @@ public class MenuState extends State
 
         m_playBtn = new ImageButton(playBtnStyle);
         m_levelBtn = new ImageButton(levelBtnStyle);
+        m_helpBtn = new ImageButton(helpBtnStyle);
         m_soundBtn = new ImageButton(soundBtnStyle);
 
         // Add click listeners
@@ -101,7 +106,9 @@ public class MenuState extends State
         controls.add(m_playBtn).width(200).height(200).expandX().padRight(50);
         controls.add(m_levelBtn).width(200).height(200).expandX();
 
+        footer.add(m_helpBtn).width(100).height(100).padBottom(20).padRight(40);
         footer.add(m_soundBtn).width(100).height(100).padBottom(20);
+
 
         m_stage.addActor(table);
 
@@ -126,6 +133,15 @@ public class MenuState extends State
             public void changed(ChangeEvent event, Actor actor)
             {
                 m_sm.set(new LevelSelectState(m_sm));
+            }
+        });
+
+        m_helpBtn.addListener(new ChangeListener()
+        {
+            @Override
+            public void changed(ChangeEvent event, Actor actor)
+            {
+                m_sm.set(new HelpState(m_sm));
             }
         });
     }

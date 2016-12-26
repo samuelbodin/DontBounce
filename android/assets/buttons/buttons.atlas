@@ -1,7 +1,7 @@
 
 buttons.png
 format: RGBA8888
-filter: Linear,Linear
+filter: Nearest,Nearest
 repeat: none
 btn
   rotate: false
@@ -38,65 +38,72 @@ audioon
   orig: 256, 256
   offset: 0, 0
   index: -1
-home
+help
   rotate: false
   xy: 1287, 637
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
-levelselect
+home
   rotate: false
   xy: 259, 1
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
-prev
+levelselect
   rotate: false
   xy: 1545, 637
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
-prevgrey
+next
   rotate: false
   xy: 1029, 379
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
-play
+nextgrey
   rotate: false
   xy: 1287, 379
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
-playgrey
+play
   rotate: false
   xy: 1545, 379
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
-next
+playgrey
   rotate: false
   xy: 517, 1
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
-nextgrey
+prev
   rotate: false
   xy: 775, 121
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
-restart
+prevgrey
   rotate: false
   xy: 1033, 121
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+restart
+  rotate: false
+  xy: 1291, 121
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
