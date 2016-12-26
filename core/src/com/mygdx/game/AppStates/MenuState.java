@@ -106,6 +106,11 @@ public class MenuState extends State
         controls.add(m_playBtn).width(200).height(200).expandX().padRight(50);
         controls.add(m_levelBtn).width(200).height(200).expandX();
 
+        if(m_ah.isMuted())
+        {
+            m_soundBtn.setChecked(true);
+        }
+
         footer.add(m_helpBtn).width(100).height(100).padBottom(20).padRight(40);
         footer.add(m_soundBtn).width(100).height(100).padBottom(20);
 
@@ -142,6 +147,14 @@ public class MenuState extends State
             public void changed(ChangeEvent event, Actor actor)
             {
                 m_sm.set(new HelpState(m_sm));
+            }
+        });
+        m_soundBtn.addListener(new ChangeListener()
+        {
+            @Override
+            public void changed(ChangeEvent event, Actor actor)
+            {
+                m_ah.toggleMute();
             }
         });
     }

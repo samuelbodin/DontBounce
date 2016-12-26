@@ -2,6 +2,7 @@ package com.mygdx.game.AppStates;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Basics.AssetLoader;
+import com.mygdx.game.Basics.AudioHandler;
 import com.mygdx.game.Basics.Config;
 import com.mygdx.game.Basics.WorldBackground;
 
@@ -11,15 +12,15 @@ public abstract class State
     com.mygdx.game.Basics.Cam m_cam = null;
     private WorldBackground m_background;
     public Config m_config = null;
+    public AudioHandler m_ah = null;
 
     public State(StateManager sm)
     {
         m_sm = sm;
         m_cam = new com.mygdx.game.Basics.Cam();
         m_config = sm.m_config;
+        m_ah = sm.m_ah;
     }
-
-
 
     public abstract void update(float dt);
     public abstract void render(SpriteBatch sr);

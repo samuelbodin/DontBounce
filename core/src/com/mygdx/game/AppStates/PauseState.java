@@ -37,7 +37,6 @@ public class PauseState extends State
     private Table m_labelTable, m_buttonTable, m_rootTable, m_footerTable;
     private Label m_header;
     private LevelManager m_lm = null;
-    private AudioHandler m_ah;
 
     private TextureRegion m_background;
 
@@ -100,6 +99,11 @@ public class PauseState extends State
         m_buttonTable.add(m_return).size(buttonSize).pad(buttonPad);
         m_buttonTable.add(m_mainMenu).size(buttonSize).pad(buttonPad);
 
+        if(m_ah.isMuted())
+        {
+            m_soundButton.setChecked(true);
+        }
+
         m_footerTable.add(m_soundButton).size(100f);
 
         m_rootTable.add(m_labelTable);
@@ -142,7 +146,7 @@ public class PauseState extends State
             @Override
             public void changed(ChangeEvent event, Actor actor)
             {
-
+                m_ah.toggleMute();
             }
         });
     }
