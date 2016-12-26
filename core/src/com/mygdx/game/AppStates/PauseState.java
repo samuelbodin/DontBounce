@@ -20,6 +20,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.Basics.AssetLoader;
 import com.mygdx.game.Basics.AudioHandler;
+import com.mygdx.game.Basics.LevelData;
 import com.mygdx.game.levels.LevelManager;
 
 import static com.mygdx.game.Basics.AssetLoader.buttonSkin;
@@ -37,14 +38,15 @@ public class PauseState extends State
     private Label m_header;
     private LevelManager m_lm = null;
     private Label.LabelStyle m_headerSkin;
-
     private TextureRegion m_background;
+    private int m_input = -1;
+    private LevelData m_ld = null;
 
-    public PauseState(StateManager sm)
+    public PauseState(StateManager sm, LevelData ld)
     {
         super(sm);
         m_sm = sm;
-
+        m_ld = ld;
         m_lm = m_config.getLevelManager();
         m_stage = new Stage(new StretchViewport(m_config.m_worldW, m_config.m_worldH));
 
@@ -132,7 +134,7 @@ public class PauseState extends State
             @Override
             public void changed(ChangeEvent event, Actor actor)
             {
-                m_sm.pop();
+                m_input = 1;
             }
         });
         m_mainMenu.addListener(new ChangeListener()
@@ -140,7 +142,7 @@ public class PauseState extends State
             @Override
             public void changed(ChangeEvent event, Actor actor)
             {
-                m_sm.set(new MenuState(m_sm));
+                m_input = 2;
             }
         });
         m_restart.addListener(new ChangeListener()
@@ -148,7 +150,7 @@ public class PauseState extends State
             @Override
             public void changed(ChangeEvent event, Actor actor)
             {
-                m_sm.set(new PlayState(m_sm, m_lm.getLastUnlockedLevel()));
+                m_input = 0;
             }
         });
         m_soundButton.addListener(new ChangeListener()
@@ -156,15 +158,39 @@ public class PauseState extends State
             @Override
             public void changed(ChangeEvent event, Actor actor)
             {
-                m_ah.toggleMute();
+            m_input = 3;
             }
         });
+    }
+
+    private void resetInput()
+    {
+        m_input = -1;
     }
 
     @Override
     public void update(float dt)
     {
-
+        if(m_input == 0)
+        {
+            m_sm.set(new PlayState(m_sm, m_ld));
+            resetInput();
+        }
+        else if(m_input == 1)
+        {
+            m_sm.pop();
+            resetInput();
+        }
+        else if(m_input == 2)
+        {
+            m_sm.set(new MenuState(m_sm));
+            resetInput();
+        }
+        else if(m_input == 3)
+        {
+            m_ah.toggleMute();
+            resetInput();
+        }
     }
 
     @Override

@@ -118,7 +118,6 @@ public class MenuState extends State
 
 
         m_stage.addActor(table);
-
     }
 
     private void setupClickListeners()
@@ -156,7 +155,7 @@ public class MenuState extends State
             @Override
             public void changed(ChangeEvent event, Actor actor)
             {
-                m_ah.toggleMute();
+                //m_ah.toggleMute();
             }
         });
     }

@@ -206,7 +206,7 @@ public class PlayState extends State
     {
         if (Gdx.input.justTouched())
         {
-            m_sm.push(new PauseState(m_sm));
+            m_sm.push(new PauseState(m_sm, m_levelData));
         }
     }
 

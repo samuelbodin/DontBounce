@@ -21,17 +21,12 @@ public class StateManager
 
     public void set(State s)
     {
-        if(!m_states.empty())
+        while(!m_states.empty())
         {
-            //m_states.peek().dispose();
-            //m_states.clear();
-            while(!m_states.empty())
-            {
-                m_states.pop().dispose();
-            }
+            m_states.pop().dispose();
         }
-        m_states.push(s);
 
+        m_states.push(s);
     }
 
     public void push(State s)

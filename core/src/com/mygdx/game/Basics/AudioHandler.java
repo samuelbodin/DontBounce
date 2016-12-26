@@ -19,9 +19,11 @@ public class AudioHandler
     private Sound[] m_bounceSounds = null;
     private boolean m_isMuted = false;
     private float m_defaultVolume = 0.5f;
+    private int m_iterator = 0;
     public AudioHandler(boolean isMuted)
     {
         m_isMuted = isMuted;
+
         m_music = AssetLoader.m_musicMenu;
         setupMusic();
 
@@ -97,6 +99,13 @@ public class AudioHandler
 
     public void toggleMute()
     {
+        if(m_iterator == 1)
+        {
+            m_music = null;
+        }
+
+        m_iterator ++;
+
         m_isMuted = ! m_isMuted;
 
         if(m_isMuted)
