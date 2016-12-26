@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.Basics.AssetLoader;
 import com.mygdx.game.Basics.AudioHandler;
 import com.mygdx.game.Basics.Drawable;
 import com.mygdx.game.Basics.InputHandler;
@@ -94,7 +95,7 @@ abstract class BallState extends Drawable
         {
             if(Math.abs(m_ball.getVelocity().y) > Math.abs(m_ball.getGravity())*20)
             {
-                m_ball.collisionEffect(new Vector2(pos.x - m_ball.getRadius() * 2, pos.y), side, "splash", 10);
+                m_ball.collisionEffect(new Vector2(pos.x - m_ball.getRadius() * 2, pos.y), side, AssetLoader.m_splashAnimation, 10);
             }
             m_ball.collisionSound(side);
         }

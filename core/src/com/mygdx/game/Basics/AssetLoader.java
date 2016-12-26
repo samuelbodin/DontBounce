@@ -5,6 +5,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -20,6 +21,7 @@ public class AssetLoader
     private static TextureAtlas m_levelBackgrounds = null;
     private static TextureAtlas m_level2Backgrounds = null;
     private static TextureAtlas m_menuBackgrounds = null;
+    private static TextureAtlas m_AnimationAtlas = null;
 
     //Skins
     public static Skin buttonSkin = null;
@@ -39,6 +41,12 @@ public class AssetLoader
     public static TextureRegion flatbwbody = null;
     public static TextureRegion flatbwleft = null;
     public static TextureRegion flatbwright = null;
+
+    // Animation
+    public static Animation m_splashAnimation = null;
+    public static Animation m_powerUpAnimation = null;
+    public static Array<TextureAtlas.AtlasRegion> m_splashRegion = null;
+    public static Array<TextureAtlas.AtlasRegion> m_powerUpRegion = null;
 
     //levelBackgrounds
     public static TextureRegion flatbg01 = null;
@@ -113,6 +121,12 @@ public class AssetLoader
         flatbwleft = m_gameObjects.findRegion("flatbwleft");
         flatbwright = m_gameObjects.findRegion("flatbwright");
 
+        m_AnimationAtlas = new TextureAtlas(Gdx.files.internal("gameObjects/collisioneffects.pack"));
+        m_splashRegion = m_AnimationAtlas.findRegions("splash");
+        m_powerUpRegion = m_AnimationAtlas.findRegions("powerup");
+        m_splashAnimation = new Animation(0.05f, m_splashRegion);
+        m_powerUpAnimation = new Animation(0.05f, m_powerUpRegion);
+
         //levelBackgrounds
         flatbg01 = m_levelBackgrounds.findRegion("flatbg01");
         flatbg02 = m_levelBackgrounds.findRegion("flatbg02");
@@ -137,5 +151,16 @@ public class AssetLoader
         m_gameObjects.dispose();
         m_levelBackgrounds.dispose();
         m_menuBackgrounds.dispose();
+
+        m_musicMenu.dispose();
+        m_musicChapterOne.dispose();
+        m_musicChapterTwo.dispose();
+
+        for(Sound s : m_bounceSounds)
+        {
+            s.dispose();
+        }
+
+        m_powerUp.dispose();
     }
 }
