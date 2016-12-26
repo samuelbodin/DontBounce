@@ -53,7 +53,7 @@ public class Cam extends OrthographicCamera
     }
     public boolean isOnScreen(Vector2 pos)
     {
-        return !(pos.y < m_bPos.y - m_worldH || pos.y > m_bPos.y + m_worldH);
+        return !(pos.y < m_bPos.y - m_worldH*4/5 || pos.y > m_bPos.y + m_worldH/4);
     }
 }
 

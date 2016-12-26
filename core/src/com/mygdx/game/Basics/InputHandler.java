@@ -22,7 +22,10 @@ public class InputHandler
     // 0: no smooth, 1-1.5: normal
     private float smoothFactor = 1.5f;
     // 0: no smooth, 5-10: normal
-    private int smoothSize = 8;
+    private int smoothSize = 3;
+
+    private float m_interval =  5/60;
+    private float m_timer = 0;
 
     public InputHandler()
     {
@@ -111,11 +114,19 @@ public class InputHandler
 
     public void update(float dt)
     {
-        handlePlatform();
+        if(m_timer > m_interval)
+        {
+            m_timer = 0;
+            handlePlatform();
 
-        m_moveValue =(m_prevDeltaMove+m_currentDeltaMove)/2;
-        m_moveValue = m_moveValue * 320 * dt * m_moveFactor;
-        m_prevDeltaMove = m_currentDeltaMove;
+            m_moveValue = (m_prevDeltaMove + m_currentDeltaMove) / 2;
+            m_moveValue = m_moveValue * 320 * dt * m_moveFactor;
+            m_prevDeltaMove = m_currentDeltaMove;
+        }
+        else
+        {
+            m_timer += dt;
+        }
     }
 
 }

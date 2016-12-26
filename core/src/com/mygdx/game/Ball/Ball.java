@@ -372,7 +372,6 @@ public class Ball
 
     public void collisionEffect(Vector2 collisionPosition, int side, String name, int spriteMove)
     {
-        Gdx.app.log("RL", "Ball doing effect");
         m_collisionEffect.setAnimation(name);
         m_collisionEffect.startEffect(collisionPosition, side, spriteMove);
     }
