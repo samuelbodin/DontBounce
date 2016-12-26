@@ -16,9 +16,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.mygdx.game.Basics.AssetLoader;
+import com.mygdx.game.Basics.AudioHandler;
 import com.mygdx.game.levels.LevelManager;
+
+import static com.mygdx.game.Basics.AssetLoader.buttonSkin;
 
 
 public class PauseState extends State
@@ -28,10 +32,12 @@ public class PauseState extends State
     private TextureAtlas m_icons;
     private Skin m_skin;
     private BitmapFont m_font;
-    private ImageButton m_return, m_restart, m_mainMenu;
-    private Table m_labelTable, m_buttonTable, m_rootTable;
+    private ImageButton m_return, m_restart, m_mainMenu, m_soundButton;
+    private ImageButton.ImageButtonStyle soundButtonStyle;
+    private Table m_labelTable, m_buttonTable, m_rootTable, m_footerTable;
     private Label m_header;
     private LevelManager m_lm = null;
+    private AudioHandler m_ah;
 
     private TextureRegion m_background;
 
@@ -48,7 +54,7 @@ public class PauseState extends State
         //Assets
         m_font = AssetLoader.slackeyfont;
         m_background = AssetLoader.black;
-        m_skin = AssetLoader.buttonSkin;
+        m_skin = buttonSkin;
 
         //Create stage
         m_stage = new Stage(new StretchViewport(m_config.m_worldW, m_config.m_worldH));
@@ -57,15 +63,22 @@ public class PauseState extends State
         m_labelTable = new Table();
         m_rootTable = new Table();
         m_buttonTable = new Table();
+        m_footerTable = new Table();
 
         //Labels
         m_headerSkin = new Label.LabelStyle(m_font, Color.WHITE);
         m_header = new Label("PAUSED", m_headerSkin);
 
+        //Styles
+        soundButtonStyle = new ImageButton.ImageButtonStyle();
+        soundButtonStyle.up = buttonSkin.getDrawable("audioon");
+        soundButtonStyle.checked = buttonSkin.getDrawable("audiooff");
+
         //Buttons
         m_return = new ImageButton(m_skin.getDrawable("play"));
         m_restart = new ImageButton(m_skin.getDrawable("restart"));
         m_mainMenu = new ImageButton(m_skin.getDrawable("home"));
+        m_soundButton = new ImageButton(soundButtonStyle);
 
         fillStage();
         setupClickListeners();
@@ -77,6 +90,7 @@ public class PauseState extends State
         float buttonSize = 150f;
         float buttonPad = 10f;
         m_rootTable.setFillParent(true);
+        m_rootTable.padTop(400);
 
         m_header.setFontScale(0.7f);
 
@@ -86,9 +100,13 @@ public class PauseState extends State
         m_buttonTable.add(m_return).size(buttonSize).pad(buttonPad);
         m_buttonTable.add(m_mainMenu).size(buttonSize).pad(buttonPad);
 
+        m_footerTable.add(m_soundButton).size(100f);
+
         m_rootTable.add(m_labelTable);
         m_rootTable.row();
         m_rootTable.add(m_buttonTable);
+        m_rootTable.row();
+        m_rootTable.add(m_footerTable).expandY().align(Align.bottomRight).padBottom(20f);
 
         m_stage.addActor(m_rootTable);
     }
@@ -117,6 +135,14 @@ public class PauseState extends State
             public void changed(ChangeEvent event, Actor actor)
             {
                 m_sm.set(new PlayState(m_sm, m_lm.getLastUnlockedLevel()));
+            }
+        });
+        m_soundButton.addListener(new ChangeListener()
+        {
+            @Override
+            public void changed(ChangeEvent event, Actor actor)
+            {
+
             }
         });
     }

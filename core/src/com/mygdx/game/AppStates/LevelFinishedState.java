@@ -30,8 +30,8 @@ public class LevelFinishedState extends State
     private StateManager m_sm;
     private TimeHandler m_timeHandler;
     private Stage m_stage;
-    private Table m_rootTable, m_buttonTable, m_labelTable, m_footerTable;
-    private ImageButton m_continue, m_restart, m_mainMenu, m_soundButton;
+    private Table m_rootTable, m_buttonTable, m_labelTable;
+    private ImageButton m_continue, m_restart, m_mainMenu;
     private Label m_finishTimeLabel, m_headerLabel;
     private TextureRegion m_background;
     private LevelManager m_lm = null;
@@ -67,13 +67,8 @@ public class LevelFinishedState extends State
         m_rootTable = new Table();
         m_buttonTable = new Table();
         m_labelTable = new Table();
-        m_footerTable = new Table();
 
         //Styles
-        soundButtonStyle = new ImageButton.ImageButtonStyle();
-        soundButtonStyle.up = buttonSkin.getDrawable("audioon");
-        soundButtonStyle.checked = buttonSkin.getDrawable("audiooff");
-
         continueButtonStyle = new ImageButton.ImageButtonStyle();
         continueButtonStyle.up = buttonSkin.getDrawable("next");
         continueButtonStyle.disabled = buttonSkin.getDrawable("nextgrey");
@@ -82,7 +77,6 @@ public class LevelFinishedState extends State
         m_continue = new ImageButton(continueButtonStyle);
         m_restart = new ImageButton(buttonSkin.getDrawable("restart"));
         m_mainMenu = new ImageButton(buttonSkin.getDrawable("home"));
-        m_soundButton = new ImageButton(soundButtonStyle);
 
         //Fonts
         font = AssetLoader.slackeyfont;
@@ -91,12 +85,7 @@ public class LevelFinishedState extends State
         //Labels
         m_headerLabel = new Label("LEVEL COMPLETE", fontStyle);
         m_finishTimeLabel = new Label("", fontStyle);
-
-        //Add more conditions: "Didn't finish level", "!Already finished level"
-        if (m_lm.getNextLevel() == null)
-        {
-        }
-
+        
         fillStage();
         setupClickListeners();
 
@@ -152,14 +141,6 @@ public class LevelFinishedState extends State
                 m_sm.set(new PlayState(m_sm, m_lm.getLevel(m_level.m_levelId)));
             }
         });
-        m_soundButton.addListener(new ChangeListener()
-        {
-            @Override
-            public void changed(ChangeEvent event, Actor actor)
-            {
-                //Toggle sound on/off
-            }
-        });
     }
 
     private void fillStage()
@@ -168,7 +149,6 @@ public class LevelFinishedState extends State
         float btnPad = 10f;
 
         m_rootTable.setFillParent(true);
-        m_rootTable.padTop(400);
 
         m_headerLabel.setFontScale(0.7f);
         m_finishTimeLabel.setFontScale(0.6f);
@@ -181,13 +161,9 @@ public class LevelFinishedState extends State
         m_buttonTable.add(m_mainMenu).size(btnSize).pad(btnPad);
         m_buttonTable.add(m_continue).size(btnSize).pad(btnPad);
 
-        m_footerTable.add(m_soundButton).size(100f);
-
         m_rootTable.add(m_labelTable);
         m_rootTable.row();
         m_rootTable.add(m_buttonTable);
-        m_rootTable.row();
-        m_rootTable.add(m_footerTable).expandY().align(Align.bottomRight).padBottom(20f);
 
         m_stage.addActor(m_rootTable);
     }
