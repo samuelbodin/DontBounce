@@ -1,25 +1,12 @@
 package com.mygdx.game.Ball;
 
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Basics.AssetLoader;
 
-import java.util.Random;
-
-/**
- * Created by Rickard on 2016-12-19.
- */
-
 public class BallStateUltraRapid extends BallState
 {
-    float m_timer;
-
-    public BallStateUltraRapid()
-    {
-
-    }
+    private float m_timer = 0f;
 
     public BallStateUltraRapid(Ball b)
     {
@@ -89,15 +76,7 @@ public class BallStateUltraRapid extends BallState
     @Override
     protected void playBounceSound(float velY)
     {
-    }
 
-    @Override
-    public String toString()
-    {
-        String str = super.toString();
-
-
-        return str;
     }
 
     @Override
