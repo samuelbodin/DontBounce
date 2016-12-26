@@ -41,7 +41,7 @@ public class BallStateSuperSpeed extends BallState
         m_particles.setFade(0.2f, 0.01f);
         m_defaultGravityModifier = 2.5f;
         m_gravityModifier = 2.5f;
-        m_onCollisionGravityModifier = 0.75f;
+        m_onCollisionGravityModifier = 2.75f;
     }
 
     @Override

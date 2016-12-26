@@ -31,7 +31,7 @@ public class BallStatePassThrough extends BallState
         setupSprite();
         m_timer = 4f;
         m_defaultGravityModifier = 1f;
-        m_gravityModifier = 1f;
+        m_gravityModifier = 1.5f;
         m_onCollisionGravityModifier = 1f;
     }
 
