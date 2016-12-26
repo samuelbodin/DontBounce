@@ -81,6 +81,7 @@ public class App extends ApplicationAdapter
 	{
 		super.dispose();
 		AssetLoader.dispose();
+		m_sb.dispose();
 		Gdx.app.log("RL", "App disposar");
 
 		// Profiling stuff

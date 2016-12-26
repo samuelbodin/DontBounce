@@ -16,17 +16,19 @@ public class CollisionEffect extends Drawable
 {
     boolean m_isCracked = false;
     Vector2 m_Pos = null;
-    TextureAtlas m_atlas = null;
+    //TextureAtlas m_atlas = null;
     Animation m_animation;
-    Array<TextureAtlas.AtlasRegion> m_region;
+    //Array<TextureAtlas.AtlasRegion> m_region;
     float m_elapsedTime = 0;
     int m_spriteMove = 0;
 
+
     public CollisionEffect()
     {
-        m_atlas = new TextureAtlas(Gdx.files.internal("gameObjects/collisioneffects.pack"));
-        m_region = m_atlas.findRegions("splash");
-        m_animation = new Animation(0.05f, m_region);
+        //m_atlas = new TextureAtlas(Gdx.files.internal("gameObjects/collisioneffects.pack"));
+        //m_region = m_atlas.findRegions("splash");
+        //m_animation = new Animation(0.05f, m_region);
+        m_animation = AssetLoader.m_splashAnimation;
     }
 
     @Override
@@ -73,18 +75,23 @@ public class CollisionEffect extends Drawable
 
     }
 
-    public void setAnimation(String name)
+    /*public void setAnimation(String name)
+{
+    if(m_atlas.findRegions(name) != null)
     {
-        if(m_atlas.findRegions(name) != null)
-        {
-            m_region = m_atlas.findRegions(name);
-            m_animation = new Animation(0.05f, m_region);
-        }
+        m_region = m_atlas.findRegions(name);
+        m_animation = new Animation(0.05f, m_region);
+    }
+}*/
+
+    public void setAnimation(Animation animation)
+    {
+        m_animation = animation;
     }
 
     @Override
     public void dispose()
     {
-        m_atlas.dispose();
+        //m_atlas.dispose();
     }
 }

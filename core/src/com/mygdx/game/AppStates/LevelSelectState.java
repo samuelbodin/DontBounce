@@ -241,6 +241,7 @@ public class LevelSelectState extends State
     public void dispose()
     {
         m_background.dispose();
+        m_stage.dispose();
     }
 
     @Override

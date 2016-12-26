@@ -26,8 +26,8 @@ public class BallStateNormal extends BallState
         super(b);
         setupSprite();
         m_defaultGravityModifier = 1f;
-        m_gravityModifier = 1f;
-        m_onCollisionGravityModifier = 1f;
+        m_gravityModifier = 1.5f;
+        m_onCollisionGravityModifier = 2.75f;
     }
 
     @Override

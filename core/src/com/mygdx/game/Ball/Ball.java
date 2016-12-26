@@ -1,6 +1,7 @@
 package com.mygdx.game.Ball;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
@@ -147,7 +148,7 @@ public class Ball
         m_state.setAudioHandler(m_ah);
         m_state.setSpriteSize(m_radius*2,m_radius*2);
         m_state.updateSprite(m_position.x, m_position.y);
-        collisionEffect(getPosition(), 0, "powerup", 450);
+        collisionEffect(getPosition(), 0, AssetLoader.m_powerUpAnimation, 450);
         //m_state.updateSprite(m_position.x-m_radius, m_position.y-m_radius);
     }
 
@@ -277,7 +278,7 @@ public class Ball
         {
             if(Math.abs(getVelocity().y) > Math.abs(getGravity())*20)
             {
-                collisionEffect(new Vector2(pos.x - m_radius * 2, pos.y), side, "splash", 0);
+                collisionEffect(new Vector2(pos.x - m_radius * 2, pos.y), side, AssetLoader.m_splashAnimation, 0);
             }
             collisionSound(side);
         }
@@ -364,13 +365,13 @@ public class Ball
         m_dtModifier = 1f;
     }
 
-    public void collisionEffect(Vector2 collisionPosition, int side, String name)
+    public void collisionEffect(Vector2 collisionPosition, int side, Animation name)
     {
         m_collisionEffect.setAnimation(name);
         m_collisionEffect.startEffect(collisionPosition, side);
     }
 
-    public void collisionEffect(Vector2 collisionPosition, int side, String name, int spriteMove)
+    public void collisionEffect(Vector2 collisionPosition, int side, Animation name, int spriteMove)
     {
         m_collisionEffect.setAnimation(name);
         m_collisionEffect.startEffect(collisionPosition, side, spriteMove);
