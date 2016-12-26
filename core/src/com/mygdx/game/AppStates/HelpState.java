@@ -60,7 +60,7 @@ public class HelpState extends State
 
         // Heading & Font
         m_font = AssetLoader.slackeyfont;
-        Label.LabelStyle m_labelStyle = new Label.LabelStyle(m_font, new Color(1,0.65f,0,0.8f));
+        Label.LabelStyle m_labelStyle = new Label.LabelStyle(m_font, new Color(1,1,1,0.8f));
 
         // Images
         m_puSuperSpeed = new Image(AssetLoader.speedup);
@@ -95,7 +95,7 @@ public class HelpState extends State
         table.row();
 
         // Game info
-        Label pugilabel = new Label("Go from start to finish before the times is out. Sounds easy? It is, if you Don't Bounce!", m_labelStyle);
+        Label pugilabel = new Label("Fall to the finish line before the time is up. Sounds easy? It is, if you Don't Bounce!", m_labelStyle);
         pugilabel.setWrap(true);
         pugilabel.setWidth(m_config.m_worldW);
         pugilabel.setFontScale(0.3f);
@@ -190,7 +190,7 @@ public class HelpState extends State
     @Override
     public void dispose()
     {
-
+        m_stage.dispose();
     }
 
     @Override

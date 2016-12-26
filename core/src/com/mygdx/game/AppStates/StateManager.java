@@ -25,7 +25,10 @@ public class StateManager
         {
             //m_states.peek().dispose();
             //m_states.clear();
-            m_states.pop().dispose();
+            while(!m_states.empty())
+            {
+                m_states.pop().dispose();
+            }
         }
         m_states.push(s);
 

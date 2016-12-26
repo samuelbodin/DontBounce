@@ -144,7 +144,6 @@ public class WorldBackground extends Drawable
             s.getTexture().dispose();
         }
 
-        m_texture.dispose();
 
     }
 }

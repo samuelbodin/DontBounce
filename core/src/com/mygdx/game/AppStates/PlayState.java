@@ -109,6 +109,8 @@ public class PlayState extends State
     @Override
     public void update(float dt)
     {
+        // Profiling stuff
+        //Gdx.app.log("PROFILING", "Delta Time: " + dt);
 
         if(m_fadeTimer > 0 && m_blackScreen != null)
         {
@@ -210,9 +212,13 @@ public class PlayState extends State
     @Override
     public void dispose()
     {
-        m_background.dispose();
         m_goal.dispose();
         m_ball.dispose();
+
+        for(Collidable c : m_collidables)
+        {
+            c.dispose();
+        }
 
         Gdx.app.log("RL", "PlayState disposar");
     }

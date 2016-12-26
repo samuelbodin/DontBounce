@@ -180,6 +180,7 @@ public class MenuState extends State
     {
 
         m_background.dispose();
+        m_stage.dispose();
     }
 
 
