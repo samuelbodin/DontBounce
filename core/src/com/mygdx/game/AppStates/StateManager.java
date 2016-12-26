@@ -23,7 +23,7 @@ public class StateManager
     {
         while(!m_states.empty())
         {
-            m_states.pop().dispose();
+            m_states.pop();
         }
 
         m_states.push(s);
@@ -38,7 +38,7 @@ public class StateManager
     {
         //Gdx.app.log("RL", m_states.peek().toString());
         //m_states.peek().dispose();
-        m_states.pop().dispose();
+        m_states.pop();
     }
 
     public State peek()

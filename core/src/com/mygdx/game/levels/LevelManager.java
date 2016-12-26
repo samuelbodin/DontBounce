@@ -30,17 +30,17 @@ public class LevelManager
 
     }
 
-    public LevelData getLevel(int level)
+    public LevelData getLevel(int levelId)
     {
         for (int i = 0; i < m_chapters.size(); i++)
         {
             Chapter chapter = m_chapters.get(i);
 
-            for(Integer j : chapter.getLevelIds())
+            for(Integer id : chapter.getLevelIds())
             {
-                if(j == level)
+                if(id.intValue() == levelId)
                 {
-                    return chapter.getLevel(level);
+                    return chapter.getLevel(levelId);
                 }
             }
         }

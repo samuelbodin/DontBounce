@@ -114,7 +114,7 @@ public class LevelFinishedState extends State
 
     private void setupClickListeners()
     {
-        m_continue.addListener(new ChangeListener()
+        m_restart.addListener(new ChangeListener()
         {
             @Override
             public void changed(ChangeEvent event, Actor actor)
@@ -130,7 +130,7 @@ public class LevelFinishedState extends State
                 m_sm.set(new MenuState(m_sm));
             }
         });
-        m_restart.addListener(new ChangeListener()
+        m_continue.addListener(new ChangeListener()
         {
             @Override
             public void changed(ChangeEvent event, Actor actor)
@@ -145,7 +145,6 @@ public class LevelFinishedState extends State
                 {
                     Gdx.app.log("JS", "Game was completed, so I (the button) shouldn't even exist, at least not visually.");
                 }
-
             }
         });
     }

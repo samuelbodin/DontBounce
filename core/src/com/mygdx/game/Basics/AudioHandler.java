@@ -27,7 +27,7 @@ public class AudioHandler
     public AudioHandler(boolean isMuted)
     {
         m_isMuted = isMuted;
-        
+
         m_music = AssetLoader.m_musicMenu;
         m_lastPlayed = "play";
         setupMusic();
