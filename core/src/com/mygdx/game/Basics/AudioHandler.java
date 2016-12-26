@@ -99,13 +99,6 @@ public class AudioHandler
 
     public void toggleMute()
     {
-        if(m_iterator == 1)
-        {
-            m_music = null;
-        }
-
-        m_iterator ++;
-
         m_isMuted = ! m_isMuted;
 
         if(m_isMuted)
