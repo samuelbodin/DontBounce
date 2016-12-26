@@ -22,12 +22,16 @@ public class AudioHandler
     private boolean m_isMuted = false;
     private float m_defaultVolume = 0.5f;
     private int m_iterator = 0;
+    private String m_lastPlayed = null;
+
     public AudioHandler(boolean isMuted)
     {
         m_isMuted = isMuted;
-
+        
         m_music = AssetLoader.m_musicMenu;
+        m_lastPlayed = "play";
         setupMusic();
+        playMenuMusic();
 
         m_bounceSounds = AssetLoader.m_bounceSounds;
         m_powerUpSound = AssetLoader.m_powerUp;
@@ -35,6 +39,14 @@ public class AudioHandler
 
     public void playMenuMusic()
     {
+        if(m_lastPlayed.equals("menu"))
+        {
+            return;
+        }
+        else
+        {
+            m_lastPlayed = "menu";
+        }
         stopMusic();
         m_music = AssetLoader.m_musicMenu;
         setupMusic();
@@ -65,6 +77,16 @@ public class AudioHandler
 
     public void playPlayStateMusic(int chapter)
     {
+        if(m_lastPlayed.equals("play"))
+        {
+            return;
+        }
+        else
+        {
+            m_lastPlayed = "play";
+        }
+
+
         stopMusic();
         if(chapter == 1)
         {
