@@ -1,29 +1,14 @@
 package com.mygdx.game.Ball;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Basics.AssetLoader;
-import com.mygdx.game.Basics.AudioHandler;
-
-import java.util.Random;
-
-/**
- * Created by Rickard on 2016-12-19.
- */
 
 public class BallStatePassThrough extends BallState
 {
 
-    float m_timer = 0f;
-    float m_soundPlayed = 0f;
-
-    public BallStatePassThrough()
-    {
-    }
+    private float m_timer = 0f;
 
     public BallStatePassThrough(Ball b)
     {
@@ -82,8 +67,6 @@ public class BallStatePassThrough extends BallState
         {
             m_ball.resetState();
         }
-
-        m_soundPlayed += dt;
     }
 
     @Override
@@ -101,15 +84,6 @@ public class BallStatePassThrough extends BallState
     public void onCollision(Vector2 pos, int side)
     {
         playBounceSound(m_ball.getVelocity().y);
-    }
-
-    @Override
-    public String toString()
-    {
-        String str = super.toString();
-
-
-        return str;
     }
 
     @Override
