@@ -84,7 +84,6 @@ public class AssetLoader
 
     public static void Load()
     {
-        Gdx.app.log("PW", "AssLoad Load");
         TextureAtlas m_buttonElements;
 
         m_buttonElements = new TextureAtlas("buttons/buttons.atlas");
@@ -102,7 +101,6 @@ public class AssetLoader
 
 
         white = new Color(1, 1, 1, 0.8f);
-
 
         loadTextures();
     }
