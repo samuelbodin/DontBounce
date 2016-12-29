@@ -174,7 +174,7 @@ public class LevelGenerator
         // Get next Simplex Noise value
         m_obstacleX = Math.abs((float) m_noise.noise(1, i*0.1)) % 1f;
 
-        m_obstacleY = m_obstacleX;
+        m_obstacleY = Math.abs((float) m_noise.noise(100, i*0.1)) % 1f;
         if (m_obstacleY < 0.2f)
         {
             //m_obstacleY = 0.2f;
