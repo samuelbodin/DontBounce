@@ -108,3 +108,10 @@ restart
   orig: 256, 256
   offset: 0, 0
   index: -1
+tiltphone
+  rotate: false
+  xy: 1549, 139
+  size: 256, 238
+  orig: 256, 238
+  offset: 0, 0
+  index: -1

@@ -213,12 +213,12 @@ public class PlayState extends State
     @Override
     public void dispose()
     {
-        m_goal.dispose();
-        m_ball.dispose();
+        //m_goal.dispose();
+        //m_ball.dispose();
 
         for(Collidable c : m_collidables)
         {
-            c.dispose();
+            //c.dispose();
         }
 
         Gdx.app.log("RL", "PlayState disposar");

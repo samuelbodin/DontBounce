@@ -32,7 +32,8 @@ public class HelpState extends State
     private ImageButton m_homeBtn = null;
     private Image m_puSuperSpeed = null;
     private Image m_puPassThrough = null;
-    private Image m_puUltraRapid = null;;
+    private Image m_puUltraRapid = null;
+    private Image m_tiltPhone = null;
     private Skin m_skin = null;
     private Stage m_stage = null;
     private StateManager m_sm = null;
@@ -66,7 +67,7 @@ public class HelpState extends State
         m_puSuperSpeed = new Image(AssetLoader.speedup);
         m_puPassThrough = new Image(AssetLoader.passthrough);
         m_puUltraRapid = new Image(AssetLoader.ultrarapid);
-
+        m_tiltPhone = new Image(AssetLoader.buttonSkin.getDrawable("tiltphone"));
 
         Color m_pressTintColor = new Color(0.7f, 0.7f, 0.7f, 1f);
         // Buttons
@@ -90,7 +91,7 @@ public class HelpState extends State
         pugihlabel.setWrap(true);
         pugihlabel.setWidth(m_config.m_worldW);
         pugihlabel.setFontScale(0.4f);
-        table.add(pugihlabel).colspan(2).center().left().expandX().fill().padRight(20).padLeft(20).padBottom(10).padTop(30);
+        table.add(pugihlabel).colspan(2).center().left().expandX().fill().padRight(10).padLeft(10).padBottom(10).padTop(30);
 
         table.row();
 
@@ -99,7 +100,7 @@ public class HelpState extends State
         pugilabel.setWrap(true);
         pugilabel.setWidth(m_config.m_worldW);
         pugilabel.setFontScale(0.3f);
-        table.add(pugilabel).colspan(2).center().left().expandX().fill().padRight(20).padLeft(20).padBottom(20);
+        table.add(pugilabel).colspan(2).center().left().expandX().fill().padRight(10).padLeft(10).padBottom(20);
 
         table.row();
 
@@ -108,39 +109,62 @@ public class HelpState extends State
         pupulabel.setWrap(true);
         pupulabel.setWidth(m_config.m_worldW);
         pupulabel.setFontScale(0.4f);
-        table.add(pupulabel).colspan(2).center().left().expandX().fill().padRight(20).padLeft(20).padBottom(10);
+        table.add(pupulabel).colspan(2).center().left().expandX().fill().padRight(10).padLeft(10).padBottom(10);
 
         table.row();
 
         // Super Speed
-        table.add(m_puSuperSpeed).width(64).height(64).center().padLeft(20);
-        Label pusslabel = new Label("Super Speed Power Up. You'll go really fast, be aware!", m_labelStyle);
+        table.add(m_puSuperSpeed).width(64).height(64).center().padLeft(10);
+        Label pusslabel = new Label("Super Speed - You'll go really fast, be aware!", m_labelStyle);
         pusslabel.setWrap(true);
-        pusslabel.setWidth(m_config.m_worldW-100);
+        //pusslabel.setWidth(m_config.m_worldW-100);
         pusslabel.setFontScale(0.3f);
-        table.add(pusslabel).center().left().expandX().fill().padRight(20).padLeft(20).padBottom(10);
+        pusslabel.pack();
+        table.add(pusslabel).center().left().expandX().fill().padRight(10).padLeft(10).padBottom(10);
 
         table.row();
 
         // Pass Through
-        table.add(m_puPassThrough).width(64).height(64).center().padLeft(20);
-        Label puptlabel = new Label("Pass Through Power Up. No more bounce with this one!", m_labelStyle);
+        table.add(m_puPassThrough).width(64).height(64).center().padLeft(10);
+        Label puptlabel = new Label("Pass Through - No more bounce with this one!", m_labelStyle);
         puptlabel.setWrap(true);
-        puptlabel.setWidth(m_config.m_worldW-100);
+        //puptlabel.setWidth(m_config.m_worldW-100);
         puptlabel.setFontScale(0.3f);
-        table.add(puptlabel).center().left().expandX().fill().padRight(20).padLeft(20).padBottom(10) ;
+        puptlabel.pack();
+        table.add(puptlabel).center().left().expandX().fill().padRight(10).padLeft(10).padBottom(10);
 
         table.row();
 
         // Ultra Rapid
-        table.add(m_puUltraRapid).width(64).height(64).center().padLeft(20);
-        Label puurlabel = new Label("Ultra Rapid Power Up. Slows down everything but you!", m_labelStyle);
+        table.add(m_puUltraRapid).width(64).height(64).center().padLeft(10);
+        Label puurlabel = new Label("Ultra Rapid - Slows everything down but you!", m_labelStyle);
         puurlabel.setWrap(true);
-        puurlabel.setWidth(m_config.m_worldW-100);
+        //puurlabel.setWidth(m_config.m_worldW-100);
         puurlabel.setFontScale(0.3f);
-        table.add(puurlabel).center().left().expandX().fill().padRight(20).padLeft(20);
+        table.add(puurlabel).center().left().expandX().fill().padRight(10).padLeft(10);
 
         table.row();
+
+
+        // Controls info
+        Label cilabel = new Label("Controls", m_labelStyle);
+        cilabel.setWrap(true);
+        cilabel.setWidth(m_config.m_worldW);
+        cilabel.setFontScale(0.4f);
+        table.add(cilabel).colspan(2).center().left().expandX().fill().padRight(10).padLeft(10).padBottom(10).height(100);
+
+        table.row();
+
+        // Tilt
+        table.add(m_tiltPhone).width(64).height(64).center().padLeft(10);
+        Label citplabel = new Label("Tilt the phone to avoid the platforms.", m_labelStyle);
+        citplabel.setWrap(true);
+        citplabel.setWidth(m_config.m_worldW-100);
+        citplabel.setFontScale(0.3f);
+        table.add(citplabel).center().left().expandX().fill().padRight(20).padLeft(20);
+
+        table.row();
+
         table.add(footer).expandY().bottom().left();
 
         footer.add(m_homeBtn).width(100).height(100).padBottom(20).padLeft(40);
