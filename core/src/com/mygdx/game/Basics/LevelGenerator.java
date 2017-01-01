@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Obstacles.LevelGoal;
+import com.mygdx.game.Obstacles.MovingObstacle;
 import com.mygdx.game.Obstacles.PowerUpSuperSpeed;
 import com.mygdx.game.Obstacles.PowerUpUltraRapid;
 import com.mygdx.game.Obstacles.PowerUpPassThrough;

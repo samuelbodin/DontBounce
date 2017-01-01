@@ -155,6 +155,11 @@ public abstract class Obstacle extends Collidable
         return false;
     }
 
+    protected void setPosition(Vector2 position)
+    {
+        m_position = position;
+    }
+
     @Override
     public String toString()
     {

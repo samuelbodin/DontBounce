@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Basics.AssetLoader;
+import com.mygdx.game.Basics.Config;
 import com.mygdx.game.Basics.Drawable;
 
 /**
@@ -53,6 +54,20 @@ public class ObstacleBuilder extends Drawable
     public void update(float dt)
     {
 
+    }
+
+    public void update(float dt, float deltaX)
+    {
+        update(dt);
+        m_posX += deltaX;
+        m_start.setPosition(m_posX, m_posY);
+        m_body.setPosition(m_start.getX() + m_start.getWidth(), m_posY);
+        m_end.setPosition(m_body.getX() + m_body.getWidth(), m_posY);
+    }
+
+    public Vector2 getPosition()
+    {
+        return new Vector2(m_posX, m_posY);
     }
 
     @Override
