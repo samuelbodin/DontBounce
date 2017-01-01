@@ -30,6 +30,8 @@ public class LevelData {
     public float m_obstacleSnapMargin;
     public Color m_tint;
     public boolean m_hasHoles = false;
+    public int m_holeProbability = 0;
+    public int m_moveProbability = 0;
     public int[] m_numOfPowerUp;
 
     public LevelData(
@@ -41,10 +43,10 @@ public class LevelData {
         int obstacleSeparationFactor,
         float obstacleMinSpacingFactor,
         float obstacleSnapMargin,
-        boolean hasHoles,
         float ballGravity,
         float ballMaxSpeed,
-        float ballSensitivity
+        float ballSensitivity,
+        int[] numOfPowerUp
     )
     {
         m_levelId = levelId;
@@ -55,17 +57,12 @@ public class LevelData {
         m_obstacleSeparationFactor = obstacleSeparationFactor;
         m_obstacleMinSpacingFactor = obstacleMinSpacingFactor;
         m_obstacleSnapMargin = obstacleSnapMargin;
-        m_hasHoles = hasHoles;
+        m_hasHoles = false;
         m_ballGravity = ballGravity;
         m_ballMaxSpeed = ballMaxSpeed;
         m_ballSensitivity = ballSensitivity;
 
-        m_numOfPowerUp = new int[4];
-        m_numOfPowerUp[0] = 2;
-        m_numOfPowerUp[1] = 2;
-        m_numOfPowerUp[2] = 2;
-        m_numOfPowerUp[3] = 2;
-
+        m_numOfPowerUp = numOfPowerUp;
 
     }
 
@@ -78,11 +75,13 @@ public class LevelData {
             int obstacleSeparationFactor,
             float obstacleMinSpacingFactor,
             float obstacleSnapMargin,
-            boolean hasHoles,
             float ballGravity,
             float ballMaxSpeed,
             float ballSensitivity,
-            int[] numOfPowerUp
+            int[] numOfPowerUp,
+            boolean hasHoles,
+            int holeProbability,
+            int moveProbability
     )
     {
         this(
@@ -94,14 +93,16 @@ public class LevelData {
          obstacleSeparationFactor,
          obstacleMinSpacingFactor,
          obstacleSnapMargin,
-         hasHoles,
          ballGravity,
          ballMaxSpeed,
-         ballSensitivity
+         ballSensitivity,
+         numOfPowerUp
         );
 
 
-        m_numOfPowerUp = numOfPowerUp;
+
+        m_moveProbability = moveProbability;
+        m_holeProbability = holeProbability;
 
     }
 

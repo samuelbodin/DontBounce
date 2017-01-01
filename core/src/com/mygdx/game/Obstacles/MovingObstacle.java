@@ -15,8 +15,8 @@ public class MovingObstacle extends Obstacle
 {
     ObstacleBuilder m_ob;
     int m_direction = 1;
-    float m_range = 5;
-    float m_speed = 10;
+    float m_range = 6;
+    float m_speed = 15;
     float m_deltaX = 0;
 
     public MovingObstacle(float x, float y, float w, float h)
@@ -28,6 +28,10 @@ public class MovingObstacle extends Obstacle
     {
         super(x,y,w,h);
         m_ob = new ObstacleBuilder(x,y,w,h,tint);
+        if( Math.abs((y+x)%100) < 50)
+        {
+            m_direction = -1;
+        }
     }
 
     @Override
@@ -51,7 +55,7 @@ public class MovingObstacle extends Obstacle
     public void update(float dt)
     {
         m_deltaX += (m_speed * dt * m_direction);
-        Gdx.app.log("RL", "Deltax:" + m_deltaX);
+
         if(Math.abs(m_deltaX) > m_range)
         {
             m_deltaX = m_range * m_direction;

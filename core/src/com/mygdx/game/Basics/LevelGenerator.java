@@ -67,7 +67,27 @@ public class LevelGenerator
             renewParameters(i);
 
             // Add obstacle
-            if(m_levelData.m_hasHoles)
+            if((int)Math.abs(m_lastObstableY)%100 < m_levelData.m_holeProbability)
+            {
+                addHole();
+            }
+            else if((int)Math.abs(m_lastObstableY)%100 < m_levelData.m_moveProbability)
+            {
+                addMovingPlatform();
+            }
+            else
+            {
+                if(m_levelData.m_holeProbability > 20)
+                {
+                    addStaticPlatform(m_obstacleWidth/2);
+                }else
+                {
+                    addStaticPlatform();
+                }
+
+            }
+            // Add obstacle
+/*            if(m_levelData.m_hasHoles)
             {
                 if((int)Math.abs(m_lastObstableY)%6==0)
                 {
@@ -82,7 +102,7 @@ public class LevelGenerator
             else
             {
                 addPlatform();
-            }
+            }*/
 
             // Randomize powerups.
             addPowerUp();
@@ -204,15 +224,25 @@ public class LevelGenerator
         m_obstacleY = (m_obstacleY * m_obstacleYSpaceFactor) + m_minObstacleYSpace;
     }
 
-    private void addPlatform()
+    private void addStaticPlatform()
     {
-        addPlatform(m_obstacleWidth);
+        addStaticPlatform(m_obstacleWidth);
+    }
+    private void addMovingPlatform()
+    {
+        addMovingPlatform(m_obstacleWidth);
     }
 
-    private void addPlatform(float width)
+    private void addStaticPlatform(float width)
     {
         // Add obstacle
         m_collidables.add(new StaticObstacle(m_obstacleX, m_lastObstableY - m_obstacleY, width, 32, m_tint));
+    }
+
+    private void addMovingPlatform(float width)
+    {
+        // Add obstacle
+        m_collidables.add(new MovingObstacle(m_obstacleX, m_lastObstableY - m_obstacleY, width, 32, m_tint));
     }
 
     private void addHole()
