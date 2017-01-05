@@ -65,6 +65,31 @@ public class LevelFinishedState extends State
 
     }
 
+    LevelFinishedState(StateManager sm, TimeHandler th, LevelData level)
+    {
+        this(sm);
+        m_timeHandler = th;
+        m_level = level;
+
+        // ATM returns true for dev.
+        boolean wasCompleted = m_lm.levelWasCompleted(th, level);
+
+
+        if(m_lm.unlockNextLevel(level, wasCompleted) && !m_lm.isLastLevel(level))
+        {
+            m_continue.setDisabled(false);
+        }
+        else if(m_lm.isLastLevel(level))
+        {
+            Gdx.app.log("JS", "Game Complete! Now go buy DLC");
+        }
+
+        if(wasCompleted)
+        {
+            confetti();
+        }
+    }
+
     private void setupLabels()
     {
         //Styles
@@ -99,31 +124,6 @@ public class LevelFinishedState extends State
         font = AssetLoader.slackeyfont;
         m_background = AssetLoader.black;
         buttonSkin = AssetLoader.buttonSkin;
-    }
-
-    LevelFinishedState(StateManager sm, TimeHandler th, LevelData level)
-    {
-        this(sm);
-        m_timeHandler = th;
-        m_level = level;
-
-        // ATM returns true for dev.
-        boolean wasCompleted = m_lm.levelWasCompleted(th, level);
-
-
-        if(m_lm.unlockNextLevel(level, wasCompleted) && !m_lm.isLastLevel(level))
-        {
-            m_continue.setDisabled(false);
-        }
-        else if(m_lm.isLastLevel(level))
-        {
-            Gdx.app.log("JS", "Game Complete! Now go buy DLC");
-        }
-
-        if(wasCompleted)
-        {
-            confetti();
-        }
     }
 
     private void setupClickListeners()

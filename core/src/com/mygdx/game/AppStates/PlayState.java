@@ -159,6 +159,14 @@ public class PlayState extends State
             }
         }
 
+        //Check if time runs out while playing the level
+        if (m_timeHandler.getTime() <= 0.0f)
+        {
+            m_timeHandler.stop();
+            m_timeHandler.setVisible(false);
+            m_sm.push(new LevelFinishedState(m_sm, m_timeHandler, m_levelData));
+        }
+
         if(m_fadeTimer <= 0) {
             // Start timer
             if(!m_timeHandler.isRunning())
