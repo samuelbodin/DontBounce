@@ -211,7 +211,7 @@ public class LevelFinishedState extends State
         }
         else
         {
-            m_finishTimeLabel.setText(m_timeHandler.getTimeString() + "s");
+            m_finishTimeLabel.setText(m_timeHandler.getTimeString() + "s left");
         }
 
         //m_finishTimeLabel.setText(m_timeHandler.getTimeString() + "s");
