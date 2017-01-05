@@ -110,13 +110,18 @@ public class WorldBackground extends Drawable
             for (int i = 0; i < m_foreground.length; i++)
             {
                 m_foreground[i].setPosition(m_foreground[i].getX(), m_foreground[i].getY() + (m_cam.getDeltaPosition().y * 0.1f));
+            }
 
-                if (m_foreground[i].getY()-m_foreground[i].getHeight() >= m_cam.position.y + (m_cam.viewportHeight) - (m_cam.viewportHeight / 4))
+            for (int i = 0; i < m_foreground.length; i++)
+            {
+
+                if (m_foreground[i].getY() >= m_cam.position.y + (m_cam.viewportHeight))
                 {
-                    m_foreground[i].setPosition(m_foreground[i].getX(), m_foreground[(i + 1) % m_foreground.length].getY() - (m_foreground[i].getHeight()*2)+5);
+                    m_foreground[i].setPosition(m_foreground[i].getX(), m_foreground[(i + 1) % m_foreground.length].getY() - m_foreground[i].getHeight()*2 +5);
                 }
 
             }
+
         }
     }
 
