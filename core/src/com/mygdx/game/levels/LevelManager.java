@@ -96,7 +96,7 @@ public class LevelManager
         {
             return true;
         }
-        else if(level.m_levelId == m_unlockedLevel && wasCompleted)
+        else if(level.m_levelId == m_unlockedLevel && wasCompleted && isLastLevel(level))
         {
             m_unlockedLevel++;
             m_preferences.putInteger("unlocked_level", m_unlockedLevel);
