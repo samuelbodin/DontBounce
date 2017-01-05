@@ -12,8 +12,8 @@ public class LevelManager
 {
     private Preferences m_preferences = null;
     private ArrayList<Chapter> m_chapters = null;
-    private int m_unlockedLevel = 1;
-    private int m_currentChapter = 1;
+    private int m_unlockedLevel = 18;
+    private int m_currentChapter = 2;
 
 
     public LevelManager()
@@ -25,7 +25,7 @@ public class LevelManager
         m_chapters.add(new ChapterOne());
         m_chapters.add(new ChapterTwo());
 
-        m_unlockedLevel = m_preferences.getInteger("unlocked_level", 1);
+        m_unlockedLevel = m_preferences.getInteger("unlocked_level", 18);
         m_currentChapter = getIdOfLastUnlockedChapter();
 
     }
