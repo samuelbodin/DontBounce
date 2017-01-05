@@ -126,7 +126,7 @@ public class HelpState extends State
 
         // Pass Through
         table.add(m_puPassThrough).width(64).height(64).center().padLeft(10);
-        Label puptlabel = new Label("Pass Through - No more bounce with this one!", m_labelStyle);
+        Label puptlabel = new Label("Pass Through - No more bounce!", m_labelStyle);
         puptlabel.setWrap(true);
         //puptlabel.setWidth(m_config.m_worldW-100);
         puptlabel.setFontScale(0.3f);

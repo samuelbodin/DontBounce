@@ -20,7 +20,7 @@ public class AudioHandler
     private Sound m_powerUpSound = null;
     private Sound[] m_bounceSounds = null;
     private boolean m_isMuted = false;
-    private float m_defaultVolume = 0.5f;
+    private float m_defaultVolume = 0.1f;
     private int m_iterator = 0;
     private String m_lastPlayed = null;
 
