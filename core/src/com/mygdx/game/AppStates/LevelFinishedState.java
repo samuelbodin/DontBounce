@@ -111,7 +111,7 @@ public class LevelFinishedState extends State
         boolean wasCompleted = m_lm.levelWasCompleted(th, level);
 
 
-        if(m_lm.unlockNextLevel(level, wasCompleted) && !m_lm.isLastLevel(level))
+        if(m_lm.unlockNextLevel(level, wasCompleted))
         {
             m_continue.setDisabled(false);
         }
