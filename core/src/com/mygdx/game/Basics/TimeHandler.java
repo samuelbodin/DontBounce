@@ -15,10 +15,12 @@ public class TimeHandler
     private Vector2 m_drawPosition;
     private BitmapFont m_font;
     private Texture m_bgTexture;
-    private Sprite m_background;
+    private Sprite m_background, m_background2;
     private Vector2 m_bgOffset;
     private int m_countDir = +1;
     private boolean m_visible = true;
+
+    private String m_level = null;
 
     public TimeHandler(float x, float y)
     {
@@ -40,6 +42,11 @@ public class TimeHandler
         m_background.setOriginCenter();
         m_background.setScale(0.6f);
 
+        m_background2 = new Sprite(m_bgTexture);
+        m_background2.setAlpha(0.3f);
+        m_background2.setPosition(420,y+m_bgOffset.y);
+        m_background2.setOriginCenter();
+        m_background2.setScale(0.6f);
     }
 
     public TimeHandler(float x, float y, float startTime)
@@ -79,6 +86,7 @@ public class TimeHandler
         if(m_visible)
         {
             m_background.draw(sb);
+            m_background2.draw(sb);
             if (m_timer < 100)
             {
                 m_font.draw(sb, String.format("%.2f", m_timer), m_drawPosition.x, m_drawPosition.y);
@@ -86,6 +94,7 @@ public class TimeHandler
             {
                 m_font.draw(sb, String.format("%.1f", m_timer), m_drawPosition.x, m_drawPosition.y);
             }
+            m_font.draw(sb, m_level,580-m_drawPosition.x, m_drawPosition.y);
         }
     }
 
@@ -106,11 +115,17 @@ public class TimeHandler
         }
 
         m_background.setPosition(m_drawPosition.x+m_bgOffset.x, m_drawPosition.y+m_bgOffset.y);
+        m_background2.setPosition(m_background2.getX(), m_drawPosition.y+m_bgOffset.y);
     }
 
     public void setVisible(boolean visible)
     {
         m_visible = visible;
+    }
+
+    public void setLevel(String level)
+    {
+        m_level = level;
     }
 
     public void dispose()
