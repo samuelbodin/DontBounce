@@ -137,7 +137,7 @@ public class HelpState extends State
 
         // Ultra Rapid
         table.add(m_puUltraRapid).width(64).height(64).center().padLeft(10);
-        Label puurlabel = new Label("Ultra Rapid - Slows everything down but you!", m_labelStyle);
+        Label puurlabel = new Label("Ultra Rapid - Slows down the time!", m_labelStyle);
         puurlabel.setWrap(true);
         //puurlabel.setWidth(m_config.m_worldW-100);
         puurlabel.setFontScale(0.3f);

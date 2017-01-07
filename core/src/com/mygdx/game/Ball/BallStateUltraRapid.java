@@ -13,7 +13,7 @@ public class BallStateUltraRapid extends BallState
         super(b);
         setupSprite();
         m_ball.setDtModifier(0.3f);
-        m_timer = 10f;
+        m_timer = 5f;
         m_defaultGravityModifier = 10f;
         m_gravityModifier = 10f;
         m_onCollisionGravityModifier = 2.75f;

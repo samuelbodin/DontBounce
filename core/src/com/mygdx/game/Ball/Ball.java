@@ -168,7 +168,8 @@ public class Ball
             m_velocity.y = m_maxSpeed;
         }
 
-        m_position.add(m_velocity.x*dt,m_velocity.y*dt*m_dtModifier );
+        //m_position.add(m_velocity.x*dt,m_velocity.y*dt*m_dtModifier );
+        m_position.add(m_velocity.x*dt,m_velocity.y*dt );
 
         handleUserInput();
 

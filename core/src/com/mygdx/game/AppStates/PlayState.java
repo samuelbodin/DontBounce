@@ -35,14 +35,14 @@ public class PlayState extends State
 
     private TimeHandler m_timeHandler;
 
-    private float m_fadeTimer = 1;
+    private float m_fadeTimer;
     private Sprite m_blackScreen = null;
 
     public PlayState(StateManager sm, LevelData levelData)
     {
         super(sm);
         m_levelData = levelData;
-
+        m_fadeTimer = 1;
         m_ah = m_sm.m_ah;
         m_ah.playPlayStateMusic(m_levelData.m_chapterId);
 
@@ -203,7 +203,7 @@ public class PlayState extends State
         m_ball.render(sb);
         m_timeHandler.render(sb);
 
-        if(m_fadeTimer > 0)
+        if(m_fadeTimer > 0 && m_blackScreen != null)
         {
             m_blackScreen.draw(sb);
         }
