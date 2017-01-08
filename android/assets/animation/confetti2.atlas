@@ -1,0 +1,285 @@
+
+confetti2.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+confetti
+  rotate: false
+  xy: 0, 0
+  size: 720, 1280
+  orig: 720, 1280
+  offset: 0, 0
+  index: 3
+confetti
+  rotate: false
+  xy: 720, 0
+  size: 720, 1280
+  orig: 720, 1280
+  offset: 0, 0
+  index: 5
+
+confetti22.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+confetti
+  rotate: false
+  xy: 0, 0
+  size: 720, 1280
+  orig: 720, 1280
+  offset: 0, 0
+  index: 7
+confetti
+  rotate: false
+  xy: 720, 0
+  size: 720, 1280
+  orig: 720, 1280
+  offset: 0, 0
+  index: 9
+
+confetti23.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+confetti
+  rotate: false
+  xy: 0, 0
+  size: 720, 1280
+  orig: 720, 1280
+  offset: 0, 0
+  index: 11
+confetti
+  rotate: false
+  xy: 720, 0
+  size: 720, 1280
+  orig: 720, 1280
+  offset: 0, 0
+  index: 13
+
+confetti24.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+confetti
+  rotate: false
+  xy: 0, 0
+  size: 720, 1280
+  orig: 720, 1280
+  offset: 0, 0
+  index: 15
+confetti
+  rotate: false
+  xy: 720, 0
+  size: 720, 1280
+  orig: 720, 1280
+  offset: 0, 0
+  index: 17
+
+confetti25.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+confetti
+  rotate: false
+  xy: 0, 0
+  size: 720, 1280
+  orig: 720, 1280
+  offset: 0, 0
+  index: 19
+confetti
+  rotate: false
+  xy: 720, 0
+  size: 720, 1280
+  orig: 720, 1280
+  offset: 0, 0
+  index: 21
+
+confetti26.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+confetti
+  rotate: false
+  xy: 0, 0
+  size: 720, 1280
+  orig: 720, 1280
+  offset: 0, 0
+  index: 23
+confetti
+  rotate: false
+  xy: 720, 0
+  size: 720, 1280
+  orig: 720, 1280
+  offset: 0, 0
+  index: 25
+
+confetti27.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+confetti
+  rotate: false
+  xy: 0, 0
+  size: 720, 1280
+  orig: 720, 1280
+  offset: 0, 0
+  index: 27
+confetti
+  rotate: false
+  xy: 720, 0
+  size: 720, 1280
+  orig: 720, 1280
+  offset: 0, 0
+  index: 29
+
+confetti28.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+confetti
+  rotate: false
+  xy: 0, 0
+  size: 720, 1280
+  orig: 720, 1280
+  offset: 0, 0
+  index: 31
+confetti
+  rotate: false
+  xy: 720, 0
+  size: 720, 1280
+  orig: 720, 1280
+  offset: 0, 0
+  index: 33
+
+confetti29.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+confetti
+  rotate: false
+  xy: 0, 0
+  size: 720, 1280
+  orig: 720, 1280
+  offset: 0, 0
+  index: 35
+confetti
+  rotate: false
+  xy: 720, 0
+  size: 720, 1280
+  orig: 720, 1280
+  offset: 0, 0
+  index: 37
+
+confetti210.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+confetti
+  rotate: false
+  xy: 0, 0
+  size: 720, 1280
+  orig: 720, 1280
+  offset: 0, 0
+  index: 39
+confetti
+  rotate: false
+  xy: 720, 0
+  size: 720, 1280
+  orig: 720, 1280
+  offset: 0, 0
+  index: 41
+
+confetti211.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+confetti
+  rotate: false
+  xy: 0, 0
+  size: 720, 1280
+  orig: 720, 1280
+  offset: 0, 0
+  index: 43
+confetti
+  rotate: false
+  xy: 720, 0
+  size: 720, 1280
+  orig: 720, 1280
+  offset: 0, 0
+  index: 45
+
+confetti212.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+confetti
+  rotate: false
+  xy: 0, 0
+  size: 720, 1280
+  orig: 720, 1280
+  offset: 0, 0
+  index: 47
+confetti
+  rotate: false
+  xy: 720, 0
+  size: 720, 1280
+  orig: 720, 1280
+  offset: 0, 0
+  index: 49
+
+confetti213.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+confetti
+  rotate: false
+  xy: 0, 0
+  size: 720, 1280
+  orig: 720, 1280
+  offset: 0, 0
+  index: 51
+confetti
+  rotate: false
+  xy: 720, 0
+  size: 720, 1280
+  orig: 720, 1280
+  offset: 0, 0
+  index: 53
+
+confetti214.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+confetti
+  rotate: false
+  xy: 0, 0
+  size: 720, 1280
+  orig: 720, 1280
+  offset: 0, 0
+  index: 55
+confetti
+  rotate: false
+  xy: 720, 0
+  size: 720, 1280
+  orig: 720, 1280
+  offset: 0, 0
+  index: 57
+
+confetti215.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+confetti
+  rotate: false
+  xy: 0, 0
+  size: 720, 1280
+  orig: 720, 1280
+  offset: 0, 0
+  index: 59
+confetti
+  rotate: false
+  xy: 720, 0
+  size: 720, 1280
+  orig: 720, 1280
+  offset: 0, 0
+  index: 61

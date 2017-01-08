@@ -18,6 +18,7 @@ public class AudioHandler
     Preferences m_preferences = Gdx.app.getPreferences("dontbounce-preferences");
     private Music m_music = null;
     private Sound m_powerUpSound = null;
+    private Sound m_fanfareSound = null;
     private Sound[] m_bounceSounds = null;
     private boolean m_isMuted = false;
     private float m_defaultVolume = 0.1f;
@@ -35,6 +36,7 @@ public class AudioHandler
 
         m_bounceSounds = AssetLoader.m_bounceSounds;
         m_powerUpSound = AssetLoader.m_powerUp;
+        m_fanfareSound = AssetLoader.m_fanfare;
     }
 
     public void playMenuMusic()
@@ -119,6 +121,15 @@ public class AudioHandler
             return;
         }
         m_powerUpSound.play(0.1f);
+    }
+
+    public void playFanfareSound()
+    {
+        if(m_isMuted)
+        {
+            return;
+        }
+        m_fanfareSound.play(0.1f);
     }
 
     public void toggleMute()

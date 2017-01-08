@@ -81,6 +81,7 @@ public class AssetLoader
             Gdx.audio.newSound(Gdx.files.internal("sound/bounce04.wav"))
         };
     public static Sound m_powerUp = Gdx.audio.newSound(Gdx.files.internal("sound/powerup.wav"));
+    public static Sound m_fanfare = Gdx.audio.newSound(Gdx.files.internal("sound/fanfare.wav"));
 
     public static void Load()
     {
@@ -120,7 +121,8 @@ public class AssetLoader
         flatbwleft = m_gameObjects.findRegion("flatbwleft");
         flatbwright = m_gameObjects.findRegion("flatbwright");
 
-        m_confetti = new TextureAtlas(Gdx.files.internal("gameObjects/confetti.pack"));
+        //m_confetti = new TextureAtlas(Gdx.files.internal("gameObjects/confetti.pack"));
+        m_confetti = new TextureAtlas(Gdx.files.internal("animation/confetti2.atlas"));
 
         m_AnimationAtlas = new TextureAtlas(Gdx.files.internal("gameObjects/collisioneffects.pack"));
         m_splashRegion = m_AnimationAtlas.findRegions("splash");
@@ -163,5 +165,6 @@ public class AssetLoader
         }
 
         m_powerUp.dispose();
+        m_fanfare.dispose();
     }
 }

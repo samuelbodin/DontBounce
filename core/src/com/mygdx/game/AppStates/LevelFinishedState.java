@@ -38,6 +38,7 @@ public class LevelFinishedState extends State
     private Label.LabelStyle fontStyle;
     private BitmapFont font;
     private ImageButton.ImageButtonStyle continueButtonStyle;
+    private boolean m_fanfarePlaying = false;
 
 
     private Animation m_animation;
@@ -219,8 +220,13 @@ public class LevelFinishedState extends State
 
         if(m_timeHandler.getTime() > 0f) // IF NEXT LEVEL IS UNLOCKED
         {
+            if(!m_fanfarePlaying)
+            {
+                m_ah.playFanfareSound();
+                m_fanfarePlaying = true;
+            }
             m_stage.getBatch().begin();
-            m_stage.getBatch().draw(m_animation.getKeyFrame(m_elapsedTime), (720 - 512) / 2, 0);
+            m_stage.getBatch().draw(m_animation.getKeyFrame(m_elapsedTime), 0, 0);
             m_stage.getBatch().end();
         }
     }
@@ -247,6 +253,6 @@ public class LevelFinishedState extends State
     {
         TextureAtlas atlas = AssetLoader.m_confetti;
         Array<TextureAtlas.AtlasRegion> region = atlas.findRegions("confetti");
-        m_animation = new Animation(0.05f, region);
+        m_animation = new Animation(0.04f, region);
     }
 }
