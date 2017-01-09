@@ -97,8 +97,8 @@ public class AssetLoader
         m_menuBackgrounds = new TextureAtlas("menuBackgrounds/menuBackgrounds.pack");
 
         m_musicMenu = Gdx.audio.newMusic(Gdx.files.internal("sound/smaugmenutheme.wav"));
-        m_musicChapterOne = Gdx.audio.newMusic(Gdx.files.internal("sound/gamemusic.wav"));
-        m_musicChapterTwo = Gdx.audio.newMusic(Gdx.files.internal("sound/gamemusic.wav"));
+        m_musicChapterOne = Gdx.audio.newMusic(Gdx.files.internal("sound/chapter1music.mp3"));
+        m_musicChapterTwo = Gdx.audio.newMusic(Gdx.files.internal("sound/chapter2music.mp3"));
 
 
         white = new Color(1, 1, 1, 0.8f);
